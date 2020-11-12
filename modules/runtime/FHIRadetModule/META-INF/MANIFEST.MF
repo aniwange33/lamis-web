@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: LAMIS RADET Module
+Implementation-Version: 1.1.2
+Archiver-Version: Plexus Archiver
+Built-By: mattae
+Implementation-Vendor-Id: org.fhi360.lamis.modules
+Build-Time: 2020-07-16T09:14:15Z
+Created-By: Apache Maven 3.6.1
+Build-Jdk: 1.8.0_241
+

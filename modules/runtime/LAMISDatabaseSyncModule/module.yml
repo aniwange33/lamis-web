@@ -1,0 +1,22 @@
+basePackage: org.fhi360.lamis.modules.database
+name: LAMISDatabaseSyncModule
+dependencies: {LamisLegacyModule: 1.0.0}
+store: true
+menus:
+    -   disabled: false
+        name: Administration
+        state: admin
+        position: 70
+        icon: content_paste
+        subs:
+            -   state: module-updates
+                name: Module Updates
+                icon: keyboard_tab
+                type: LINK
+umdLocation: /across/resources/static/database/js/bundles/database-1.0.0.umd.min.js
+webModules:
+    -   breadcrumb: MODULE UPDATE
+        name: ModuleUpdateModule
+        path: admin/module-updates
+        position: 99
+        title: Module Updates

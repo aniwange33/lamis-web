@@ -1,0 +1,3414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="20200304123505-01" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="drugtherapy"/>
+            </not>
+        </preConditions>
+        <createTable tableName="drugtherapy">
+            <column name="drugtherapy_id" type="serial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pkDrugTherapy"/>
+            </column>
+            <column name="date_visit" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="oids" type="varchar"/>
+            <column name="therapy_problem_screened" type="varchar"/>
+            <column name="adhrence_issues" type="varchar"/>
+            <column name="medication_error" type="varchar"/>
+            <column name="adrs" type="varchar"/>
+            <column name="severity" type="varchar"/>
+            <column name="icsr_form" type="varchar"/>
+            <column name="adr_referred" type="varchar"/>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="communitypharm_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_stamp" type="timestamp"/>
+            <column name="user_id" type="bigint"/>
+            <column name="time_uploaded" type="timestamp"/>
+            <column name="uploaded" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-02" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="participant" columnName="time_stamp"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="participant">
+            <column name="time_stamp" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-03" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="mhtc" columnName="deviceconfig_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="mhtc">
+            <column name="deviceconfig_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-04" author="mattae">
+        <sqlFile path="installers/legacy/schema/dropviews.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-05" author="mattae">
+        <sqlFile path="installers/legacy/schema/dropsymtriggers.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-06" author="mattae">
+        <renameColumn tableName="adhere" oldColumnName="adhere_id" newColumnName="id"/>
+        <renameTable oldTableName="adherehistory" newTableName="adhere_history"/>
+        <renameColumn tableName="adhere_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="adhere_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="adhere_history" columnName="uploaded"/>
+        <dropColumn tableName="adhere_history" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="adr" newTableName="adverse_drug_reaction"/>
+        <renameColumn tableName="adverse_drug_reaction" oldColumnName="adr_id" newColumnName="id"/>
+        <renameTable oldTableName="adrhistory" newTableName="adr_history"/>
+        <renameColumn tableName="adr_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="adr_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="adr_history" columnName="uploaded"/>
+        <dropColumn tableName="adr_history" columnName="time_uploaded"/>
+
+        <renameColumn tableName="anc" oldColumnName="anc_id" newColumnName="id"/>
+        <renameColumn tableName="anc" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="anc" columnName="uploaded"/>
+        <dropColumn tableName="anc" columnName="time_uploaded"/>
+
+        <renameColumn tableName="appointment" oldColumnName="appointment_id" newColumnName="id"/>
+        <renameColumn tableName="appointment" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="appointment" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="appointment" columnName="uploaded"/>
+        <dropColumn tableName="appointment" columnName="time_uploaded"/>
+
+        <renameColumn tableName="assessment" oldColumnName="assessment_id" newColumnName="id"/>
+        <renameColumn tableName="assessment" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="assessment" columnName="uploaded"/>
+        <dropColumn tableName="assessment" columnName="time_uploaded"/>
+
+        <renameColumn tableName="biometric" oldColumnName="biometric_id" newColumnName="id"/>
+        <renameColumn tableName="biometric" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="biometric" columnName="uploaded"/>
+        <dropColumn tableName="biometric" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="casemanager" newTableName="case_manager"/>
+        <renameColumn tableName="case_manager" oldColumnName="casemanager_id" newColumnName="id"/>
+        <renameColumn tableName="case_manager" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="case_manager" columnName="uploaded"/>
+        <dropColumn tableName="case_manager" columnName="time_uploaded"/>
+
+        <renameColumn tableName="child" oldColumnName="child_id" newColumnName="id"/>
+        <renameColumn tableName="child" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="child" columnName="uploaded"/>
+        <dropColumn tableName="child" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="childfollowup" newTableName="child_followup"/>
+        <renameColumn tableName="child_followup" oldColumnName="childfollowup_id" newColumnName="id"/>
+        <renameColumn tableName="child_followup" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="child_followup" columnName="uploaded"/>
+        <dropColumn tableName="child_followup" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="chroniccare" newTableName="chronic_care"/>
+        <renameColumn tableName="chronic_care" oldColumnName="chroniccare_id" newColumnName="id"/>
+        <renameColumn tableName="chronic_care" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="chronic_care" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="chronic_care" columnName="uploaded"/>
+        <dropColumn tableName="chronic_care" columnName="time_uploaded"/>
+
+        <renameColumn tableName="clinic" oldColumnName="clinic_id" newColumnName="id"/>
+        <renameColumn tableName="clinic" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="clinic" columnName="uploaded"/>
+        <dropColumn tableName="clinic" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="communitypharm" newTableName="community_pharmacy"/>
+        <renameColumn tableName="community_pharmacy" oldColumnName="communitypharm_id" newColumnName="id"/>
+        <renameColumn tableName="community_pharmacy" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="community_pharmacy" columnName="uploaded"/>
+        <dropColumn tableName="community_pharmacy" columnName="time_uploaded"/>
+
+        <renameColumn tableName="delivery" oldColumnName="delivery_id" newColumnName="id"/>
+        <renameColumn tableName="delivery" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="delivery" columnName="uploaded"/>
+        <dropColumn tableName="delivery" columnName="time_uploaded"/>
+
+        <renameColumn tableName="devolve" oldColumnName="devolve_id" newColumnName="id"/>
+        <renameColumn tableName="devolve" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="devolve" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="devolve" columnName="uploaded"/>
+        <dropColumn tableName="devolve" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="dmscreen" newTableName="dm_screen"/>
+        <renameColumn tableName="dm_screen" oldColumnName="dmscreen_id" newColumnName="id"/>
+
+        <renameTable oldTableName="dmscreenhistory" newTableName="dm_screen_history"/>
+        <renameColumn tableName="dm_screen_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="dm_screen_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="dm_screen_history" columnName="uploaded"/>
+        <dropColumn tableName="dm_screen_history" columnName="time_uploaded"/>
+
+        <renameColumn tableName="drug" oldColumnName="drug_id" newColumnName="id"/>
+
+        <renameTable oldTableName="drugtherapy" newTableName="drug_therapy"/>
+        <renameColumn tableName="drug_therapy" oldColumnName="drugtherapy_id" newColumnName="id"/>
+        <renameColumn tableName="drug_therapy" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="drug_therapy" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="drug_therapy" columnName="uploaded"/>
+        <dropColumn tableName="drug_therapy" columnName="time_uploaded"/>
+
+        <renameColumn tableName="eac" oldColumnName="eac_id" newColumnName="id"/>
+        <renameColumn tableName="eac" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="eac" columnName="uploaded"/>
+        <dropColumn tableName="eac" columnName="time_uploaded"/>
+
+        <renameColumn tableName="eid" oldColumnName="eid_id" newColumnName="id"/>
+        <renameColumn tableName="eid" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="eid" columnName="uploaded"/>
+        <dropColumn tableName="eid" columnName="time_uploaded"/>
+
+        <renameColumn tableName="encounter" oldColumnName="encounter_id" newColumnName="id"/>
+        <renameColumn tableName="encounter" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="encounter" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="encounter" columnName="uploaded"/>
+        <dropColumn tableName="encounter" columnName="time_uploaded"/>
+
+        <renameColumn tableName="facility" oldColumnName="facility_id" newColumnName="id"/>
+
+        <renameColumn tableName="hts" oldColumnName="hts_id" newColumnName="id"/>
+        <renameColumn tableName="hts" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="hts" columnName="uploaded"/>
+        <dropColumn tableName="hts" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="indexcontact" newTableName="index_contact"/>
+        <renameColumn tableName="index_contact" oldColumnName="indexcontact_id" newColumnName="id"/>
+        <renameColumn tableName="index_contact" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="index_contact" columnName="uploaded"/>
+        <dropColumn tableName="index_contact" columnName="time_uploaded"/>
+
+        <renameColumn tableName="laboratory" oldColumnName="laboratory_id" newColumnName="id"/>
+        <renameColumn tableName="laboratory" oldColumnName="labtest_id" newColumnName="lab_test_id"/>
+        <renameColumn tableName="laboratory" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="laboratory" columnName="uploaded"/>
+        <dropColumn tableName="laboratory" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="labtest" newTableName="lab_test"/>
+        <renameColumn tableName="lab_test" oldColumnName="labtest_id" newColumnName="id"/>
+        <renameColumn tableName="lab_test" oldColumnName="labtestcategory_id" newColumnName="lab_test_category_id"/>
+
+        <renameTable oldTableName="labtestcategory" newTableName="lab_test_category"/>
+        <renameColumn tableName="lab_test_category" oldColumnName="labtestcategory_id" newColumnName="id"/>
+
+        <renameTable oldTableName="maternalfollowup" newTableName="maternal_followup"/>
+        <renameColumn tableName="maternal_followup" oldColumnName="maternalfollowup_id" newColumnName="id"/>
+        <renameColumn tableName="maternal_followup" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="maternal_followup" columnName="uploaded"/>
+        <dropColumn tableName="maternal_followup" columnName="time_uploaded"/>
+
+        <renameColumn tableName="mhtc" oldColumnName="mhtc_id" newColumnName="id"/>
+        <renameColumn tableName="mhtc" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="mhtc" oldColumnName="deviceconfig_id" newColumnName="device_config_id"/>
+        <renameColumn tableName="mhtc" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="mhtc" columnName="uploaded"/>
+        <dropColumn tableName="mhtc" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="motherinformation" newTableName="mother_information"/>
+        <renameColumn tableName="mother_information" oldColumnName="motherinformation_id" newColumnName="id"/>
+        <renameColumn tableName="mother_information" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="mother_information" columnName="uploaded"/>
+        <dropColumn tableName="mother_information" columnName="time_uploaded"/>
+
+        <renameColumn tableName="nigqual" oldColumnName="nigqual_id" newColumnName="id"/>
+        <renameColumn tableName="nigqual" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="nigqual" columnName="uploaded"/>
+        <dropColumn tableName="nigqual" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="oi" newTableName="opportunistic_infection"/>
+        <renameColumn tableName="opportunistic_infection" oldColumnName="oi_id" newColumnName="id"/>
+
+        <renameTable oldTableName="oihistory" newTableName="oi_history"/>
+        <renameColumn tableName="oi_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="oi_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="oi_history" columnName="uploaded"/>
+        <dropColumn tableName="oi_history" columnName="time_uploaded"/>
+
+        <renameColumn tableName="participant" oldColumnName="participant_id" newColumnName="id"/>
+        <renameColumn tableName="participant" oldColumnName="time_stamp" newColumnName="last_modified"/>
+
+        <renameTable oldTableName="partnerinformation" newTableName="partner_information"/>
+        <renameColumn tableName="partner_information" oldColumnName="partnerinformation_id" newColumnName="id"/>
+        <renameColumn tableName="partner_information" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="partner_information" columnName="uploaded"/>
+        <dropColumn tableName="partner_information" columnName="time_uploaded"/>
+
+        <renameColumn tableName="patient" oldColumnName="patient_id" newColumnName="id"/>
+        <renameColumn tableName="patient" oldColumnName="partnerinformation_id" newColumnName="partner_information_id"/>
+        <renameColumn tableName="patient" oldColumnName="communitypharm_id" newColumnName="community_pharmacy_id"/>
+        <renameColumn tableName="patient" oldColumnName="casemanager_id" newColumnName="case_manager_id"/>
+        <renameColumn tableName="patient" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <renameColumn tableName="patient" oldColumnName="status_registration" newColumnName="status_at_registration"/>
+        <dropColumn tableName="patient" columnName="uploaded"/>
+        <dropColumn tableName="patient" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="patientcasemanager" newTableName="patient_case_manager"/>
+        <renameColumn tableName="patient_case_manager" oldColumnName="patientcasemanager_id" newColumnName="id"/>
+        <renameColumn tableName="patient_case_manager" oldColumnName="casemanager_id" newColumnName="case_manager_id"/>
+        <renameColumn tableName="patient_case_manager" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="patient_case_manager" columnName="uploaded"/>
+        <dropColumn tableName="patient_case_manager" columnName="time_uploaded"/>
+
+        <renameColumn tableName="pharmacy" oldColumnName="pharmacy_id" newColumnName="id"/>
+        <renameColumn tableName="pharmacy" oldColumnName="regimentype_id" newColumnName="regimen_type_id"/>
+        <renameColumn tableName="pharmacy" oldColumnName="regimendrug_id" newColumnName="regimen_drug_id"/>
+        <renameColumn tableName="pharmacy" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="pharmacy" columnName="uploaded"/>
+        <dropColumn tableName="pharmacy" columnName="time_uploaded"/>
+
+        <renameColumn tableName="regimen" oldColumnName="regimen_id" newColumnName="id"/>
+        <renameColumn tableName="regimen" oldColumnName="regimentype_id" newColumnName="regimen_type_id"/>
+        <addColumn tableName="regimen">
+            <column name="active" type="boolean" defaultValue="true"/>
+        </addColumn>
+
+        <renameTable oldTableName="regimendrug" newTableName="regimen_drug"/>
+        <renameColumn tableName="regimen_drug" oldColumnName="regimendrug_id" newColumnName="id"/>
+
+        <renameTable oldTableName="regimenhistory" newTableName="regimen_history"/>
+        <renameColumn tableName="regimen_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="regimen_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="regimen_history" columnName="uploaded"/>
+        <dropColumn tableName="regimen_history" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="regimenresolver" newTableName="regimen_resolver"/>
+
+        <renameTable oldTableName="regimentype" newTableName="regimen_type"/>
+        <renameColumn tableName="regimen_type" oldColumnName="regimentype_id" newColumnName="id"/>
+
+        <renameColumn tableName="status" oldColumnName="status_id" newColumnName="id"/>
+
+        <renameTable oldTableName="statushistory" newTableName="status_history"/>
+        <renameColumn tableName="status_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="status_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="status_history" columnName="uploaded"/>
+        <dropColumn tableName="status_history" columnName="time_uploaded"/>
+
+        <renameTable oldTableName="tbscreen" newTableName="tb_screen"/>
+        <renameColumn tableName="tb_screen" oldColumnName="tbscreen_id" newColumnName="id"/>
+
+        <renameTable oldTableName="tbscreenhistory" newTableName="tb_screen_history"/>
+        <renameColumn tableName="tb_screen_history" oldColumnName="history_id" newColumnName="id"/>
+        <renameColumn tableName="tb_screen_history" oldColumnName="time_stamp" newColumnName="last_modified"/>
+        <dropColumn tableName="tb_screen_history" columnName="uploaded"/>
+        <dropColumn tableName="tb_screen_history" columnName="time_uploaded"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-07" author="mattae">
+        <sqlFile path="installers/legacy/schema/unscramble.sql" splitStatements="false"/>
+    </changeSet>
+
+    <!--<changeSet id="20200304123505-08" author="mattae">
+        <sqlFile path="installers/legacy/schema/unscramblefields.sql" splitStatements="false"/>
+    </changeSet>-->
+
+    <changeSet id="20200304123505-09" author="mattae">
+        <sql>
+            create extension if not exists pg_trgm;
+            create index idx_patient_surname ON patient using gin (lower(surname) gin_trgm_ops);
+            create index idx_patient_other_names ON patient using gin (lower(other_names) gin_trgm_ops);
+            create index idx_patient_hospital_num ON patient (hospital_num);
+            create index idx_patient_unique_id ON patient (unique_id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-10" author="mattae">
+        <sql>
+            update child set delivery_id = null where delivery_id not in (select id from delivery);
+            update child set anc_id = null where anc_id not in (select id from anc);
+            update delivery set anc_id = null where anc_id not in (select id from anc);
+            update patient set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update appointment set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update mhtc set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update chronic_care set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update devolve set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update drug_therapy set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update encounter set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update patient set partner_information_id = null where partner_information_id not in (select id from
+            partner_information);
+            update patient set case_manager_id = null where case_manager_id not in (select id from
+            case_manager);
+            delete from devolve where patient_id not in (select id from patient);
+            delete from clinic where patient_id not in (select id from patient);
+            delete from pharmacy where patient_id not in (select id from patient);
+            delete from laboratory where patient_id not in (select id from patient);
+            delete from regimen_history where patient_id not in (select id from patient);
+            delete from status_history where patient_id not in (select id from patient);
+            delete from eac where patient_id not in (select id from patient);
+            delete from maternal_followup where patient_id not in (select id from patient);
+            delete from child_followup where child_id not in (select id from child) or child_id in (select id
+            from child where mother_id not in (select id from mother_information));
+            delete from child where mother_id not in (select id from mother_information);
+            delete from chronic_care where patient_id not in (select id from patient);
+            update regimen set active = true;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-11" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixartcommence.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-12" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixduplicatepatients.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-13" author="mattae">
+        <addColumn tableName="adhere_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="adr_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="anc">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="appointment">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="assessment">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="biometric">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="case_manager">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="child">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="child_followup">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="chronic_care">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="clinic">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="community_pharmacy">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="delivery">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="devolve">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="dm_screen_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="drug_therapy">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="eac">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="eid">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="encounter">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="hts">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="index_contact">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="laboratory">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="maternal_followup">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="mhtc">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="mother_information">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="nigqual">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="oi_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="participant">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="partner_information">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="patient">
+            <column name="lga_id" type="bigint" afterColumn="lga"/>
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="patient_case_manager">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="pharmacy">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="regimen_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="status_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+        <addColumn tableName="tb_screen_history">
+            <column name="archived" type="boolean" defaultValue="false"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-14" author="mattae">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-15" author="mattae">
+        <sql>
+            update adhere_history set archived = false;
+            update adr_history set archived = false;
+            update anc set archived = false;
+            update appointment set archived = false;
+            update assessment set archived = false;
+            update biometric set archived = false;
+            update case_manager set archived = false;
+            update child set archived = false;
+            update child_followup set archived = false;
+            update chronic_care set archived = false;
+            update clinic set archived = false;
+            update community_pharmacy set archived = false;
+            update delivery set archived = false;
+            update devolve set archived = false;
+            update dm_screen_history set archived = false;
+            update drug_therapy set archived = false;
+            update eac set archived = false;
+            update eid set archived = false;
+            update encounter set archived = false;
+            update hts set archived = false;
+            update index_contact set archived = false;
+            update laboratory set archived = false;
+            update maternal_followup set archived = false;
+            update mhtc set archived = false;
+            update mother_information set archived = false;
+            update nigqual set archived = false;
+            update oi_history set archived = false;
+            update participant set archived = false;
+            update partner_information set archived = false;
+            update patient set archived = false;
+            update patient_case_manager set archived = false;
+            update pharmacy set archived = false;
+            update regimen_history set archived = false;
+            update status_history set archived = false;
+            update tb_screen_history set archived = false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-16" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="adhere_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="adhere_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-17" author="mattae">
+        <addColumn tableName="adhere_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-18" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="adhere_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="adhere_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-19" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="adr_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="adr_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-20" author="mattae">
+        <addColumn tableName="adr_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-21" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="adr_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="adr_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-22" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="anc" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="anc" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-23" author="mattae">
+        <addColumn tableName="anc">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-24" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="anc" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="anc" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-25" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="appointment" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="appointment" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-26" author="mattae">
+        <addColumn tableName="appointment">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-27" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="appointment" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="appointment" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-28" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="assessment" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="assessment" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-29" author="mattae">
+        <addColumn tableName="assessment">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-30" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="assessment" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="assessment" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-31" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="case_manager" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="case_manager" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-32" author="mattae">
+        <addColumn tableName="case_manager">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-33" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="case_manager" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="case_manager" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-34" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="child" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="child" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-35" author="mattae">
+        <addColumn tableName="child">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-36" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="child" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="child" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-37" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="child_followup" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="child_followup" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-38" author="mattae">
+        <addColumn tableName="child_followup">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-39" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="child_followup" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="child_followup" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-40" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="chronic_care" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="chronic_care" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-41" author="mattae">
+        <addColumn tableName="chronic_care">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-42" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="chronic_care" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="chronic_care" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-43" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="clinic" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="clinic" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-44" author="mattae">
+        <addColumn tableName="clinic">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-45" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="clinic" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="clinic" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-46" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="community_pharmacy" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="community_pharmacy" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-47" author="mattae">
+        <addColumn tableName="community_pharmacy">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-48" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="community_pharmacy" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="community_pharmacy" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-49" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="delivery" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="delivery" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-50" author="mattae">
+        <addColumn tableName="delivery">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-51" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="delivery" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="delivery" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-52" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="devolve" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="devolve" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-53" author="mattae">
+        <addColumn tableName="devolve">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-54" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="devolve" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="devolve" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-55" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="dm_screen_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="dm_screen_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-56" author="mattae">
+        <addColumn tableName="dm_screen_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-57" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="dm_screen_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="dm_screen_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-58" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="drug_therapy" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="drug_therapy" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-59" author="mattae">
+        <addColumn tableName="drug_therapy">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-60" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="drug_therapy" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="drug_therapy" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-61" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eac" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="eac" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-62" author="mattae">
+        <addColumn tableName="eac">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-63" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eac" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="eac" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-64" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eid" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="eid" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-65" author="mattae">
+        <addColumn tableName="eid">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-66" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="eid" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="eid" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-67" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="encounter" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="encounter" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-68" author="mattae">
+        <addColumn tableName="encounter">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-69" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="encounter" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="encounter" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-70" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="hts" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="hts" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-71" author="mattae">
+        <addColumn tableName="hts">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-72" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="hts" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="hts" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-73" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="index_contact" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="index_contact" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-74" author="mattae">
+        <addColumn tableName="index_contact">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-75" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="index_contact" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="index_contact" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-76" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="laboratory" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="laboratory" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-77" author="mattae">
+        <addColumn tableName="laboratory">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-78" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="laboratory" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="laboratory" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-79" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="maternal_followup" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="maternal_followup" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-80" author="mattae">
+        <addColumn tableName="maternal_followup">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-81" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="maternal_followup" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="maternal_followup" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-82" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="mhtc" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="mhtc" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-83" author="mattae">
+        <addColumn tableName="mhtc">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-84" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="mhtc" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="mhtc" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-85" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="mother_information" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="mother_information" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-86" author="mattae">
+        <addColumn tableName="mother_information">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-87" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="mother_information" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="mother_information" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-88" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="nigqual" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="nigqual" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-89" author="mattae">
+        <addColumn tableName="nigqual">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-90" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="nigqual" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="nigqual" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-91" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="oi_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="oi_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-92" author="mattae">
+        <addColumn tableName="oi_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-93" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="oi_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="oi_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-94" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="participant" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="participant" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-95" author="mattae">
+        <addColumn tableName="participant">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-96" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="participant" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="participant" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-97" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="partner_information" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="partner_information" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-98" author="mattae">
+        <addColumn tableName="partner_information">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-136" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="partner_information" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="partner_information" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-100" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="patient" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="patient" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-101" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="patient" columnName="id_uuid"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="patient">
+            <column name="id_uuid" type="varchar(36)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-102" author="mattae">
+        <renameColumn tableName="patient" oldColumnName="id_uuid" newColumnName="uuid"/>
+        <addDefaultValue tableName="patient" columnName="uuid" defaultValueComputed="uuid_generate_v4()::text"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-103" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="patient_case_manager" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="patient_case_manager" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-104" author="mattae">
+        <addColumn tableName="patient_case_manager">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-105" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="patient_case_manager" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="patient_case_manager" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-106" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="pharmacy" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="pharmacy" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-107" author="mattae">
+        <addColumn tableName="pharmacy">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-108" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="pharmacy" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="pharmacy" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-109" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="regimen_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="regimen_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-110" author="mattae">
+        <addColumn tableName="regimen_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-111" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="regimen_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="regimen_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-112" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="status_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="status_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-113" author="mattae">
+        <addColumn tableName="status_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-114" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="status_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="status_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-115" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="tb_screen_history" columnName="uuid"/>
+        </preConditions>
+        <dropColumn tableName="tb_screen_history" columnName="uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-116" author="mattae">
+        <addColumn tableName="tb_screen_history">
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-117" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="tb_screen_history" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="tb_screen_history" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-118" author="mattae">
+        <sql>
+            update adhere_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table adhere_history alter column uuid set default uuid_generate_v4()::text;
+            update adhere_history set last_modified = current_timestamp where last_modified is null;
+            alter table adhere_history alter column last_modified set default current_timestamp;
+
+            update adr_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table adr_history alter column uuid set default uuid_generate_v4()::text;
+            update adr_history set last_modified = current_timestamp where last_modified is null;
+            alter table adr_history alter column last_modified set default current_timestamp;
+
+            update anc set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table anc alter column uuid set default uuid_generate_v4()::text;
+            update anc set last_modified = current_timestamp where last_modified is null;
+            alter table anc alter column last_modified set default current_timestamp;
+
+            update appointment set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table appointment alter column uuid set default uuid_generate_v4()::text;
+            update appointment set last_modified = current_timestamp where last_modified is null;
+            alter table appointment alter column last_modified set default current_timestamp;
+
+            update assessment set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table assessment alter column uuid set default uuid_generate_v4()::text;
+            update assessment set last_modified = current_timestamp where last_modified is null;
+            alter table assessment alter column last_modified set default current_timestamp;
+
+            update case_manager set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table case_manager alter column uuid set default uuid_generate_v4()::text;
+            update case_manager set last_modified = current_timestamp where last_modified is null;
+            alter table case_manager alter column last_modified set default current_timestamp;
+
+            update child set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table child alter column uuid set default uuid_generate_v4()::text;
+            update child set last_modified = current_timestamp where last_modified is null;
+            alter table child alter column last_modified set default current_timestamp;
+
+            update child_followup set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table child_followup alter column uuid set default uuid_generate_v4()::text;
+            update child_followup set last_modified = current_timestamp where last_modified is null;
+            alter table child_followup alter column last_modified set default current_timestamp;
+
+            update chronic_care set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table chronic_care alter column uuid set default uuid_generate_v4()::text;
+            update chronic_care set last_modified = current_timestamp where last_modified is null;
+            alter table chronic_care alter column last_modified set default current_timestamp;
+
+            update clinic set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table clinic alter column uuid set default uuid_generate_v4()::text;
+            update clinic set last_modified = current_timestamp where last_modified is null;
+            alter table clinic alter column last_modified set default current_timestamp;
+
+            update community_pharmacy set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table community_pharmacy alter column uuid set default uuid_generate_v4()::text;
+            update community_pharmacy set last_modified = current_timestamp where last_modified is null;
+            alter table community_pharmacy alter column last_modified set default current_timestamp;
+
+            update delivery set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table delivery alter column uuid set default uuid_generate_v4()::text;
+            update delivery set last_modified = current_timestamp where last_modified is null;
+            alter table delivery alter column last_modified set default current_timestamp;
+
+            update devolve set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table devolve alter column uuid set default uuid_generate_v4()::text;
+            update devolve set last_modified = current_timestamp where last_modified is null;
+            alter table devolve alter column last_modified set default current_timestamp;
+
+            update dm_screen_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table dm_screen_history alter column uuid set default uuid_generate_v4()::text;
+            update dm_screen_history set last_modified = current_timestamp where last_modified is null;
+            alter table dm_screen_history alter column last_modified set default current_timestamp;
+
+            update drug_therapy set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table drug_therapy alter column uuid set default uuid_generate_v4()::text;
+            update drug_therapy set last_modified = current_timestamp where last_modified is null;
+            alter table drug_therapy alter column last_modified set default current_timestamp;
+
+            update eac set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table eac alter column uuid set default uuid_generate_v4()::text;
+            update eac set last_modified = current_timestamp where last_modified is null;
+            alter table eac alter column last_modified set default current_timestamp;
+
+            update eid set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table eid alter column uuid set default uuid_generate_v4()::text;
+            update eid set last_modified = current_timestamp where last_modified is null;
+            alter table eid alter column last_modified set default current_timestamp;
+
+            update encounter set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table encounter alter column uuid set default uuid_generate_v4()::text;
+            update encounter set last_modified = current_timestamp where last_modified is null;
+            alter table encounter alter column last_modified set default current_timestamp;
+
+            update hts set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table hts alter column uuid set default uuid_generate_v4()::text;
+            update hts set last_modified = current_timestamp where last_modified is null;
+            alter table hts alter column last_modified set default current_timestamp;
+
+            update index_contact set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table index_contact alter column uuid set default uuid_generate_v4()::text;
+            update index_contact set last_modified = current_timestamp where last_modified is null;
+            alter table index_contact alter column last_modified set default current_timestamp;
+
+            update laboratory set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table laboratory alter column uuid set default uuid_generate_v4()::text;
+            update laboratory set last_modified = current_timestamp where last_modified is null;
+            alter table laboratory alter column last_modified set default current_timestamp;
+
+            update maternal_followup set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table maternal_followup alter column uuid set default uuid_generate_v4()::text;
+            update maternal_followup set last_modified = current_timestamp where last_modified is null;
+            alter table maternal_followup alter column last_modified set default current_timestamp;
+
+            update mother_information set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table mother_information alter column uuid set default uuid_generate_v4()::text;
+            update mother_information set last_modified = current_timestamp where last_modified is null;
+            alter table mother_information alter column last_modified set default current_timestamp;
+
+            update mhtc set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table mhtc alter column uuid set default uuid_generate_v4()::text;
+            update mhtc set last_modified = current_timestamp where last_modified is null;
+            alter table mhtc alter column last_modified set default current_timestamp;
+
+            update nigqual set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table nigqual alter column uuid set default uuid_generate_v4()::text;
+            update nigqual set last_modified = current_timestamp where last_modified is null;
+            alter table nigqual alter column last_modified set default current_timestamp;
+
+            update oi_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table oi_history alter column uuid set default uuid_generate_v4()::text;
+            update oi_history set last_modified = current_timestamp where last_modified is null;
+            alter table oi_history alter column last_modified set default current_timestamp;
+
+            update participant set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table participant alter column uuid set default uuid_generate_v4()::text;
+            update participant set last_modified = current_timestamp where last_modified is null;
+            alter table participant alter column last_modified set default current_timestamp;
+
+            update partner_information set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table partner_information alter column uuid set default uuid_generate_v4()::text;
+            update partner_information set last_modified = current_timestamp where last_modified is null;
+            alter table partner_information alter column last_modified set default current_timestamp;
+
+            update patient set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table patient alter column uuid set default uuid_generate_v4()::text;
+            update patient set last_modified = current_timestamp where last_modified is null;
+            alter table patient alter column last_modified set default current_timestamp;
+
+            update patient_case_manager set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table patient_case_manager alter column uuid set default uuid_generate_v4()::text;
+            update case_manager set last_modified = current_timestamp where last_modified is null;
+            alter table case_manager alter column last_modified set default current_timestamp;
+
+            update pharmacy set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table pharmacy alter column uuid set default uuid_generate_v4()::text;
+            update pharmacy set last_modified = current_timestamp where last_modified is null;
+            alter table pharmacy alter column last_modified set default current_timestamp;
+
+            update regimen_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table regimen_history alter column uuid set default uuid_generate_v4()::text;
+            update regimen_history set last_modified = current_timestamp where last_modified is null;
+            alter table regimen_history alter column last_modified set default current_timestamp;
+
+            update status_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table status_history alter column uuid set default uuid_generate_v4()::text;
+            update status_history set last_modified = current_timestamp where last_modified is null;
+            alter table status_history alter column last_modified set default current_timestamp;
+
+            update tb_screen_history set uuid = uuid_generate_v4()::text where uuid is null;
+            alter table tb_screen_history alter column uuid set default uuid_generate_v4()::text;
+            update tb_screen_history set last_modified = current_timestamp where last_modified is null;
+            alter table tb_screen_history alter column last_modified set default current_timestamp;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-119" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixpk.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-120" author="mattae">
+        <addForeignKeyConstraint baseTableName="patient" baseColumnNames="lga_id"
+                                 constraintName="fk_patient_lga_id" referencedTableName="lga"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-121" author="mattae">
+        <sqlFile path="installers/legacy/schema/lgafix.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-122" author="mattae">
+        <dropColumn tableName="patient" columnName="state"/>
+        <dropColumn tableName="patient" columnName="lga"/>
+        <dropColumn tableName="patient" columnName="current_status"/>
+        <dropColumn tableName="patient" columnName="date_current_status"/>
+        <dropColumn tableName="patient" columnName="regimen"/>
+        <dropColumn tableName="patient" columnName="regimentype"/>
+        <dropColumn tableName="patient" columnName="last_clinic_stage"/>
+        <dropColumn tableName="patient" columnName="last_viral_load"/>
+        <dropColumn tableName="patient" columnName="last_cd4"/>
+        <dropColumn tableName="patient" columnName="last_cd4p"/>
+        <dropColumn tableName="patient" columnName="date_last_viral_load"/>
+        <dropColumn tableName="patient" columnName="viral_load_due_date"/>
+        <dropColumn tableName="patient" columnName="viral_load_type"/>
+        <dropColumn tableName="patient" columnName="date_last_refill"/>
+        <dropColumn tableName="patient" columnName="date_next_refill"/>
+        <dropColumn tableName="patient" columnName="last_refill_duration"/>
+        <dropColumn tableName="patient" columnName="last_refill_setting"/>
+        <dropColumn tableName="patient" columnName="date_last_clinic"/>
+        <dropColumn tableName="patient" columnName="date_next_clinic"/>
+        <dropColumn tableName="patient" columnName="date_tracked"/>
+        <dropColumn tableName="patient" columnName="outcome"/>
+        <dropColumn tableName="patient" columnName="cause_death"/>
+        <dropColumn tableName="patient" columnName="agreed_date"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-123" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixcliniccommence.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-124" author="mattae">
+        <dropColumn tableName="facility" columnName="active"/>
+        <addColumn tableName="facility">
+            <column name="active" type="boolean" defaultValue="true"/>
+        </addColumn>
+        <sql>
+            UPDATE facility SET active = true;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-125" author="mattae">
+        <renameColumn tableName="patient" oldColumnName="next_kin" newColumnName="next_of_kin"/>
+        <renameColumn tableName="patient" oldColumnName="address_kin" newColumnName="next_of_kin_address"/>
+        <renameColumn tableName="patient" oldColumnName="phone_kin" newColumnName="next_of_kin_phone"/>
+        <renameColumn tableName="patient" oldColumnName="relation_kin" newColumnName="next_of_kin_relationship"/>
+        <sqlFile path="installers/legacy/schema/fixpatient.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-126" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixartcommencevariables.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-127" author="mattae">
+        <addForeignKeyConstraint baseTableName="clinic" baseColumnNames="regimen_type_id"
+                                 constraintName="fk_clinic_regimen_type_id" referencedTableName="regimen_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic" baseColumnNames="regimen_id"
+                                 constraintName="fk_clinic_regimen_id" referencedTableName="regimen"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-128" author="mattae">
+        <addColumn tableName="users">
+            <column name="facility_id" type="bigint"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="facility_id"
+                                 constraintName="fk_users_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-129" author="mattae">
+        <createTable tableName="pharmacy_line">
+            <column name="id" type="serial" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="morning" type="float"/>
+            <column name="afternoon" type="float"/>
+            <column name="evening" type="float"/>
+            <column name="duration" type="int"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="pharmacy_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regimen_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regimen_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regimen_drug_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-130" author="mattae">
+        <createTable tableName="laboratory_line">
+            <column name="id" type="serial" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="result" type="varchar(32)"/>
+            <column name="comment" type="varchar(256)"/>
+            <column name="indication" type="varchar(32)"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="laboratory_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lab_test_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-131" author="mattae">
+        <addColumn tableName="pharmacy">
+            <column name="active" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-132" author="mattae">
+        <sql>
+            DELETE FROM pharmacy WHERE regimen_type_id NOT IN (SELECT id FROM regimen_type);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-133" author="mattae">
+        <sql>
+            DELETE FROM pharmacy WHERE regimen_id NOT IN (SELECT id FROM regimen);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-134" author="mattae">
+        <sql>
+            DELETE FROM pharmacy WHERE regimen_drug_id NOT IN (SELECT id FROM regimen_drug);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-135" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixpharmacy.sql" splitStatements="false"/>
+        <createIndex tableName="pharmacy" indexName="idx_pharmacy_patient_date_visit">
+            <column name="patient_id"/>
+            <column name="date_visit"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-0-0" author="mattae">
+        <sql>
+            UPDATE pharmacy SET dmoc_type = (SELECT CASE WHEN duration = 90 THEN 'MMD-3' WHEN duration = 120 THEN
+            'MMD-4'
+            WHEN duration = 150 THEN 'MMD-5' WHEN duration = 180 THEN 'MMD-6' ELSE NULL END);
+            ALTER TABLE regimen ADD COLUMN priority INT DEFAULT 1;
+            UPDATE regimen SET priority = 50 WHERE id IN (116, 122, 123);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-0-1" author="mattae">
+        <sqlFile path="installers/legacy/schema/removeduplicatedtg.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-0" author="mattae">
+        <sql>
+            select fixpharmacy(0 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-1" author="mattae">
+        <sql>
+            select fixpharmacy(1 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-2" author="mattae">
+        <sql>
+            select fixpharmacy(2 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-3" author="mattae">
+        <sql>
+            select fixpharmacy(3 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-4" author="mattae">
+        <sql>
+            select fixpharmacy(4 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-5" author="mattae">
+        <sql>
+            select fixpharmacy(5 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-6" author="mattae">
+        <sql>
+            select fixpharmacy(6 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-7" author="mattae">
+        <sql>
+            select fixpharmacy(7 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-8" author="mattae">
+        <sql>
+            select fixpharmacy(8 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-9" author="mattae">
+        <sql>
+            select fixpharmacy(9 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-10" author="mattae">
+        <sql>
+            select fixpharmacy(10 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-11" author="mattae">
+        <sql>
+            select fixpharmacy(11 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-12" author="mattae">
+        <sql>
+            select fixpharmacy(12 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-13" author="mattae">
+        <sql>
+            select fixpharmacy(13 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-14" author="mattae">
+        <sql>
+            select fixpharmacy(14 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-15" author="mattae">
+        <sql>
+            select fixpharmacy(15 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-16" author="mattae">
+        <sql>
+            select fixpharmacy(16 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-17" author="mattae">
+        <sql>
+            select fixpharmacy(17 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-18" author="mattae">
+        <sql>
+            select fixpharmacy(18 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-19" author="mattae">
+        <sql>
+            select fixpharmacy(19 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-20" author="mattae">
+        <sql>
+            select fixpharmacy(20 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-21" author="mattae">
+        <sql>
+            select fixpharmacy(21 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-22" author="mattae">
+        <sql>
+            select fixpharmacy(22 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-23" author="mattae">
+        <sql>
+            select fixpharmacy(23 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-24" author="mattae">
+        <sql>
+            select fixpharmacy(24 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-25" author="mattae">
+        <sql>
+            select fixpharmacy(25 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-26" author="mattae">
+        <sql>
+            select fixpharmacy(26 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-27" author="mattae">
+        <sql>
+            select fixpharmacy(27 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-28" author="mattae">
+        <sql>
+            select fixpharmacy(28 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-29" author="mattae">
+        <sql>
+            select fixpharmacy(29 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-30" author="mattae">
+        <sql>
+            select fixpharmacy(30 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-31" author="mattae">
+        <sql>
+            select fixpharmacy(31 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-32" author="mattae">
+        <sql>
+            select fixpharmacy(32 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-33" author="mattae">
+        <sql>
+            select fixpharmacy(33 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-34" author="mattae">
+        <sql>
+            select fixpharmacy(34 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-35" author="mattae">
+        <sql>
+            select fixpharmacy(35 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-36" author="mattae">
+        <sql>
+            select fixpharmacy(36 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-37" author="mattae">
+        <sql>
+            select fixpharmacy(37 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-38" author="mattae">
+        <sql>
+            select fixpharmacy(38 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-39" author="mattae">
+        <sql>
+            select fixpharmacy(39 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-40" author="mattae">
+        <sql>
+            select fixpharmacy(40 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-41" author="mattae">
+        <sql>
+            select fixpharmacy(41 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-42" author="mattae">
+        <sql>
+            select fixpharmacy(42 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-43" author="mattae">
+        <sql>
+            select fixpharmacy(43 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-44" author="mattae">
+        <sql>
+            select fixpharmacy(44 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-45" author="mattae">
+        <sql>
+            select fixpharmacy(45 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-46" author="mattae">
+        <sql>
+            select fixpharmacy(46 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-47" author="mattae">
+        <sql>
+            select fixpharmacy(47 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-48" author="mattae">
+        <sql>
+            select fixpharmacy(48 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-49" author="mattae">
+        <sql>
+            select fixpharmacy(49 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-136-50" author="mattae">
+        <sql>
+            select fixpharmacy(50 * 20000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-1" author="mattae">
+        <sql>
+            SELECT * INTO pharmacy_temp FROM pharmacy WHERE active = TRUE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-2" author="mattae">
+        <sql>
+            DROP TABLE pharmacy CASCADE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-3" author="mattae">
+        <sql>
+            SELECT * INTO pharmacy FROM pharmacy_temp;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-4" author="mattae">
+        <sql>
+            DROP TABLE pharmacy_temp CASCADE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-5" author="mattae">
+        <sql>
+            ALTER TABLE pharmacy ALTER COLUMN id SET NOT NULL;
+            ALTER TABLE pharmacy ALTER COLUMN patient_id SET NOT NULL;
+            ALTER TABLE pharmacy ALTER COLUMN facility_id SET NOT NULL;
+            ALTER TABLE pharmacy ALTER COLUMN date_visit SET NOT NULL;
+            ALTER TABLE pharmacy ALTER COLUMN archived SET NOT NULL;
+            ALTER TABLE pharmacy ALTER COLUMN archived SET DEFAULT FALSE;
+            ALTER TABLE pharmacy ALTER COLUMN last_modified SET NOT NULL ;
+            ALTER TABLE pharmacy ALTER COLUMN last_modified SET DEFAULT CURRENT_TIMESTAMP;
+            alter table pharmacy alter column uuid set NOT NULL;
+            alter table pharmacy alter column uuid set default uuid_generate_v4()::text;
+            alter table pharmacy rename column dmoc_type to mmd_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-137-6" author="mattae">
+        <addAutoIncrement tableName="pharmacy" columnName="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-138" author="mattae">
+        <addPrimaryKey tableName="pharmacy" columnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="pharmacy" baseColumnNames="facility_id"
+                                 constraintName="fk_pharmacy_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="pharmacy" baseColumnNames="patient_id"
+                                 constraintName="fk_pharmacy_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="20200304123505-139" author="mattae">
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="pharmacy_id"
+                                 constraintName="fk_pharmacy_line_pharmacy_id" referencedTableName="pharmacy"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="patient_id"
+                                 constraintName="fk_pharmacy_line_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="facility_id"
+                                 constraintName="fk_pharmacy_line_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="regimen_type_id"
+                                 constraintName="fk_pharmacy_line_regimen_type_id" referencedTableName="regimen_type"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="regimen_id"
+                                 constraintName="fk_pharmacy_line_regimen_id" referencedTableName="regimen"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="pharmacy_line" baseColumnNames="regimen_drug_id"
+                                 constraintName="fk_pharmacy_line_regimen_drug_id" referencedTableName="regimen_drug"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-140" author="mattae">
+        <sql>
+            DELETE FROM laboratory WHERE lab_test_id NOT IN (SELECT id FROM lab_test);
+            UPDATE lab_test SET measureab = measurepc WHERE measureab IS NULL OR measureab = '';
+            UPDATE laboratory SET resultab = resultpc WHERE resultab IS NULL OR resultab = '';
+        </sql>
+        <addColumn tableName="laboratory">
+            <column name="active" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-141" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixlaboratory.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-0-0" author="mattae">
+        <sql>
+            alter table laboratory add column date_assay date;
+            ALTER TABLE laboratory RENAME COLUMN date_reported TO date_result_received;
+            alter table laboratory alter column date_result_received drop not null;
+            alter table laboratory rename column date_collected to date_sample_collected;
+        </sql>
+
+        <createIndex tableName="laboratory" indexName="idx_laboratory_patient_date_result_received">
+            <column name="patient_id"/>
+            <column name="date_result_received"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-0" author="mattae">
+        <sql>
+            select fixlaboratory(0 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-1" author="mattae">
+        <sql>
+            select fixlaboratory(1 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-2" author="mattae">
+        <sql>
+            select fixlaboratory(2 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-3" author="mattae">
+        <sql>
+            select fixlaboratory(3 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-4" author="mattae">
+        <sql>
+            select fixlaboratory(4 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-5" author="mattae">
+        <sql>
+            select fixlaboratory(5 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-6" author="mattae">
+        <sql>
+            select fixlaboratory(6 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-7" author="mattae">
+        <sql>
+            select fixlaboratory(7 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-8" author="mattae">
+        <sql>
+            select fixlaboratory(8 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-9" author="mattae">
+        <sql>
+            select fixlaboratory(9 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-10" author="mattae">
+        <sql>
+            select fixlaboratory(10 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-11" author="mattae">
+        <sql>
+            select fixlaboratory(11 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-12" author="mattae">
+        <sql>
+            select fixlaboratory(12 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-13" author="mattae">
+        <sql>
+            select fixlaboratory(13 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-14" author="mattae">
+        <sql>
+            select fixlaboratory(14 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-15" author="mattae">
+        <sql>
+            select fixlaboratory(15 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-16" author="mattae">
+        <sql>
+            select fixlaboratory(16 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-17" author="mattae">
+        <sql>
+            select fixlaboratory(17 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-18" author="mattae">
+        <sql>
+            select fixlaboratory(18 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-19" author="mattae">
+        <sql>
+            select fixlaboratory(19 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-20" author="mattae">
+        <sql>
+            select fixlaboratory(20 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-21" author="mattae">
+        <sql>
+            select fixlaboratory(21 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-22" author="mattae">
+        <sql>
+            select fixlaboratory(22 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-23" author="mattae">
+        <sql>
+            select fixlaboratory(23 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-24" author="mattae">
+        <sql>
+            select fixlaboratory(24 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-25" author="mattae">
+        <sql>
+            select fixlaboratory(25 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-26" author="mattae">
+        <sql>
+            select fixlaboratory(26 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-27" author="mattae">
+        <sql>
+            select fixlaboratory(27 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-28" author="mattae">
+        <sql>
+            select fixlaboratory(28 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-29" author="mattae">
+        <sql>
+            select fixlaboratory(29 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-30" author="mattae">
+        <sql>
+            select fixlaboratory(30 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-31" author="mattae">
+        <sql>
+            select fixlaboratory(31 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-32" author="mattae">
+        <sql>
+            select fixlaboratory(32 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-33" author="mattae">
+        <sql>
+            select fixlaboratory(33 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-34" author="mattae">
+        <sql>
+            select fixlaboratory(34 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-35" author="mattae">
+        <sql>
+            select fixlaboratory(35 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-36" author="mattae">
+        <sql>
+            select fixlaboratory(36 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-37" author="mattae">
+        <sql>
+            select fixlaboratory(37 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-38" author="mattae">
+        <sql>
+            select fixlaboratory(38 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-39" author="mattae">
+        <sql>
+            select fixlaboratory(39 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-40" author="mattae">
+        <sql>
+            select fixlaboratory(40 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-41" author="mattae">
+        <sql>
+            select fixlaboratory(41 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-42" author="mattae">
+        <sql>
+            select fixlaboratory(42 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-43" author="mattae">
+        <sql>
+            select fixlaboratory(43 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-44" author="mattae">
+        <sql>
+            select fixlaboratory(44 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-45" author="mattae">
+        <sql>
+            select fixlaboratory(45 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-46" author="mattae">
+        <sql>
+            select fixlaboratory(46 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-47" author="mattae">
+        <sql>
+            select fixlaboratory(47 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-48" author="mattae">
+        <sql>
+            select fixlaboratory(48 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-49" author="mattae">
+        <sql>
+            select fixlaboratory(49 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-50" author="mattae">
+        <sql>
+            select fixlaboratory(50 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-51" author="mattae">
+        <sql>
+            select fixlaboratory(51 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-52" author="mattae">
+        <sql>
+            select fixlaboratory(52 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-53" author="mattae">
+        <sql>
+            select fixlaboratory(53 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-54" author="mattae">
+        <sql>
+            select fixlaboratory(54 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-55" author="mattae">
+        <sql>
+            select fixlaboratory(55 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-56" author="mattae">
+        <sql>
+            select fixlaboratory(56 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-57" author="mattae">
+        <sql>
+            select fixlaboratory(57 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-58" author="mattae">
+        <sql>
+            select fixlaboratory(58 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-59" author="mattae">
+        <sql>
+            select fixlaboratory(59 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-60" author="mattae">
+        <sql>
+            select fixlaboratory(60 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-61" author="mattae">
+        <sql>
+            select fixlaboratory(61 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-62" author="mattae">
+        <sql>
+            select fixlaboratory(62 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-63" author="mattae">
+        <sql>
+            select fixlaboratory(63 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-64" author="mattae">
+        <sql>
+            select fixlaboratory(64 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-65" author="mattae">
+        <sql>
+            select fixlaboratory(65 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-66" author="mattae">
+        <sql>
+            select fixlaboratory(66 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-67" author="mattae">
+        <sql>
+            select fixlaboratory(67 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-68" author="mattae">
+        <sql>
+            select fixlaboratory(68 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-69" author="mattae">
+        <sql>
+            select fixlaboratory(69 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-70" author="mattae">
+        <sql>
+            select fixlaboratory(70 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-71" author="mattae">
+        <sql>
+            select fixlaboratory(71 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-72" author="mattae">
+        <sql>
+            select fixlaboratory(72 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-73" author="mattae">
+        <sql>
+            select fixlaboratory(73 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-74" author="mattae">
+        <sql>
+            select fixlaboratory(74 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-75" author="mattae">
+        <sql>
+            select fixlaboratory(75 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-76" author="mattae">
+        <sql>
+            select fixlaboratory(76 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-77" author="mattae">
+        <sql>
+            select fixlaboratory(77 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-78" author="mattae">
+        <sql>
+            select fixlaboratory(78 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-79" author="mattae">
+        <sql>
+            select fixlaboratory(79 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-80" author="mattae">
+        <sql>
+            select fixlaboratory(80 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-81" author="mattae">
+        <sql>
+            select fixlaboratory(81 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-82" author="mattae">
+        <sql>
+            select fixlaboratory(82 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-83" author="mattae">
+        <sql>
+            select fixlaboratory(83 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-84" author="mattae">
+        <sql>
+            select fixlaboratory(84 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-85" author="mattae">
+        <sql>
+            select fixlaboratory(85 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-86" author="mattae">
+        <sql>
+            select fixlaboratory(86 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-87" author="mattae">
+        <sql>
+            select fixlaboratory(87 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-88" author="mattae">
+        <sql>
+            select fixlaboratory(88 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-89" author="mattae">
+        <sql>
+            select fixlaboratory(89 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-90" author="mattae">
+        <sql>
+            select fixlaboratory(90 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-91" author="mattae">
+        <sql>
+            select fixlaboratory(91 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-92" author="mattae">
+        <sql>
+            select fixlaboratory(92 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-93" author="mattae">
+        <sql>
+            select fixlaboratory(93 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-94" author="mattae">
+        <sql>
+            select fixlaboratory(94 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-95" author="mattae">
+        <sql>
+            select fixlaboratory(95 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-96" author="mattae">
+        <sql>
+            select fixlaboratory(96 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-97" author="mattae">
+        <sql>
+            select fixlaboratory(97 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-98" author="mattae">
+        <sql>
+            select fixlaboratory(98 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-99" author="mattae">
+        <sql>
+            select fixlaboratory(99 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-142-100" author="mattae">
+        <sql>
+            select fixlaboratory(100 * 5000);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-1" author="mattae">
+        <sql>
+            SELECT * INTO laboratory_temp FROM laboratory WHERE active = TRUE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-2" author="mattae">
+        <sql>
+            DROP TABLE laboratory CASCADE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-3" author="mattae">
+        <sql>
+            SELECT * INTO laboratory FROM laboratory_temp;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-4" author="mattae">
+        <sql>
+            DROP TABLE laboratory_temp CASCADE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-5" author="mattae">
+        <sql>
+            ALTER TABLE laboratory ALTER COLUMN id SET NOT NULL;
+            ALTER TABLE laboratory ALTER COLUMN patient_id SET NOT NULL;
+            ALTER TABLE laboratory ALTER COLUMN facility_id SET NOT NULL;
+            ALTER TABLE laboratory ALTER COLUMN archived SET NOT NULL;
+            ALTER TABLE laboratory ALTER COLUMN archived SET DEFAULT FALSE;
+            ALTER TABLE laboratory ALTER COLUMN last_modified SET NOT NULL;
+            ALTER TABLE laboratory ALTER COLUMN last_modified SET DEFAULT CURRENT_TIMESTAMP;
+            alter table laboratory alter column uuid set NOT NULL;
+            alter table laboratory alter column uuid set default uuid_generate_v4()::text;
+            UPDATE laboratory_line SET indication = comment WHERE lab_test_id = 16;
+            UPDATE laboratory_line SET comment = NULL WHERE lab_test_id = 16;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-6" author="mattae">
+        <addAutoIncrement tableName="laboratory" columnName="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-143-7" author="mattae">
+        <addPrimaryKey tableName="laboratory" columnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="laboratory" baseColumnNames="facility_id"
+                                 constraintName="fk_laboratory_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="laboratory" baseColumnNames="patient_id"
+                                 constraintName="fk_laboratory_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="20200304123505-144" author="mattae">
+        <addForeignKeyConstraint baseTableName="laboratory_line" baseColumnNames="laboratory_id"
+                                 constraintName="fk_laboratory_line_laboratory_id" referencedTableName="laboratory"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="laboratory_line" baseColumnNames="patient_id"
+                                 constraintName="fk_laboratory_line_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="laboratory_line" baseColumnNames="facility_id"
+                                 constraintName="fk_laboratory_line_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="laboratory_line" baseColumnNames="lab_test_id"
+                                 constraintName="fk_laboratory_line_lab_test_id" referencedTableName="lab_test"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-145" author="mattae">
+        <dropColumn tableName="pharmacy" columnName="regimen_type_id"/>
+        <dropColumn tableName="pharmacy" columnName="regimen_id"/>
+        <dropColumn tableName="pharmacy" columnName="regimen_drug_id"/>
+        <dropColumn tableName="pharmacy" columnName="morning"/>
+        <dropColumn tableName="pharmacy" columnName="afternoon"/>
+        <dropColumn tableName="pharmacy" columnName="evening"/>
+        <dropColumn tableName="pharmacy" columnName="duration"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-146" author="mattae">
+        <dropColumn tableName="laboratory" columnName="lab_test_id"/>
+        <dropColumn tableName="laboratory" columnName="resultab"/>
+        <dropColumn tableName="laboratory" columnName="resultpc"/>
+        <dropColumn tableName="laboratory" columnName="comment"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-147" author="mattae">
+        <createTable tableName="clinic_adhere">
+            <column autoIncrement="true" name="id" type="serial">
+                <constraints primaryKey="true" primaryKeyName="clinicAdherencePK"/>
+            </column>
+            <column name="clinic_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adhere_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-148" author="mattae">
+        <createTable tableName="clinic_adverse_drug_reaction">
+            <column autoIncrement="true" name="id" type="serial">
+                <constraints primaryKey="true" primaryKeyName="clinicAdrPK"/>
+            </column>
+            <column name="clinic_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adverse_drug_reaction_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-149" author="mattae">
+        <createTable tableName="clinic_opportunistic_infection">
+            <column autoIncrement="true" name="id" type="serial">
+                <constraints primaryKey="true" primaryKeyName="clinicOiPK"/>
+            </column>
+            <column name="clinic_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opportunistic_infection_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-150" author="mattae">
+        <createTable tableName="pharmacy_adverse_drug_reaction">
+            <column autoIncrement="true" name="id" type="serial">
+                <constraints primaryKey="true" primaryKeyName="pharmacyAdrPK"/>
+            </column>
+            <column name="pharmacy_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adverse_drug_reaction_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="severity" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false"/>
+            <column name="last_modified" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-151" author="mattae">
+        <addForeignKeyConstraint baseTableName="clinic_adhere" baseColumnNames="clinic_id"
+                                 constraintName="fk_clinic_adhere_clinic_id" referencedTableName="clinic"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_adhere" baseColumnNames="adhere_id"
+                                 constraintName="fk_clinic_adhere_adhere_id" referencedTableName="adhere"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_adverse_drug_reaction" baseColumnNames="clinic_id"
+                                 constraintName="fk_clinic_adverse_drug_reaction_clinic_id" referencedTableName="clinic"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_adverse_drug_reaction" baseColumnNames="adverse_drug_reaction_id"
+                                 constraintName="fk_clinic_adverse_drug_reaction_adverse_drug_reaction_id"
+                                 referencedTableName="adverse_drug_reaction"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_opportunistic_infection" baseColumnNames="clinic_id"
+                                 constraintName="fk_clinic_opportunistic_infection_clinic_id"
+                                 referencedTableName="clinic"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_opportunistic_infection"
+                                 baseColumnNames="opportunistic_infection_id"
+                                 constraintName="fk_clinic_opportunistic_infection_opportunistic_infection_id"
+                                 referencedTableName="opportunistic_infection"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="pharmacy_adverse_drug_reaction" baseColumnNames="pharmacy_id"
+                                 constraintName="fk_pharmacy_adverse_drug_reaction_pharmacy_id"
+                                 referencedTableName="pharmacy"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="pharmacy_adverse_drug_reaction"
+                                 baseColumnNames="adverse_drug_reaction_id"
+                                 constraintName="fk_pharmacy_adverse_drug_reaction_adverse_drug_reaction_id"
+                                 referencedTableName="adverse_drug_reaction"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-152" author="mattae">
+        <dropColumn tableName="clinic" columnName="oi_ids"/>
+        <dropColumn tableName="clinic" columnName="adr_ids"/>
+        <dropColumn tableName="clinic" columnName="adhere_ids"/>
+        <dropColumn tableName="pharmacy" columnName="adr_ids"/>
+        <dropColumn tableName="pharmacy" columnName="active"/>
+        <dropColumn tableName="laboratory" columnName="active"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-153" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixclinic.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-154" author="mattae">
+        <sql>
+            alter table pharmacy_line alter column last_modified set default current_timestamp;
+            alter table laboratory_line alter column last_modified set default current_timestamp;
+            alter table clinic_adhere alter column last_modified set default current_timestamp;
+            alter table clinic_adverse_drug_reaction alter column last_modified set default current_timestamp;
+            alter table clinic_opportunistic_infection alter column last_modified set default current_timestamp;
+            alter table pharmacy_adverse_drug_reaction alter column last_modified set default current_timestamp;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-155" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="sym_fix"/>
+        </preConditions>
+        <dropTable tableName="sym_fix"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-156" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixregimenhistory.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-157" author="mattae">
+        <addForeignKeyConstraint baseTableName="regimen_history" baseColumnNames="regimen_type_id"
+                                 constraintName="fk_regimen_history_regimen_type_id" referencedTableName="regimen_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="regimen_history" baseColumnNames="regimen_id"
+                                 constraintName="fk_regimen_history_regimen_id" referencedTableName="regimen"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-158" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixstatus.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-159" author="mattae">
+        <createTable tableName="chronic_care_dm">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="chronic_care_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dm_screen_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified" type="timestamp" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="chronic_care_tb">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="chronic_care_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tb_screen_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified" type="timestamp" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200304123505-160" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixchroniccare.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-161" author="mattae">
+        <addPrimaryKey tableName="chronic_care" columnNames="id"/>
+        <addAutoIncrement tableName="chronic_care" columnName="id"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="id"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="facility_id"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="patient_id"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="date_visit"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="uuid"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="last_modified"/>
+        <addNotNullConstraint tableName="chronic_care" columnName="archived"/>
+
+        <addForeignKeyConstraint baseTableName="chronic_care" baseColumnNames="facility_id"
+                                 constraintName="fk_chronic_care_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="chronic_care" baseColumnNames="patient_id"
+                                 constraintName="fk_chronic_care_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+        <addUniqueConstraint tableName="chronic_care" columnNames="uuid"/>
+
+        <addForeignKeyConstraint baseTableName="chronic_care_dm" baseColumnNames="chronic_care_id"
+                                 constraintName="fk_chronic_care_dm_chronic_care_id" referencedTableName="chronic_care"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="chronic_care_dm" baseColumnNames="dm_screen_id"
+                                 constraintName="fk_chronic_care_dm_dm_screen_id" referencedTableName="dm_screen"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="chronic_care_tb" baseColumnNames="chronic_care_id"
+                                 constraintName="fk_chronic_care_tb_chronic_care_id" referencedTableName="chronic_care"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="chronic_care_tb" baseColumnNames="tb_screen_id"
+                                 constraintName="fk_chronic_care_tb_tb_screen_id" referencedTableName="tb_screen"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-162" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixsequences.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-163" author="mattae">
+        <sqlFile path="installers/legacy/schema/fixdevolve.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-0" author="mattae">
+        <sql>
+            select setdevolverelated(0 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-1" author="mattae">
+        <sql>
+            select setdevolverelated(1 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-2" author="mattae">
+        <sql>
+            select setdevolverelated(2 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-3" author="mattae">
+        <sql>
+            select setdevolverelated(3 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-4" author="mattae">
+        <sql>
+            select setdevolverelated(4 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-5" author="mattae">
+        <sql>
+            select setdevolverelated(5 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-6" author="mattae">
+        <sql>
+            select setdevolverelated(6 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-7" author="mattae">
+        <sql>
+            select setdevolverelated(7 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-8" author="mattae">
+        <sql>
+            select setdevolverelated(8 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-9" author="mattae">
+        <sql>
+            select setdevolverelated(9 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-10" author="mattae">
+        <sql>
+            select setdevolverelated(10 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-11" author="mattae">
+        <sql>
+            select setdevolverelated(11 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-12" author="mattae">
+        <sql>
+            select setdevolverelated(12 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-13" author="mattae">
+        <sql>
+            select setdevolverelated(13 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-14" author="mattae">
+        <sql>
+            select setdevolverelated(14 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-15" author="mattae">
+        <sql>
+            select setdevolverelated(15 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-16" author="mattae">
+        <sql>
+            select setdevolverelated(16 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-17" author="mattae">
+        <sql>
+            select setdevolverelated(17 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-18" author="mattae">
+        <sql>
+            select setdevolverelated(18 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-19" author="mattae">
+        <sql>
+            select setdevolverelated(19 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-20" author="mattae">
+        <sql>
+            select setdevolverelated(20 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-21" author="mattae">
+        <sql>
+            select setdevolverelated(21 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-22" author="mattae">
+        <sql>
+            select setdevolverelated(22 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-23" author="mattae">
+        <sql>
+            select setdevolverelated(23 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-24" author="mattae">
+        <sql>
+            select setdevolverelated(24 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-25" author="mattae">
+        <sql>
+            select setdevolverelated(25 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-26" author="mattae">
+        <sql>
+            select setdevolverelated(26 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-27" author="mattae">
+        <sql>
+            select setdevolverelated(27 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-28" author="mattae">
+        <sql>
+            select setdevolverelated(28 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-29" author="mattae">
+        <sql>
+            select setdevolverelated(29 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-30" author="mattae">
+        <sql>
+            select setdevolverelated(30 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-31" author="mattae">
+        <sql>
+            select setdevolverelated(31 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-32" author="mattae">
+        <sql>
+            select setdevolverelated(32 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-33" author="mattae">
+        <sql>
+            select setdevolverelated(33 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-34" author="mattae">
+        <sql>
+            select setdevolverelated(34 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-35" author="mattae">
+        <sql>
+            select setdevolverelated(35 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-36" author="mattae">
+        <sql>
+            select setdevolverelated(36 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-37" author="mattae">
+        <sql>
+            select setdevolverelated(37 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-38" author="mattae">
+        <sql>
+            select setdevolverelated(38 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-39" author="mattae">
+        <sql>
+            select setdevolverelated(39 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-40" author="mattae">
+        <sql>
+            select setdevolverelated(40 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-41" author="mattae">
+        <sql>
+            select setdevolverelated(41 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-42" author="mattae">
+        <sql>
+            select setdevolverelated(42 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-43" author="mattae">
+        <sql>
+            select setdevolverelated(43 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-44" author="mattae">
+        <sql>
+            select setdevolverelated(44 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-45" author="mattae">
+        <sql>
+            select setdevolverelated(45 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-46" author="mattae">
+        <sql>
+            select setdevolverelated(46 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-47" author="mattae">
+        <sql>
+            select setdevolverelated(47 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-48" author="mattae">
+        <sql>
+            select setdevolverelated(48 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-49" author="mattae">
+        <sql>
+            select setdevolverelated(49 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-50" author="mattae">
+        <sql>
+            select setdevolverelated(50 * 200);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-163-0-5" author="mattae">
+        <sql>
+            alter table devolve drop column last_viral_load;
+            alter table devolve drop column date_last_viral_load;
+            alter table devolve drop column last_cd4;
+            alter table devolve drop column date_last_cd4;
+            alter table devolve drop column regimentype;
+            alter table devolve drop column regimen;
+            alter table devolve drop column date_last_clinic;
+            alter table devolve drop column last_clinic_stage;
+            alter table devolve drop column date_last_clinic_stage;
+            alter table devolve drop column date_last_refill;
+            alter table devolve drop column viral_load_assessed;
+            alter table devolve drop column cd4_assessed;
+            alter table devolve rename column type_dmoc to dmoc_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-164" author="mattae">
+        <addForeignKeyConstraint baseTableName="devolve" baseColumnNames="related_pharmacy_id"
+                                 constraintName="fk_devolve_related_pharmacy_id" referencedTableName="pharmacy"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="devolve" baseColumnNames="related_clinic_id"
+                                 constraintName="fk_devolve_related_clinic_id" referencedTableName="clinic"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="devolve" baseColumnNames="related_cd4_id"
+                                 constraintName="fk_devolve_related_cd4_id" referencedTableName="laboratory"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="devolve" baseColumnNames="related_viral_load_id"
+                                 constraintName="fk_devolve_related_viral_load_id" referencedTableName="laboratory"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-165" author="mattae">
+        <preConditions>
+            <columnExists tableName="biometric" columnName="id_uuid"/>
+        </preConditions>
+        <dropColumn tableName="biometric" columnName="id_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-166" author="mattae">
+        <dropColumn tableName="biometric" columnName="hospital_num"/>
+        <dropColumn tableName="biometric" columnName="patient_name"/>
+        <dropColumn tableName="biometric" columnName="patient_address"/>
+        <dropColumn tableName="biometric" columnName="patient_phone"/>
+        <dropColumn tableName="biometric" columnName="patient_gender"/>
+    </changeSet>
+
+    <changeSet id="20200304123505-167" author="mattae">
+        <renameColumn tableName="case_manager" oldColumnName="fullname" newColumnName="name"/>
+        <renameColumn tableName="case_manager" oldColumnName="sex" newColumnName="gender"/>
+        <renameColumn tableName="lab_test" oldColumnName="measureab" newColumnName="unit"/>
+        <dropColumn tableName="lab_test">
+            <column name="measurepc"/>
+        </dropColumn>
+    </changeSet>
+
+    <changeSet id="20200304123505-168" author="mattae">
+        <addNotNullConstraint tableName="regimen" columnName="active"/>
+        <dropNotNullConstraint tableName="regimen" columnName="composition"/>
+    </changeSet>
+</databaseChangeLog>

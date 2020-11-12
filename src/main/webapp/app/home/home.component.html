@@ -1,0 +1,48 @@
+<!--
+<div class="options-header" flex>
+    <mat-form-field>
+        <mat-select aria-label="Display grid lines" [(ngModel)]="options.displayGrid"
+                    placeholder="Display grid lines"
+                    (ngModelChange)="changedOptions()">
+            <mat-option value="always">Always</mat-option>
+            <mat-option value="onDrag&Resize">On Drag & Resize</mat-option>
+            <mat-option value="none">None</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-mini-fab (click)="addItem()" class="add-button cols-2">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+
+<gridster [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+        <grid-cell [widgetType]="item.component"></grid-cell>
+    </gridster-item>
+</gridster>
+<mat-formio [form]="form">
+
+</mat-formio>
+-->
+<!--<button mat-button (click)="previewPdf()">Preview</button>
+<a [routerLink]="[{ outlets: { overlay: 'preview/blob' } }]">Open</a> /
+<a [routerLink]="[{ outlets: { overlay: null } }]">Close</a>-->
+<!--<json-form [templateId]="formId"></json-form>
+<formio [form]="form"></formio>-->
+<!--<mat-form-field>
+    <input matInput placeholder="Input mask" [(ngModel)]="value" name="input" phoneNumber #input="ngModel"/>
+    <mat-error
+        *ngIf="input.errors && (input.dirty || input.touched) && (input.errors.invalidPhone)">
+        Invalid phone number
+    </mat-error>
+    <mat-error
+        *ngIf="input.errors && (input.dirty || input.touched) && (input.errors.maxLength)">
+        Maximum length failed
+    </mat-error>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="change()">Print</button>-->

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="20200622221876-01" author="mattae">
+        <preConditions>
+            <not>
+                <columnExists tableName="clinic_adverse_drug_reaction" columnName="severity"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="clinic_adverse_drug_reaction">
+            <column name="severity" type="varchar(16)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200622221876-02" author="mattae">
+        <preConditions>
+            <not>
+                <columnExists tableName="patient" columnName="dob_estimated"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="patient">
+            <column name="dob_estimated" type="boolean" defaultValue="false"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

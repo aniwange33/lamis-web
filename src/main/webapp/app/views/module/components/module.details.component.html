@@ -1,0 +1,20 @@
+<div class="lamis-edit-form">
+    <div class="lamis-edit-form-container">
+        <mat-card *ngIf="module">
+            <mat-card-title>
+                Module Details
+            </mat-card-title>
+            <mat-card-content>
+                <adf-card-view [properties]="properties"></adf-card-view>
+                <mat-card-actions>
+                    <button mat-button color="warn" (click)="uninstall()">Uninstall</button>
+                    <button mat-raised-button (click)="update()">Update</button>
+                    <button mat-raised-button *ngIf="module.active" color="accent" (click)="deactivate()">Deactivate
+                    </button>
+                    <button mat-raised-button *ngIf="!module.active" color="primary" (click)="activate()">Activate
+                    </button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

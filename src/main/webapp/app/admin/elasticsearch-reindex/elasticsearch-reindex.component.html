@@ -1,0 +1,30 @@
+<div class="trad-edit-form">
+    <div class="">
+        <mat-card>
+            <mat-card-content>
+                <div>
+                    <jhi-alert></jhi-alert>
+                    <p>
+                        This will send a request to reindex all data from your primary datasource into Elasticsearch.
+                        This will fix missing data and mapping issues, however you will lose any ES data and mapping
+                        that was defined
+                        outside of your application. This request will return immediately and the reindexing will run in
+                        the background.
+                        You will see "Elasticsearch: Successfully performed reindexing" in your logs when this is
+                        complete.
+                    </p>
+                    <p>
+                        This can take a long time and is susceptible to concurrency issues so it should be performed
+                        when the number of users is low.
+                    </p>
+                </div>
+                <mat-card-actions class="trad-edit-form-actions">
+                    <button mat-raised-button (click)="showConfirm()">
+                        <mat-icon>blur_on</mat-icon>
+                        Reindex
+                    </button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

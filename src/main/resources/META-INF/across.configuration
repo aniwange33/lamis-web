@@ -1,0 +1,3 @@
+com.foreach.across.AutoConfigurationEnabled=\
+  com.github.vanroy.springboot.autoconfigure.data.jest.ElasticsearchJestAutoConfiguration,\
+  com.github.vanroy.springboot.autoconfigure.data.jest.ElasticsearchJestDataAutoConfiguration,\

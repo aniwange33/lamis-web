@@ -1,0 +1,33 @@
+<div class="lamis-edit-form">
+    <div class="lamis-edit-form-container">
+        <mat-card>
+            <mat-card-content>
+                <td-file-upload #singleFileUpload [(ngModel)]="files"
+                                (select)="selectEvent($event)"
+                                (upload)="uploadEvent($event)" (cancel)="cancelEvent()"
+                                accept=".jar" required>
+                    <mat-icon>file_upload</mat-icon>
+                    <span>{{ singleFileUpload.value?.name }}</span>
+                    <ng-template td-file-input-label>
+                        <mat-icon>attach_file</mat-icon>
+                        <span>Choose a file...</span>
+                        <span [hidden]="!singleFileUpload?.required">*</span>
+                    </ng-template>
+                </td-file-upload>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="module">
+            <mat-card-title>
+                Module Details
+            </mat-card-title>
+            <mat-card-content>
+                <adf-card-view [properties]="properties"></adf-card-view>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary"
+                            (click)="install()">{{update ? 'Update' : 'Install'}}</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+<div mat-dialog-title>
+    <h4>Audit Details</h4>
+    <button mat-raised-button [mat-dialog-close]="true"><span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<mat-dialog-content>
+    <div>
+        <strong>
+            {{action}} action was performed on below data
+        </strong>
+        <br><br>
+
+        <del class="diff diff-key">
+            Old/Removed value
+        </del>
+        &nbsp;
+        <ins class="diff diff-key">
+            New/Added value
+        </ins>
+    </div>
+    <br>
+    <label>Changed Fields</label>
+    <!--<pre class="code" id="resultChanges" diff [left]="left" [right]="right"></pre>-->
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-raised-button [mat-dialog-close]="true">Done</button>
+</mat-dialog-actions>

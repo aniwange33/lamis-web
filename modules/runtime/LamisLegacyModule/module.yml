@@ -1,0 +1,18 @@
+basePackage: org.lamisplus.modules.lamis.legacy
+store: true
+name: LamisLegacyModule
+umdLocation: /across/resources/static/facility/js/bundles/lamis-facility.umd.js
+webModules:
+    -   breadcrumb: FACILITY SWITCH
+        name: FacilityModule
+        path: admin/facility
+        position: 99
+menus:
+    -   disabled: true
+        name: Administration
+        state: admin
+        subs:
+            -   state: facility
+                name: Facility Switch
+                icon: keyboard_tab
+                type: LINK

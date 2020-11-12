@@ -1,0 +1,35 @@
+<div mat-dialog-title>
+    <h4 class="modal-title" id="showHealthLabel"><span class="text-capitalize">{{ baseName(currentHealth.name) }}</span>
+        {{subSystemName(currentHealth.name)}}
+    </h4>
+    <button mat-raised-button [mat-dialog-close]="true"><span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<mat-dialog-content>
+    <div *ngIf="currentHealth.details">
+        <h5>Properties</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="text-left">Name</th>
+                    <th class="text-left">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let entry of currentHealth.details.details | keys">
+                    <td class="text-left">{{entry.key}}</td>
+                    <td class="text-left">{{readableValue(entry.value)}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="currentHealth.error">
+        <h4>Error</h4>
+        <pre>{{currentHealth.error}}</pre>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-raised-button [mat-dialog-close]="true">Done</button>
+</mat-dialog-actions>

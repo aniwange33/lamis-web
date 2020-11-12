@@ -1,0 +1,281 @@
+@mixin lamis-login-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $text-color-primary: mat-color($foreground, text);
+
+    .lamis-login {
+        @include flex-column;
+    }
+
+    .lamis-login-content {
+        background-size: cover;
+        background-position: center;
+        min-height: 100%;
+        min-width: 320px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        // IE11 vertical centering
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            & {
+                display: table;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .ie11FixerParent {
+            margin-top: 16px;
+            min-width: 320px;
+
+            // IE11 vertical centering
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                display: table-cell;
+                vertical-align: middle;
+                width: 100%;
+                padding-top: 16px;
+            }
+        }
+
+        // IE11 vertical centering
+        .ie11FixerChild {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+
+        .show {
+            display: block !important;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .icon-inline {
+            position: absolute;
+            display: block;
+            top: 31%;
+            left: 82%;
+            width: 30px;
+            overflow: hidden;
+        }
+
+        .lamis-login-card-wide {
+            border-radius: 8px;
+            background-color: mat-color($background, dialog);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+            width: 450px;
+            min-width: 320px;
+            padding: 21px 64px 34px 64px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 482px) {
+            .lamis-login-card-wide {
+                width: calc(100% - 32px);
+            }
+        }
+
+        .lamis-error-container {
+            height: 45px;
+        }
+
+        .lamis-error-message {
+            display: flex;
+            box-orient: horizontal;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            color: mat-color($warn);
+            padding: 0;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .lamis-error-message .error-icon {
+            margin-right: 10px;
+        }
+
+        .mat-card-header-text {
+            margin: 0 auto;
+        }
+
+        .lamis-img-logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .lamis-alfresco-logo {
+            padding: 24px 16px 24px 16px;
+        }
+
+        .lamis-alfresco-logo img {
+            max-height: 58px;
+        }
+
+        .lamis-login-button {
+            width: 100%;
+            height: 36px;
+            line-height: 38px;
+            box-shadow: none;
+        }
+
+        .lamis-login-button-label {
+            color: rgb(255, 255, 255);
+        }
+
+        .lamis-login-button.isChecking {
+            background-color: #e0f7fa;
+        }
+
+        .lamis-login-button.isChecking .lamis-login-button-label {
+            color: #00bcd4;
+        }
+
+        .lamis-login-button.isWelcome {
+            background-color: #00bcd4;
+            color: #ffffff;
+        }
+
+        .lamis-login-button.isWelcome .welcome-icon {
+            margin: 5px 0 0 10px;
+        }
+
+        .lamis-interactive-login-label {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-box-orient: horizontal;
+            -moz-box-orient: horizontal;
+            box-orient: horizontal;
+            flex-direction: row;
+
+            -webkit-box-pack: center;
+            -moz-box-pack: center;
+            box-pack: center;
+            justify-content: center;
+        }
+
+        .lamis-login-spinner-container {
+            margin-left: 15px;
+            margin-top: 5px;
+        }
+
+        #checking-spinner > svg > circle {
+            stroke-width: 16% !important;
+
+        }
+
+        .lamis-login-controls {
+            padding: 0 0 26px 0;
+            overflow: visible;
+            width: 100%;
+        }
+
+        .lamis-login-action {
+            margin-top: 20px;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-box-orient: horizontal;
+            -moz-box-orient: horizontal;
+            box-orient: horizontal;
+            flex-direction: row;
+
+            -webkit-box-pack: space-between;
+            -moz-box-pack: space-between;
+            box-pack: space-between;
+            justify-content: space-between;
+        }
+
+        .lamis-login-action-left a, .lamis-login-action-right a {
+            text-decoration: none;
+        }
+
+        .is-active {
+            background-color: transparent;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1.33;
+            color: mat-color($warn);
+        }
+
+        .copyright {
+            min-width: 320px;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 12px;
+            opacity: 0.54;
+        }
+
+        .mat-form-field .lamis-login-password-icon.mat-icon {
+            color: $text-color-primary;
+        }
+
+        .lamis-login__field .mat-form-field-wrapper {
+            margin: 1em 0 0 0;
+            font-size: 16px;
+        }
+
+        .lamis-login__field input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px mat-color($background, dialog) inset;
+            -webkit-text-fill-color: $text-color-primary !important;
+        }
+
+        .lamis-login-validation {
+            background-color: transparent;
+            color: mat-color($warn);
+            font-size: 12px;
+        }
+
+        .lamis-login-error {
+            color: mat-color($warn);
+            position: absolute;
+            font-size: 12px;
+            margin-top: -12px;
+            display: block;
+        }
+
+        .lamis-full-width {
+            width: 100%;
+        }
+
+        .lamis-login__remember-me {
+            padding-top: 22px;
+        }
+
+        .lamis-login__remember-me .mat-checkbox-label {
+            opacity: 0.87;
+        }
+
+        .lamis-login__field {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 18px;
+        }
+
+        .lamis-login-rememberme {
+            color: $text-color-primary !important;
+        }
+
+        .lamis-login-action-container {
+            border-top: 1px solid rgba(0, 0, 0, .1);
+            margin-top: 23px;
+        }
+    }
+}

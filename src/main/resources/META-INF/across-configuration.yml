@@ -1,0 +1,20 @@
+spring.boot:
+    priority: 1
+    auto-configuration:
+        org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration: true
+        org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.health.HealthIndicatorAutoConfiguration: true
+        org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.mail.MailHealthIndicatorAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchClientHealthIndicatorAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchJestHealthIndicatorAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.JvmMetricsAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration: true
+        org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.orm.jpa.HibernateMetricsAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.web.client.HttpClientMetricsAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.cache.CachesEndpointAutoConfiguration: true
+        org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration: true
+        org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration: true
+        org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration: true

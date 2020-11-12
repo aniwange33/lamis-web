@@ -1,0 +1,10 @@
+basePackage: org.fhi360.lamis.modules.biometrics
+name: BiometricsModule
+dependencies: {LAMISPatientModule: 1.0.0}
+store: true
+umdLocation: /across/resources/static/biometrics/js/bundles/lamis-biometrics-1.0.0.umd.js
+webModules:
+    -   breadcrumb: BIOMETRICS
+        name: BiometricsModule
+        path: biometrics
+        position: 99

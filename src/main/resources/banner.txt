@@ -1,0 +1,10 @@
+
+ ${AnsiColor.BLUE} ██╗     ${AnsiColor.RED}  █████╗  ███╗   ███╗ ██╗ ███████╗
+ ${AnsiColor.BLUE} ██║     ${AnsiColor.RED} ██╔══██╗ ████╗ ████║ ██║ ██╔════╝
+ ${AnsiColor.BLUE} ██║     ${AnsiColor.RED} ███████║ ██╔████╔██║ ██║ ███████╗
+ ${AnsiColor.BLUE} ██║     ${AnsiColor.RED} ██╔══██║ ██║╚██╔╝██║ ██║ ╚════██║
+ ${AnsiColor.BLUE} ███████╗${AnsiColor.RED} ██║  ██║ ██║ ╚═╝ ██║ ██║ ███████║
+ ${AnsiColor.BLUE} ╚══════╝${AnsiColor.RED} ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚═╝ ╚══════╝
+
+ ${AnsiColor.BRIGHT_BLUE}:: LAMIS 🤓  :: Running Spring Boot ${spring-boot.version} ::
+ :: https://www.fhi360.org ::${AnsiColor.DEFAULT}

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: LAMIS Laboratory Module
+Implementation-Version: 1.1.1
+Archiver-Version: Plexus Archiver
+Built-By: mattae
+Implementation-Vendor-Id: org.fhi360.lamis.modules
+Build-Time: 2020-07-17T14:17:22Z
+Created-By: Apache Maven 3.6.1
+Build-Jdk: 1.8.0_241
+

@@ -1,0 +1,22 @@
+<div mat-dialog-title>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm reindex operation</h4>
+        <button mat-raised-button [mat-dialog-close]="true"><span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<mat-dialog-content>
+    <form name="reindexForm" (ngSubmit)="reindex()">
+        <jhi-alert-error></jhi-alert-error>
+        <p>
+            Are you sure you want to reindex Elasticsearch? This could take a while!
+        </p>
+        <mat-dialog-actions>
+            <button aria-label="Close" mat-raised-button [mat-dialog-close]="true">Cancel
+            </button>
+            <button type="submit" mat-raised-button color="warn">
+                <span class="fa fa-exclamation"></span>&nbsp;<span>Reindex</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

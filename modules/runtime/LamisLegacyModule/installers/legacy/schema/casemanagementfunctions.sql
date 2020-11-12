@@ -1,0 +1,5 @@
+CREATE OR REPLACE FUNCTION haspreceedingoi(INT patientId) RETURNS BOOLEAN AS $$
+    BEGIN
+    END;
+$$
+LANGUAGE PLPGSQL;

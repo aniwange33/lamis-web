@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: LAMIS Legacy Module
+Implementation-Version: 1.1.2
+Archiver-Version: Plexus Archiver
+Built-By: mattae
+Implementation-Vendor-Id: org.lamisplus.modules
+Build-Time: 2020-07-15T09:18:13Z
+Created-By: Apache Maven 3.6.1
+Build-Jdk: 1.8.0_241
+

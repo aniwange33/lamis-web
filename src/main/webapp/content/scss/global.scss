@@ -1,0 +1,35 @@
+@import 'bootstrap-variables';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+/* ==========================================================================
+Generic styles
+========================================================================== */
+.error {
+    color: white;
+    background-color: red;
+}
+
+.pad {
+    padding: 10px;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.break {
+    white-space: normal;
+    word-break: break-all;
+}
+
+.readonly {
+    background-color: #eee;
+    opacity: 1;
+}
+
+/* jhipster-needle-scss-add-main JHipster will add new css style */

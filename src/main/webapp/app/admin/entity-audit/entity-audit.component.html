@@ -1,0 +1,115 @@
+<mat-card>
+    <mat-card-content>
+        <jhi-alert></jhi-alert>
+
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.sm="60">
+                <h4>Filter</h4>
+                <form name="auditEventForm" #auditEventForm="ngForm">
+                    <div class="d-flex">
+                        <mat-form-field>
+                            <mat-select name="entityName"
+                                        required
+                                        [(ngModel)]="selectedEntity"
+                                        placeholder="Entity/Table"
+                                        #entityName="ngModel">
+                                <mat-option *ngFor="let entityOption of entities" [value]="entityOption">
+                                    {{ entityOption }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select name="entityName"
+                                        required
+                                        [(ngModel)]="selectedEntity"
+                                        placeholder="Limit to"
+                                        #entityName="ngModel">
+                                <mat-option *ngFor="let limitOption of limits" [value]="limitOption">
+                                    {{ limitOption }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutAlign="end">
+                            <div>
+                                <button mat-raised-button color="primary"
+                                        (click)="loadChanges()"
+                                        [disabled]="!auditEventForm.form.valid">
+                                    <mat-icon>refresh</mat-icon>
+                                    <span>Load Change List</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div [hidden]="loading">
+            <div class="table-responsive" *ngIf="audits">
+                <p *ngIf="selectedEntity">
+                    Last <strong>{{ selectedLimit }}</strong>
+                    Changes for <strong>{{ selectedEntity }}</strong>
+                </p>
+
+                <form>
+                    <mat-form-field>
+                        <mat-label>Filter:</mat-label>
+                        <input matInput placeholder="Entity ID filter"
+                               name="searchFieldEntityId"
+                               [(ngModel)]="filterEntityId">
+                    </mat-form-field>
+                </form>
+
+                <table class="table table-condensed table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th (click)="orderProp = 'entityId'; reverse = !reverse">
+                            Entity Id
+                        </th>
+                        <th (click)="orderProp = 'action'; reverse = !reverse">
+                            Action
+                        </th>
+                        <th (click)="orderProp = 'commitVersion'; reverse = !reverse">
+                            Version
+                        </th>
+                        <th>
+                            Value
+                        </th>
+                        <th (click)="orderProp = 'modifiedDate'; reverse = !reverse">
+                            Modified Date
+                        </th>
+                        <th (click)="orderProp = 'modifiedBy'; reverse = !reverse">
+                            Modified By
+                        </th>
+                        <th>
+                            <mat-icon>visibility</mat-icon>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let audit of (audits | pureFilter:filterEntityId:'entityId' | orderBy:orderProp:reverse); trackBy: trackId">
+                        <td>{{ audit.entityId }}</td>
+                        <td>{{ audit.action }}</td>
+                        <td>{{ audit.commitVersion }}</td>
+                        <td>
+                            <pre class="code">{{ audit.entityValue | json }}</pre>
+                        </td>
+                        <td>{{ audit.modifiedDate | date:'medium' }}</td>
+                        <td>{{ audit.modifiedBy }}</td>
+                        <td>
+                            <button type="button" mat-xs-button
+                                    matTooltip="View Audit Change Details"
+                                    (click)=openChange(audit)>
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p *ngIf="!audits">
+                No Data found for the filters
+            </p>
+        </div>
+    </mat-card-content>
+</mat-card>

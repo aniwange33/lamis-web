@@ -1,0 +1,34 @@
+import * as tslib_1 from "tslib";
+
+var UniqueHospitalNumValidator_1;
+import {NG_ASYNC_VALIDATORS} from '@angular/forms';
+import {Directive} from '@angular/core';
+import {PatientService} from '../services/patient.service';
+import {debounceTime, switchMap, take} from 'rxjs/operators';
+
+let UniqueHospitalNumValidator = UniqueHospitalNumValidator_1 = class UniqueHospitalNumValidator {
+    constructor(patientService) {
+        this.patientService = patientService;
+    }
+
+    validate(control) {
+        return control.valueChanges
+            .pipe(debounceTime(300), take(1), switchMap(value => this.patientService.existsByHospitalNumber(value)));
+    }
+};
+UniqueHospitalNumValidator.ctorParameters = () => [
+    {type: PatientService}
+];
+UniqueHospitalNumValidator = UniqueHospitalNumValidator_1 = tslib_1.__decorate([
+    Directive({
+        selector: '[uniqueHospitalNum]',
+        providers: [{
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: UniqueHospitalNumValidator_1,
+            multi: true
+        }]
+    }),
+    tslib_1.__metadata("design:paramtypes", [PatientService])
+], UniqueHospitalNumValidator);
+export {UniqueHospitalNumValidator};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidW5pcXVlLWhvc3BpdGFsLW51bS52YWxpZGF0b3IuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9sYW1pcy1wYXRpZW50LTEuMi4wLyIsInNvdXJjZXMiOlsibGliL2NvbXBvbmVudHMvdW5pcXVlLWhvc3BpdGFsLW51bS52YWxpZGF0b3IudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxPQUFPLEVBQW1DLG1CQUFtQixFQUFvQixNQUFNLGdCQUFnQixDQUFDO0FBQ3hHLE9BQU8sRUFBRSxTQUFTLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFDMUMsT0FBTyxFQUFFLGNBQWMsRUFBRSxNQUFNLDZCQUE2QixDQUFDO0FBRTdELE9BQU8sRUFBRSxZQUFZLEVBQUUsU0FBUyxFQUFFLElBQUksRUFBRSxNQUFNLGdCQUFnQixDQUFDO0FBVS9ELElBQWEsMEJBQTBCLGtDQUF2QyxNQUFhLDBCQUEwQjtJQUNuQyxZQUFvQixjQUE4QjtRQUE5QixtQkFBYyxHQUFkLGNBQWMsQ0FBZ0I7SUFDbEQsQ0FBQztJQUVELFFBQVEsQ0FBQyxPQUF3QjtRQUM3QixPQUFPLE9BQU8sQ0FBQyxZQUFZO2FBQ3RCLElBQUksQ0FDRCxZQUFZLENBQUMsR0FBRyxDQUFDLEVBQ2pCLElBQUksQ0FBQyxDQUFDLENBQUMsRUFDUCxTQUFTLENBQUMsS0FBSyxDQUFDLEVBQUUsQ0FBQyxJQUFJLENBQUMsY0FBYyxDQUFDLHNCQUFzQixDQUFDLEtBQUssQ0FBQyxDQUFDLENBQ3hFLENBQUM7SUFDVixDQUFDO0NBQ0osQ0FBQTs7WUFYdUMsY0FBYzs7QUFEekMsMEJBQTBCO0lBUnRDLFNBQVMsQ0FBQztRQUNQLFFBQVEsRUFBRSxxQkFBcUI7UUFDL0IsU0FBUyxFQUFFLENBQUM7Z0JBQ1IsT0FBTyxFQUFFLG1CQUFtQjtnQkFDNUIsV0FBVyxFQUFFLDRCQUEwQjtnQkFDdkMsS0FBSyxFQUFFLElBQUk7YUFDZCxDQUFDO0tBQ0wsQ0FBQzs2Q0FFc0MsY0FBYztHQUR6QywwQkFBMEIsQ0FZdEM7U0FaWSwwQkFBMEIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBYnN0cmFjdENvbnRyb2wsIEFzeW5jVmFsaWRhdG9yLCBOR19BU1lOQ19WQUxJREFUT1JTLCBWYWxpZGF0aW9uRXJyb3JzIH0gZnJvbSAnQGFuZ3VsYXIvZm9ybXMnO1xuaW1wb3J0IHsgRGlyZWN0aXZlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5pbXBvcnQgeyBQYXRpZW50U2VydmljZSB9IGZyb20gJy4uL3NlcnZpY2VzL3BhdGllbnQuc2VydmljZSc7XG5pbXBvcnQgeyBPYnNlcnZhYmxlLCBvZiB9IGZyb20gJ3J4anMnO1xuaW1wb3J0IHsgZGVib3VuY2VUaW1lLCBzd2l0Y2hNYXAsIHRha2UgfSBmcm9tICdyeGpzL29wZXJhdG9ycyc7XG5cbkBEaXJlY3RpdmUoe1xuICAgIHNlbGVjdG9yOiAnW3VuaXF1ZUhvc3BpdGFsTnVtXScsXG4gICAgcHJvdmlkZXJzOiBbe1xuICAgICAgICBwcm92aWRlOiBOR19BU1lOQ19WQUxJREFUT1JTLFxuICAgICAgICB1c2VFeGlzdGluZzogVW5pcXVlSG9zcGl0YWxOdW1WYWxpZGF0b3IsXG4gICAgICAgIG11bHRpOiB0cnVlXG4gICAgfV1cbn0pXG5leHBvcnQgY2xhc3MgVW5pcXVlSG9zcGl0YWxOdW1WYWxpZGF0b3IgaW1wbGVtZW50cyBBc3luY1ZhbGlkYXRvciB7XG4gICAgY29uc3RydWN0b3IocHJpdmF0ZSBwYXRpZW50U2VydmljZTogUGF0aWVudFNlcnZpY2UpIHtcbiAgICB9XG5cbiAgICB2YWxpZGF0ZShjb250cm9sOiBBYnN0cmFjdENvbnRyb2wpOiBPYnNlcnZhYmxlPFZhbGlkYXRpb25FcnJvcnMgfCBudWxsPiB7XG4gICAgICAgIHJldHVybiBjb250cm9sLnZhbHVlQ2hhbmdlc1xuICAgICAgICAgICAgLnBpcGUoXG4gICAgICAgICAgICAgICAgZGVib3VuY2VUaW1lKDMwMCksXG4gICAgICAgICAgICAgICAgdGFrZSgxKSxcbiAgICAgICAgICAgICAgICBzd2l0Y2hNYXAodmFsdWUgPT4gdGhpcy5wYXRpZW50U2VydmljZS5leGlzdHNCeUhvc3BpdGFsTnVtYmVyKHZhbHVlKSlcbiAgICAgICAgICAgICk7XG4gICAgfVxufVxuIl19

@@ -1,0 +1,74 @@
+body {
+    background-color: #f5f5f5;
+}
+
+#main-content {
+    max-width: 940px;
+    padding: 2em 3em;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.empty-sensor {
+    background-image: url("fingerprint/img/emptySensor.png");
+}
+
+.touched-sensor {
+    background-image: url("fingerprint/img/touchedSensor.png");
+}
+
+.failed-sensor {
+    background-image: url("fingerprint/img/failedSensor.png");
+}
+
+.left_index {
+    background-image: url("fingerprint/img/minihands_3.png");
+}
+
+.left_thumb {
+    background-image: url("fingerprint/img/minihands_4.png");
+}
+
+.right_thumb {
+    background-image: url("fingerprint/img/minihands_5.png");
+}
+
+.right_index {
+    background-image: url("fingerprint/img/minihands_6.png");
+}
+
+.score0 {
+    background-image: url("fingerprint/img/score0.png");
+}
+
+.score1 {
+    background-image: url("fingerprint/img/score1.png");
+}
+
+.verification-pass {
+    background-image: url("fingerprint/img/finger_matched.png");
+}
+
+.verification-fail {
+    background-image: url("fingerprint/img/finger_disabled.png");
+}
+
+.identification-unknown {
+    background-image: url("fingerprint/img/finger_unknown.png");
+}
+
+.score2 {
+    background-image: url("fingerprint/img/score2.png");
+}
+
+.score3 {
+    background-image: url("fingerprint/img/score3.png");
+}
+
+.score4 {
+    background-image: url("fingerprint/img/score4.png");
+}

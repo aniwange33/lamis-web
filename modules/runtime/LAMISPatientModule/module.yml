@@ -1,0 +1,20 @@
+basePackage: org.fhi360.lamis.modules.patient
+name: LAMISPatientModule
+dependencies: {LamisLegacyModule: 1.0.0}
+store: true
+menus:
+    -   icon: wc
+        disabled: false
+        name: Patients
+        state: patients
+umdLocation: /across/resources/static/patient/js/bundles/lamis-patient-1.2.0.umd.js
+jsonForms:
+    -   name: patient-edit
+        path: /views/static/patient/json/patient-edit.json
+webModules:
+    -   breadcrumb: PATIENTS
+        name: PatientModule
+        path: patients
+        position: 99
+    -   name: ClientStatusModule
+        path: client-statuses

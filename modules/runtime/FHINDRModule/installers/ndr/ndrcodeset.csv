@@ -1,0 +1,1129 @@
+code_set_nm;code;code_description;alt_description;sys_description
+ADHERANCE;F;Fair  85-94%   4-8 missed doses;;Fair
+ADHERANCE;P;Poor  < 85%  ? 9 missed doses;;Poor
+ADHERANCE_POORFAIR_REASON;1;Forgot;;1. Forgot
+ADHERANCE_POORFAIR_REASON;2;Fell asleep/slept through dose;;2. Fell asleep/slept throug dose
+ADHERANCE_POORFAIR_REASON;3;Change in routine/away from home;;3. Change in routine/away from house
+ADHERANCE_POORFAIR_REASON;4;Busy/working/at school;;4. Busy/working/at school
+ADHERANCE_POORFAIR_REASON;5;Got pregnant;;5. Got pregnant
+ADHERANCE_POORFAIR_REASON;6;Patient moved;;6.Patient moved
+ADHERANCE_POORFAIR_REASON;7;Ran out of medications;;7. Ran out of medications
+ADHERANCE_POORFAIR_REASON;8;Drug stock-out;;8. Drug stock-out
+ADHERANCE_POORFAIR_REASON;9;Not able to pay;;9. Not able to pay
+ADHERANCE_POORFAIR_REASON;10;Felt well;;10. Felt well
+ADHERANCE_POORFAIR_REASON;11;Felt sick/bad;;11. Felt sick/bad
+ADHERANCE_POORFAIR_REASON;12;Felt overwhelmed/depressed;;12. Felt overwhelmed/depressed
+ADHERANCE_POORFAIR_REASON;13;Did not understand how to take medication;;13. Did not understand how to take medication
+ADHERANCE_POORFAIR_REASON;14;Did not want others to know;;14. Did not want others to know
+ADHERANCE_POORFAIR_REASON;15;Too many pills;;15. Too many pills
+ADHERANCE_POORFAIR_REASON;16;Did not want to take meds;;16. Did not want to take meds
+ADHERANCE_POORFAIR_REASON;17;Afraid of/affected by drug side effects;;17. Afraid of/affected by drug side effects
+ADHERANCE_POORFAIR_REASON;18;Other (specify);;18. Others
+ADVERSE_REACTIONS;1;Nausea/vomiting;;1.Nausea/vomiting
+ADVERSE_REACTIONS;2;Headache;;2.Headache
+ADVERSE_REACTIONS;3;Insomnia/bad dreams;;3.Insomnia/bad dreams
+ADVERSE_REACTIONS;4;Fatigue/weakness;;4.Fatigue/weakness
+ADVERSE_REACTIONS;5;PV bleeding/discharge;;5.PV bleeding/discharge
+ADVERSE_REACTIONS;6;Rash;;6.Rash
+ADVERSE_REACTIONS;7;FAT changes;;7.FAT changes
+ADVERSE_REACTIONS;8;Anemia;;8.Anemia
+ADVERSE_REACTIONS;9;Drainage of liquor;;9.Drainage of liquor
+ADVERSE_REACTIONS;10;Stevens Johnson syndrome;;11.Stevens Johnson syndrome
+ADVERSE_REACTIONS;11;Hyperglycemia;;12.Hyperglycemia
+ART_STATUS;A;ART;;ART
+ART_STATUS;N;Non-ART;;Non-ART
+ART_STATUS;P;Pre-ART;;Pre-ART
+ARV_REGIMEN;1a;AZT-3TC-EFV;;Efavirenz+Lamivudine+Zidovudine_1
+ARV_REGIMEN;1b;AZT-3TC-NVP;;Lamivudine+Nevirapine+Zidovudine_1
+ARV_REGIMEN;1c;TDF-FTC-EFV;;Efavirenz+Emtricitabine+Tenofovir_1
+ARV_REGIMEN;1d;TDF-FTC-NVP;;Emtricitabine+Tenofovir+Nevirapine_1
+ARV_REGIMEN;1e;TDF-3TC-EFV;;Efavirenz+Lamivudine+Tenofovir_1
+ARV_REGIMEN;1f;TDF-3TC-NVP;;Lamivudine+Nevirapine+Tenofovir_1
+ARV_REGIMEN;1g;AZT-3TC-ABC;;Abacavir+Lamivudine+Zidovudine_1
+ARV_REGIMEN;1h;AZT-3TC-TDF;;Lamivudine+Tenofovir+Zidovudine_1
+ARV_REGIMEN;1k;Adult First Line Others;;Others_1
+ARV_REGIMEN;2a;TDF-FTC-LPV/r;;Emtricitabine+Tenofovir+Lopinavir/Ritonavir_2
+ARV_REGIMEN;2b;TDF-3TC-LPV/r;;Lamivudine+Lopinavir/Ritonavir+Tenofovir_2
+ARV_REGIMEN;2c;TDF-FTC-ATV/r;;Atazanavir/Ritonavir+Emtricitabine+Tenofovir_2
+ARV_REGIMEN;2d;TDF-3TC-ATV/r;;Atazanavir/Ritonavir+Lamivudine+Tenofovir_2
+ARV_REGIMEN;2e;AZT-3TC-LPV/r;;Lamivudine+Lopinavir/Ritonavir+Zidovudine_2
+ARV_REGIMEN;2f;AZT-3TC-ATV/r;;Atazanavir/Ritonavir+Lamivudine+Zidovudine_2
+ARV_REGIMEN;2g;Adult Second Line Others;;Others_2
+ARV_REGIMEN;4a;AZT-3TC-EFV;;Efavirenz+Lamivudine+Zidovudine_3
+ARV_REGIMEN;4b;AZT-3TC-NVP;;Lamivudine+Nevirapine+Zidovudine_3
+ARV_REGIMEN;4c;ABC-3TC-EFV;;Abacavir+Efavirenz+Lamivudine_3
+ARV_REGIMEN;4d;ABC-3TC-NVP;;Abacavir+Lamivudine+Nevirapine _3
+ARV_REGIMEN;4e;AZT-3TC-ABC;;Abacavir+Lamivudine+Zidovudine_3
+ARV_REGIMEN;4f;d4T-3TC-NVP;;Lamivudine+Nevirapine+Stavudine_3
+ARV_REGIMEN;4g;Child First Line Others;;Others_3
+ARV_REGIMEN;5a;ABC-3TC-LPV/r;;Abacavir+Lamivudine+Lopinavir/Ritonavir_4
+ARV_REGIMEN;5b;AZT-3TC-LPV/r;;Lamivudine+Lopinavir/Ritonavir+Zidovudine_4
+ARV_REGIMEN;5c;d4T-3TC-LPV/r;;Lamivudine+Lopinavir/Ritonavir+Stavudine_4
+ARV_REGIMEN;5d;ddi-3TC-NVP;;Didanosine+Lamivudine+Nevirapine_4
+ARV_REGIMEN;5e;ABC-3TC-ddi;;Abacavir+Didanosine+Lamivudine_4
+ARV_REGIMEN;5f;Child Second Line Others;;Others_4
+CARE_ENTRY_POINT;1;STI;;
+CARE_ENTRY_POINT;2;OPD;;
+CARE_ENTRY_POINT;3;HCT;;
+CARE_ENTRY_POINT;4;CBO;;
+CARE_ENTRY_POINT;5;Private;;
+CARE_ENTRY_POINT;6;TB;;
+CARE_ENTRY_POINT;7;Ward;;
+CARE_ENTRY_POINT;8;Casualty;;
+CARE_ENTRY_POINT;9;ANC/PMTCT;;
+CARE_ENTRY_POINT;10;IDU;;
+CARE_ENTRY_POINT;11;Sex workers Outreach;;
+CARE_ENTRY_POINT;12;Current clinic patient;;
+CARE_ENTRY_POINT;13;Self-referral;;
+CARE_ENTRY_POINT;14;Pre-ART Transfer in;;
+CONDITION_CODE;86406008;Human immunodeficiency virus infection (disorder);;HIV_CODE
+CONDITION_CODE;61462000;Malaria (disorder);;
+CONDITION_CODE;56717001;Tuberculosis (disorder);;TB_CODE
+EDD_PMTCT_LINK;P;Pregnant;;
+EDD_PMTCT_LINK;PMTCT;Pregnant and on PMTCT;;
+EDD_PMTCT_LINK;NP;Not Pregnant;;
+EDD_PMTCT_LINK;NK;Not Known;;
+EDUCATIONAL_LEVEL;1;None;;None
+EDUCATIONAL_LEVEL;2;Primary;;Primary
+EDUCATIONAL_LEVEL;3;Senior Secondary;;Senior Secondary
+EDUCATIONAL_LEVEL;4;Qur'anic;;Quranic
+EDUCATIONAL_LEVEL;5;Junior Secondary;;Junior Secondary
+EDUCATIONAL_LEVEL;6;Post Secondary;;Post Secondary
+EDUCATIONAL_LEVEL;7;Unknown;;
+FACILITY_TYPE;IP;Implementing Partner;;
+FACILITY_TYPE;FAC;Facility;;
+FACILITY_TYPE;LGA;Local Government;;
+FACILITY_TYPE;SGA;State Government;;
+FACILITY_TYPE;FGA;Federal Government;;
+FACILITY_TYPE;OTH;Other;;
+FAMILY_PLANNING_METHOD;FP1;Condoms;;
+FAMILY_PLANNING_METHOD;FP2;Oral Contraceptives;;
+FAMILY_PLANNING_METHOD;FP3;Injectable/implantable hormones;;
+FAMILY_PLANNING_METHOD;FP4;Diaphragm/cervical cap;;
+FAMILY_PLANNING_METHOD;FP5;Intrauterine device;;
+FAMILY_PLANNING_METHOD;FP6;Vasectomy/tubal ligation/hysterectomyn;;
+FAMILY_PLANNING_METHOD;FP7;Others;;
+FAMILY_PLANNING_STATUS;FP;On Family Planning;;
+FAMILY_PLANNING_STATUS;NOFP;No Family Planning;;
+FUNCTIONAL_STATUS;W;Working;;Working
+FUNCTIONAL_STATUS;A;Ambulatory;;Ambulatory
+FUNCTIONAL_STATUS;B;Bedridden;;Bedridden
+HIV_TEST_TYPE;HIVAB;HIV Antibody;;
+HIV_TEST_TYPE;HIVPCR;HIV PCR;;
+IDENTIFIER_TYPE;PT;Patient external identifier;;
+IDENTIFIER_TYPE;PI;Patient internal identifier;;
+IDENTIFIER_TYPE;PN;Person number;;
+INTERRUPT;LOST;;;
+INTERRUPT;STOP;;;
+INTERRUPTION_REASON;1;Toxicity/side effects;;
+INTERRUPTION_REASON;2;Pregnancy;;
+INTERRUPTION_REASON;3;Treatment failure;;
+INTERRUPTION_REASON;4;Poor adherence;;
+INTERRUPTION_REASON;5;Illness, hospitalization;;
+INTERRUPTION_REASON;6;Drugs out of stock;;
+INTERRUPTION_REASON;7;Patient lacks finances;;
+INTERRUPTION_REASON;8;Other patient decision;;
+INTERRUPTION_REASON;9;Planned Rx interruption;;
+INTERRUPTION_REASON;10;Other;;
+LAB_RESULTED_TEST;1;Albumin (g/L);;
+LAB_RESULTED_TEST;2;ALT/SGPT;;ALT/SGPT
+LAB_RESULTED_TEST;3;Amylase;;Amylase
+LAB_RESULTED_TEST;4;AST/SGOT;;AST/SGOT
+LAB_RESULTED_TEST;5;BilirubinDirect (?mol/L);;
+LAB_RESULTED_TEST;6;BilirubinIndirect (?mol/L);;
+LAB_RESULTED_TEST;7;BilirubinTotal (?mol/L);;Total Bilirubin
+LAB_RESULTED_TEST;8;BloodUreaNitrogen (?mol/L);;
+LAB_RESULTED_TEST;9;Calcium  (mmol/L);;
+LAB_RESULTED_TEST;10;CalciumIonized (mmol/L);;
+LAB_RESULTED_TEST;11;CD4;;CD4
+LAB_RESULTED_TEST;12;Cell Count Lymphocytes;;
+LAB_RESULTED_TEST;13;Cell Count Neutrophils;;
+LAB_RESULTED_TEST;14;Chest X-Ray;;
+LAB_RESULTED_TEST;15;Chlamydia;;
+LAB_RESULTED_TEST;16;Chloride (mmol/L);;
+LAB_RESULTED_TEST;17;Cholesterol (total) mmoI/L;;Total Cholesterol
+LAB_RESULTED_TEST;18;CholesterolHDL (mmol/L);;
+LAB_RESULTED_TEST;19;CholesterolLDL (mmol/L);;
+LAB_RESULTED_TEST;20;Colposcopy (Cervical CA ? female only);;
+LAB_RESULTED_TEST;21;Creatinine;;Creatinine
+LAB_RESULTED_TEST;22;CSF Biochemistry;;
+LAB_RESULTED_TEST;23;CSF cryptococcal Ag;;
+LAB_RESULTED_TEST;24;CSF Culture;;
+LAB_RESULTED_TEST;25;CSF Gram Stain;;
+LAB_RESULTED_TEST;26;CSF India Ink;;
+LAB_RESULTED_TEST;27;Cytomegalovirus (CMV);;
+LAB_RESULTED_TEST;28;Elisa;;
+LAB_RESULTED_TEST;29;Epstein Barr Virus (EBV);;
+LAB_RESULTED_TEST;30;ESR;;
+LAB_RESULTED_TEST;31;Fasting Blood Sugar;;Fasting Glucose (FBS)
+LAB_RESULTED_TEST;32;Glucose;;GLUCOSE
+LAB_RESULTED_TEST;33;Gonorrhea;;
+LAB_RESULTED_TEST;34;HCT/Hb;;Haemoglobin (HB)
+LAB_RESULTED_TEST;35;HCT/Hb percent;;Haemoglobin (HB)%
+LAB_RESULTED_TEST;36;HDL (mg/dL);;HDL
+LAB_RESULTED_TEST;37;Hepatitis A Ab-IgM;;
+LAB_RESULTED_TEST;38;Hepatitis A Ab-Total;;
+LAB_RESULTED_TEST;39;Hepatitis B core - antibody IgM (HBsAb);;
+LAB_RESULTED_TEST;40;Hepatitis B core ? antibody, total;;
+LAB_RESULTED_TEST;41;Hepatitis B surface ? antibody (HBsAb);;
+LAB_RESULTED_TEST;42;Hepatitis B surface ? antigen (HBsAg);;HBsAg
+LAB_RESULTED_TEST;43;Hepatitis C antibody;;
+LAB_RESULTED_TEST;44;HIV Confirm;;
+LAB_RESULTED_TEST;45;HIV Elisa test;;
+LAB_RESULTED_TEST;46;HIV Rapid Test;;
+LAB_RESULTED_TEST;47;Lactate (mmol/L);;
+LAB_RESULTED_TEST;48;LDL (Mg/dL);;
+LAB_RESULTED_TEST;49;Magnesium (mmol/L);;
+LAB_RESULTED_TEST;50;Malaria parasite;;Malaria Parasite
+LAB_RESULTED_TEST;51;MTB;;
+LAB_RESULTED_TEST;52;Pap Smear (Cervical CA ? female only);;VIA/Pap Smear
+LAB_RESULTED_TEST;53;PCR;;
+LAB_RESULTED_TEST;54;Phosphate (mmol/L);;Alk. Phosphatase
+LAB_RESULTED_TEST;55;Phosphorus (mmol/L);;
+LAB_RESULTED_TEST;56;Platelets;;Platelets
+LAB_RESULTED_TEST;57;Potassium  (mmol/L);;
+LAB_RESULTED_TEST;58;Pregnancy;;Pregnancy
+LAB_RESULTED_TEST;59;Protein;;PROTEIN
+LAB_RESULTED_TEST;60;Random Blood Sugar;;
+LAB_RESULTED_TEST;61;RBC;;
+LAB_RESULTED_TEST;62;Rectal Pap Smear;;
+LAB_RESULTED_TEST;63;Serum Crypto Ag;;
+LAB_RESULTED_TEST;64;Sodium (mmol/L);;
+LAB_RESULTED_TEST;65;Sputum AFB 1;;Sputum Smear
+LAB_RESULTED_TEST;66;Sputum AFB 2;;
+LAB_RESULTED_TEST;67;Sputum AFB 3;;
+LAB_RESULTED_TEST;68;Sputum Gram Stain;;
+LAB_RESULTED_TEST;69;Store Plasma;;
+LAB_RESULTED_TEST;70;Syphilis (FTA);;
+LAB_RESULTED_TEST;71;Syphilis (RPR);;
+LAB_RESULTED_TEST;72;Total Cholesterol (mmol/L);;
+LAB_RESULTED_TEST;73;Toxoplasma IgG Antibody;;
+LAB_RESULTED_TEST;74;Triglycerides (mmol/L);;
+LAB_RESULTED_TEST;75;Uric acid ?mol/L;;
+LAB_RESULTED_TEST;76;Urinalysis;;
+LAB_RESULTED_TEST;77;Urine Culture/Sensitivity;;
+LAB_RESULTED_TEST;78;Vaginal Inspection with Acetic Acid (VIA);;
+LAB_RESULTED_TEST;79;Varicella (Chicken Pox);;
+LAB_RESULTED_TEST;80;Viral Load;;Viral Load
+LAB_RESULTED_TEST;81;WBC;;WBC
+LAB_RESULTED_TEST;82;WBC Diff;;
+LGA;1;Abadam;;Abadam
+LGA;2;Abaji;;Abaji
+LGA;3;Abak;;Abak
+LGA;4;Abakaliki;;Abakaliki
+LGA;5;Aba North;;Aba North
+LGA;6;Aba South;;Aba South
+LGA;7;Abeokuta North;;Abeokuta North
+LGA;8;Abeokuta South;;Abeokuta South
+LGA;9;Abi;;Abi
+LGA;10;Aboh Mbaise;;Aboh Mbaise
+LGA;11;Abua/Odual;;Abua/Odual
+LGA;12;Adavi;;Adavi
+LGA;13;Ado Ekiti;;Ado Ekiti
+LGA;14;Ado-Odo/Ota;;Ado-Odo/Ota
+LGA;15;Afijio;;Afijio
+LGA;16;Afikpo North;;Afikpo North
+LGA;17;Afikpo South;;Afikpo South
+LGA;18;Agaie;;Agaie
+LGA;19;Agatu;;Agatu
+LGA;20;Agwara;;Agwara
+LGA;21;Agege;;Agege
+LGA;22;Aguata;;Aguata
+LGA;23;Ahiazu Mbaise;;Ahiazu Mbaise
+LGA;24;Ahoada East;;Ahoada East
+LGA;25;Ahoada West;;Ahoada West
+LGA;26;Ajaokuta;;Ajaokuta
+LGA;27;Ajeromi-Ifelodun;;Ajeromi-Ifelodun
+LGA;28;Ajingi;;Ajingi
+LGA;29;Akamkpa;;Akamkpa
+LGA;30;Akinyele;;Akinyele
+LGA;31;Akko;;Akko
+LGA;32;Akoko-Edo;;Akoko-Edo
+LGA;33;Akoko North-East;;Akoko North-East
+LGA;34;Akoko North-West;;Akoko North-West
+LGA;35;Akoko South-West;;Akoko South-West
+LGA;36;Akoko South-East;;Akoko South-East
+LGA;37;Akpabuyo;;Akpabuyo
+LGA;38;Akuku-Toru;;Akuku-Toru
+LGA;39;Akure North;;Akure North
+LGA;40;Akure South;;Akure South
+LGA;41;Akwanga;;Akwanga
+LGA;42;Albasu;;Albasu
+LGA;43;Aleiro;;Aleiro
+LGA;44;Alimosho;;Alimosho
+LGA;45;Alkaleri;;Alkaleri
+LGA;46;Amuwo-Odofin;;Amuwo-Odofin
+LGA;47;Anambra East;;Anambra East
+LGA;48;Anambra West;;Anambra West
+LGA;49;Anaocha;;Anaocha
+LGA;50;Andoni;;Andoni
+LGA;51;Aninri;;Aninri
+LGA;52;Aniocha North;;Aniocha North
+LGA;53;Aniocha South;;Aniocha South
+LGA;54;Anka;;Anka
+LGA;55;Ankpa;;Ankpa
+LGA;56;Apa;;Apa
+LGA;57;Apapa;;Apapa
+LGA;58;Ado;;Ado
+LGA;59;Ardo Kola;;Ardo Kola
+LGA;60;Arewa Dandi;;Arewa Dandi
+LGA;61;Argungu;;Argungu
+LGA;62;Arochukwu;;Arochukwu
+LGA;63;Asa;;Asa
+LGA;64;Asari-Toru;;Asari-Toru
+LGA;65;Askira/Uba;;Askira/Uba
+LGA;66;Atakunmosa East;;Atakunmosa East
+LGA;67;Atakunmosa West;;Atakunmosa West
+LGA;68;Atiba;;Atiba
+LGA;69;Atisbo;;Atisbo
+LGA;70;Augie;;Augie
+LGA;71;Auyo;;Auyo
+LGA;72;Awe;;Awe
+LGA;73;Awgu;;Awgu
+LGA;74;Awka North;;Awka North
+LGA;75;Awka South;;Awka South
+LGA;76;Ayamelum;;Ayamelum
+LGA;77;Aiyedaade;;Aiyedaade
+LGA;78;Aiyedire;;Aiyedire
+LGA;79;Babura;;Babura
+LGA;80;Badagry;;Badagry
+LGA;81;Bagudo;;Bagudo
+LGA;82;Bagwai;;Bagwai
+LGA;83;Bakassi;;Bakassi
+LGA;84;Bokkos;;Bokkos
+LGA;85;Bakori;;Bakori
+LGA;86;Bakura;;Bakura
+LGA;87;Balanga;;Balanga
+LGA;88;Bali;;Bali
+LGA;89;Bama;;Bama
+LGA;90;Bade;;Bade
+LGA;91;Barkin Ladi;;Barkin Ladi
+LGA;92;Baruten;;Baruten
+LGA;93;Bassa;;Bassa
+LGA;94;Bassa;;Bassa
+LGA;95;Batagarawa;;Batagarawa
+LGA;96;Batsari;;Batsari
+LGA;97;Bauchi;;Bauchi
+LGA;98;Baure;;Baure
+LGA;99;Bayo;;Bayo
+LGA;100;Bebeji;;Bebeji
+LGA;102;Bekwarra;;Bekwarra
+LGA;103;Bende;;Bende
+LGA;104;Biase;;Biase
+LGA;105;Bichi;;Bichi
+LGA;106;Bida;;Bida
+LGA;107;Billiri;;Billiri
+LGA;108;Bindawa;;Bindawa
+LGA;109;Binji;;Binji
+LGA;110;Biriniwa;;Biriniwa
+LGA;111;Birnin Gwari;;Birnin Gwari
+LGA;112;Birnin Kebbi;;Birnin Kebbi
+LGA;113;Birnin Kudu;;Birnin Kudu
+LGA;114;Birnin Magaji/Kiyaw;;Birnin Magaji/Kiyaw
+LGA;115;Biu;;Biu
+LGA;116;Bodinga;;Bodinga
+LGA;117;Bogoro;;Bogoro
+LGA;118;Boki;;Boki
+LGA;119;Boluwaduro;;Boluwaduro
+LGA;120;Bomadi;;Bomadi
+LGA;121;Bonny;;Bonny
+LGA;122;Borgu;;Borgu
+LGA;123;Boripe;;Boripe
+LGA;124;Bursari;;Bursari
+LGA;125;Bosso;;Bosso
+LGA;126;Brass;;Brass
+LGA;127;Buji;;Buji
+LGA;128;Bukkuyum;;Bukkuyum
+LGA;129;Buruku;;Buruku
+LGA;130;Bungudu;;Bungudu
+LGA;131;Bunkure;;Bunkure
+LGA;132;Bunza;;Bunza
+LGA;133;Burutu;;Burutu
+LGA;134;Bwari;;Bwari
+LGA;135;Calabar Municipal;;Calabar Municipal
+LGA;136;Calabar South;;Calabar South
+LGA;137;Chanchaga;;Chanchaga
+LGA;138;Charanchi;;Charanchi
+LGA;139;Chibok;;Chibok
+LGA;140;Chikun;;Chikun
+LGA;141;Dala;;Dala
+LGA;142;Damaturu;;Damaturu
+LGA;143;Damban;;Damban
+LGA;144;Dambatta;;Dambatta
+LGA;145;Damboa;;Damboa
+LGA;146;Dandi;;Dandi
+LGA;147;Dandume;;Dandume
+LGA;148;Dange Shuni;;Dange Shuni
+LGA;149;Danja;;Danja
+LGA;150;Dan Musa;;Dan Musa
+LGA;151;Darazo;;Darazo
+LGA;152;Dass;;Dass
+LGA;153;Daura;;Daura
+LGA;154;Dawakin Kudu;;Dawakin Kudu
+LGA;155;Dawakin Tofa;;Dawakin Tofa
+LGA;156;Degema;;Degema
+LGA;157;Dekina;;Dekina
+LGA;158;Demsa;;Demsa
+LGA;159;Dikwa;;Dikwa
+LGA;160;Doguwa;;Doguwa
+LGA;161;Doma;;Doma
+LGA;162;Donga;;Donga
+LGA;163;Dukku;;Dukku
+LGA;164;Dunukofia;;Dunukofia
+LGA;165;Dutse;;Dutse
+LGA;166;Dutsi;;Dutsi
+LGA;167;Dutsin Ma;;Dutsin Ma
+LGA;168;Eastern Obolo;;Eastern Obolo
+LGA;169;Ebonyi;;Ebonyi
+LGA;170;Edati;;Edati
+LGA;171;Ede North;;Ede North
+LGA;172;Ede South;;Ede South
+LGA;173;Edu;;Edu
+LGA;174;Ife Central;;Ife Central
+LGA;175;Ife East;;Ife East
+LGA;176;Ife North;;Ife North
+LGA;177;Ife South;;Ife South
+LGA;178;Efon;;Efon
+LGA;179;Egbado North;;Egbado North
+LGA;180;Egbado South;;Egbado South
+LGA;181;Egbeda;;Egbeda
+LGA;182;Egbedore;;Egbedore
+LGA;183;Egor;;Egor
+LGA;184;Ehime Mbano;;Ehime Mbano
+LGA;185;Ejigbo;;Ejigbo
+LGA;186;Ekeremor;;Ekeremor
+LGA;187;Eket;;Eket
+LGA;188;Ekiti;;Ekiti
+LGA;189;Ekiti East;;Ekiti East
+LGA;190;Ekiti South-West;;Ekiti South-West
+LGA;191;Ekiti West;;Ekiti West
+LGA;192;Ekwusigo;;Ekwusigo
+LGA;193;Eleme;;Eleme
+LGA;194;Emuoha;;Emuoha
+LGA;195;Emure;;Emure
+LGA;196;Enugu East;;Enugu East
+LGA;197;Enugu North;;Enugu North
+LGA;198;Enugu South;;Enugu South
+LGA;199;Epe;;Epe
+LGA;200;Esan Central;;Esan Central
+LGA;201;Esan North-East;;Esan North-East
+LGA;202;Esan South-East;;Esan South-East
+LGA;203;Esan West;;Esan West
+LGA;204;Ese Odo;;Ese Odo
+LGA;205;Esit Eket;;Esit Eket
+LGA;206;Essien Udim;;Essien Udim
+LGA;207;Etche;;Etche
+LGA;208;Ethiope East;;Ethiope East
+LGA;209;Ethiope West;;Ethiope West
+LGA;210;Etim Ekpo;;Etim Ekpo
+LGA;211;Etinan;;Etinan
+LGA;212;Eti Osa;;Eti Osa
+LGA;213;Etsako Central;;Etsako Central
+LGA;214;Etsako East;;Etsako East
+LGA;215;Etsako West;;Etsako West
+LGA;216;Etung;;Etung
+LGA;217;Ewekoro;;Ewekoro
+LGA;218;Ezeagu;;Ezeagu
+LGA;219;Ezinihitte;;Ezinihitte
+LGA;220;Ezza North;;Ezza North
+LGA;221;Ezza South;;Ezza South
+LGA;222;Fagge;;Fagge
+LGA;223;Fakai;;Fakai
+LGA;224;Faskari;;Faskari
+LGA;225;Fika;;Fika
+LGA;226;Fufure;;Fufure
+LGA;227;Funakaye;;Funakaye
+LGA;228;Fune;;Fune
+LGA;229;Funtua;;Funtua
+LGA;230;Gabasawa;;Gabasawa
+LGA;231;Gada;;Gada
+LGA;232;Gagarawa;;Gagarawa
+LGA;233;Gamawa;;Gamawa
+LGA;234;Ganjuwa;;Ganjuwa
+LGA;235;Ganye;;Ganye
+LGA;236;Garki;;Garki
+LGA;237;Garko;;Garko
+LGA;238;Garun Mallam;;Garun Mallam
+LGA;239;Gashaka;;Gashaka
+LGA;240;Gassol;;Gassol
+LGA;241;Gaya;;Gaya
+LGA;242;Gayuk;;Gayuk
+LGA;243;Gezawa;;Gezawa
+LGA;244;Gbako;;Gbako
+LGA;245;Gboko;;Gboko
+LGA;246;Gbonyin;;Gbonyin
+LGA;247;Geidam;;Geidam
+LGA;248;Giade;;Giade
+LGA;249;Giwa;;Giwa
+LGA;250;Gokana;;Gokana
+LGA;251;Gombe;;Gombe
+LGA;252;Gombi;;Gombi
+LGA;253;Goronyo;;Goronyo
+LGA;254;Grie;;Grie
+LGA;255;Gubio;;Gubio
+LGA;256;Gudu;;Gudu
+LGA;257;Gujba;;Gujba
+LGA;258;Gulani;;Gulani
+LGA;259;Guma;;Guma
+LGA;260;Gumel;;Gumel
+LGA;261;Gummi;;Gummi
+LGA;262;Gurara;;Gurara
+LGA;263;Guri;;Guri
+LGA;264;Gusau;;Gusau
+LGA;265;Guzamala;;Guzamala
+LGA;266;Gwadabawa;;Gwadabawa
+LGA;267;Gwagwalada;;Gwagwalada
+LGA;268;Gwale;;Gwale
+LGA;269;Gwandu;;Gwandu
+LGA;270;Gwaram;;Gwaram
+LGA;271;Gwarzo;;Gwarzo
+LGA;272;Gwer East;;Gwer East
+LGA;273;Gwer West;;Gwer West
+LGA;274;Gwiwa;;Gwiwa
+LGA;275;Gwoza;;Gwoza
+LGA;276;Hadejia;;Hadejia
+LGA;277;Hawul;;Hawul
+LGA;278;Hong;;Hong
+LGA;279;Ibadan North;;Ibadan North
+LGA;280;Ibadan North-East;;Ibadan North-East
+LGA;281;Ibadan North-West;;Ibadan North-West
+LGA;282;Ibadan South-East;;Ibadan South-East
+LGA;283;Ibadan South-West;;Ibadan South-West
+LGA;284;Ibaji;;Ibaji
+LGA;285;Ibarapa Central;;Ibarapa Central
+LGA;286;Ibarapa East;;Ibarapa East
+LGA;287;Ibarapa North;;Ibarapa North
+LGA;288;Ibeju-Lekki;;Ibeju-Lekki
+LGA;289;Ibeno;;Ibeno
+LGA;290;Ibesikpo Asutan;;Ibesikpo Asutan
+LGA;291;Ibi;;Ibi
+LGA;292;Ibiono-Ibom;;Ibiono-Ibom
+LGA;293;Idah;;Idah
+LGA;294;Idanre;;Idanre
+LGA;295;Ideato North;;Ideato North
+LGA;296;Ideato South;;Ideato South
+LGA;297;Idemili North;;Idemili North
+LGA;298;Idemili South;;Idemili South
+LGA;299;Ido;;Ido
+LGA;300;Ido Osi;;Ido Osi
+LGA;301;Ifako-Ijaiye;;Ifako-Ijaiye
+LGA;302;Ifedayo;;Ifedayo
+LGA;303;Ifedore;;Ifedore
+LGA;304;Ifelodun;;Ifelodun
+LGA;305;Ifelodun;;Ifelodun
+LGA;306;Ifo;;Ifo
+LGA;307;Igabi;;Igabi
+LGA;308;Igalamela Odolu;;Igalamela Odolu
+LGA;309;Igbo Etiti;;Igbo Etiti
+LGA;310;Igbo Eze North;;Igbo Eze North
+LGA;311;Igbo Eze South;;Igbo Eze South
+LGA;312;Igueben;;Igueben
+LGA;313;Ihiala;;Ihiala
+LGA;314;Ihitte/Uboma;;Ihitte/Uboma
+LGA;315;Ilaje;;Ilaje
+LGA;316;Ijebu East;;Ijebu East
+LGA;317;Ijebu North;;Ijebu North
+LGA;318;Ijebu North East;;Ijebu North East
+LGA;319;Ijebu Ode;;Ijebu Ode
+LGA;320;Ijero;;Ijero
+LGA;321;Ijumu;;Ijumu
+LGA;322;Ika;;Ika
+LGA;323;Ika North East;;Ika North East
+LGA;324;Ikara;;Ikara
+LGA;325;Ika South;;Ika South
+LGA;326;Ikeduru;;Ikeduru
+LGA;327;Ikeja;;Ikeja
+LGA;328;Ikenne;;Ikenne
+LGA;329;Ikere;;Ikere
+LGA;330;Ikole;;Ikole
+LGA;331;Ikom;;Ikom
+LGA;332;Ikono;;Ikono
+LGA;333;Ikorodu;;Ikorodu
+LGA;334;Ikot Abasi;;Ikot Abasi
+LGA;335;Ikot Ekpene;;Ikot Ekpene
+LGA;336;Ikpoba Okha;;Ikpoba Okha
+LGA;337;Ikwerre;;Ikwerre
+LGA;338;Ikwo;;Ikwo
+LGA;339;Ikwuano;;Ikwuano
+LGA;340;Ila;;Ila
+LGA;341;Ilejemeje;;Ilejemeje
+LGA;342;Ile Oluji/Okeigbo;;Ile Oluji/Okeigbo
+LGA;343;Ilesa East;;Ilesa East
+LGA;344;Ilesa West;;Ilesa West
+LGA;345;Illela;;Illela
+LGA;346;Ilorin East;;Ilorin East
+LGA;347;Ilorin South;;Ilorin South
+LGA;348;Ilorin West;;Ilorin West
+LGA;349;Imeko Afon;;Imeko Afon
+LGA;350;Ingawa;;Ingawa
+LGA;351;Ini;;Ini
+LGA;352;Ipokia;;Ipokia
+LGA;353;Irele;;Irele
+LGA;354;Irepo;;Irepo
+LGA;355;Irepodun;;Irepodun
+LGA;356;Irepodun;;Irepodun
+LGA;357;Irepodun/Ifelodun;;Irepodun/Ifelodun
+LGA;358;Irewole;;Irewole
+LGA;359;Isa;;Isa
+LGA;360;Ise/Orun;;Ise/Orun
+LGA;361;Iseyin;;Iseyin
+LGA;362;Ishielu;;Ishielu
+LGA;363;Isiala Mbano;;Isiala Mbano
+LGA;364;Isiala Ngwa North;;Isiala Ngwa North
+LGA;365;Isiala Ngwa South;;Isiala Ngwa South
+LGA;366;Isin;;Isin
+LGA;367;Isi Uzo;;Isi Uzo
+LGA;368;Isokan;;Isokan
+LGA;369;Isoko North;;Isoko North
+LGA;370;Isoko South;;Isoko South
+LGA;371;Isu;;Isu
+LGA;372;Isuikwuato;;Isuikwuato
+LGA;373;Itas/Gadau;;Itas/Gadau
+LGA;374;Itesiwaju;;Itesiwaju
+LGA;375;Itu;;Itu
+LGA;376;Ivo;;Ivo
+LGA;377;Iwajowa;;Iwajowa
+LGA;378;Iwo;;Iwo
+LGA;379;Izzi;;Izzi
+LGA;380;Jaba;;Jaba
+LGA;381;Jada;;Jada
+LGA;382;Jahun;;Jahun
+LGA;383;Jakusko;;Jakusko
+LGA;384;Jalingo;;Jalingo
+LGA;385;Jama'are;;Jama'are
+LGA;386;Jega;;Jega
+LGA;387;Jema'a;;Jema'a
+LGA;388;Jere;;Jere
+LGA;389;Jibia;;Jibia
+LGA;390;Jos East;;Jos East
+LGA;391;Jos North;;Jos North
+LGA;392;Jos South;;Jos South
+LGA;393;Kabba/Bunu;;Kabba/Bunu
+LGA;394;Kabo;;Kabo
+LGA;395;Kachia;;Kachia
+LGA;396;Kaduna North;;Kaduna North
+LGA;397;Kaduna South;;Kaduna South
+LGA;398;Kafin Hausa;;Kafin Hausa
+LGA;399;Kafur;;Kafur
+LGA;400;Kaga;;Kaga
+LGA;401;Kagarko;;Kagarko
+LGA;402;Kaiama;;Kaiama
+LGA;403;Kaita;;Kaita
+LGA;404;Kajola;;Kajola
+LGA;405;Kajuru;;Kajuru
+LGA;406;Kala/Balge;;Kala/Balge
+LGA;407;Kalgo;;Kalgo
+LGA;408;Kaltungo;;Kaltungo
+LGA;409;Kanam;;Kanam
+LGA;410;Kankara;;Kankara
+LGA;411;Kanke;;Kanke
+LGA;412;Kankia;;Kankia
+LGA;413;Kano Municipal;;Kano Municipal
+LGA;414;Karasuwa;;Karasuwa
+LGA;415;Karaye;;Karaye
+LGA;416;Karim Lamido;;Karim Lamido
+LGA;417;Karu;;Karu
+LGA;418;Katagum;;Katagum
+LGA;419;Katcha;;Katcha
+LGA;420;Katsina;;Katsina
+LGA;421;Katsina-Ala;;Katsina-Ala
+LGA;422;Kaura;;Kaura
+LGA;423;Kaura Namoda;;Kaura Namoda
+LGA;424;Kauru;;Kauru
+LGA;425;Kazaure;;Kazaure
+LGA;426;Keana;;Keana
+LGA;427;Kebbe;;Kebbe
+LGA;428;Keffi;;Keffi
+LGA;429;Khana;;Khana
+LGA;430;Kibiya;;Kibiya
+LGA;431;Kirfi;;Kirfi
+LGA;432;Kiri Kasama;;Kiri Kasama
+LGA;433;Kiru;;Kiru
+LGA;434;Kiyawa;;Kiyawa
+LGA;435;Kogi;;Kogi
+LGA;436;Koko/Besse;;Koko/Besse
+LGA;437;Kokona;;Kokona
+LGA;438;Kolokuma/Opokuma;;Kolokuma/Opokuma
+LGA;439;Konduga;;Konduga
+LGA;440;Konshisha;;Konshisha
+LGA;441;Kontagora;;Kontagora
+LGA;442;Kosofe;;Kosofe
+LGA;443;Kaugama;;Kaugama
+LGA;444;Kubau;;Kubau
+LGA;445;Kudan;;Kudan
+LGA;446;Kuje;;Kuje
+LGA;447;Kukawa;;Kukawa
+LGA;448;Kumbotso;;Kumbotso
+LGA;449;Kumi;;Kumi
+LGA;450;Kunchi;;Kunchi
+LGA;451;Kura;;Kura
+LGA;452;Kurfi;;Kurfi
+LGA;453;Kusada;;Kusada
+LGA;454;Kwali;;Kwali
+LGA;455;Kwande;;Kwande
+LGA;456;Kwami;;Kwami
+LGA;457;Kware;;Kware
+LGA;458;Kwaya Kusar;;Kwaya Kusar
+LGA;459;Lafia;;Lafia
+LGA;460;Lagelu;;Lagelu
+LGA;461;Lagos Island;;Lagos Island
+LGA;462;Lagos Mainland;;Lagos Mainland
+LGA;463;Langtang South;;Langtang South
+LGA;464;Langtang North;;Langtang North
+LGA;465;Lapai;;Lapai
+LGA;466;Larmurde;;Larmurde
+LGA;467;Lau;;Lau
+LGA;468;Lavun;;Lavun
+LGA;469;Lere;;Lere
+LGA;470;Logo;;Logo
+LGA;471;Lokoja;;Lokoja
+LGA;472;Machina;;Machina
+LGA;473;Madagali;;Madagali
+LGA;474;Madobi;;Madobi
+LGA;475;Mafa;;Mafa
+LGA;476;Magama;;Magama
+LGA;477;Magumeri;;Magumeri
+LGA;478;Mai'Adua;;Mai'Adua
+LGA;479;Maiduguri;;Maiduguri
+LGA;480;Maigatari;;Maigatari
+LGA;481;Maiha;;Maiha
+LGA;482;Maiyama;;Maiyama
+LGA;483;Makarfi;;Makarfi
+LGA;484;Makoda;;Makoda
+LGA;485;Malam Madori;;Malam Madori
+LGA;486;Malumfashi;;Malumfashi
+LGA;487;Mangu;;Mangu
+LGA;488;Mani;;Mani
+LGA;489;Maradun;;Maradun
+LGA;490;Mariga;;Mariga
+LGA;491;Makurdi;;Makurdi
+LGA;492;Marte;;Marte
+LGA;493;Maru;;Maru
+LGA;494;Mashegu;;Mashegu
+LGA;495;Mashi;;Mashi
+LGA;496;Matazu;;Matazu
+LGA;497;Mayo Belwa;;Mayo Belwa
+LGA;498;Mbaitoli;;Mbaitoli
+LGA;499;Mbo;;Mbo
+LGA;500;Michika;;Michika
+LGA;501;Miga;;Miga
+LGA;502;Mikang;;Mikang
+LGA;503;Minjibir;;Minjibir
+LGA;504;Misau;;Misau
+LGA;505;Moba;;Moba
+LGA;506;Mobbar;;Mobbar
+LGA;507;Mubi North;;Mubi North
+LGA;508;Mubi South;;Mubi South
+LGA;509;Mokwa;;Mokwa
+LGA;510;Monguno;;Monguno
+LGA;511;Mopa Muro;;Mopa Muro
+LGA;512;Moro;;Moro
+LGA;513;Moya;;Moya
+LGA;514;Mkpat-Enin;;Mkpat-Enin
+LGA;515;AMAC;;Abuja Municipal
+LGA;516;Musawa;;Musawa
+LGA;517;Mushin;;Mushin
+LGA;518;Nafada;;Nafada
+LGA;519;Nangere;;Nangere
+LGA;520;Nasarawa;;Nasarawa
+LGA;521;Nasarawa;;Nasarawa
+LGA;522;Nasarawa Egon;;Nasarawa Egon
+LGA;523;Ndokwa East;;Ndokwa East
+LGA;524;Ndokwa West;;Ndokwa West
+LGA;525;Nembe;;Nembe
+LGA;526;Ngala;;Ngala
+LGA;527;Nganzai;;Nganzai
+LGA;528;Ngaski;;Ngaski
+LGA;529;Ngor Okpala;;Ngor Okpala
+LGA;530;Nguru;;Nguru
+LGA;531;Ningi;;Ningi
+LGA;532;Njaba;;Njaba
+LGA;533;Njikoka;;Njikoka
+LGA;534;Nkanu East;;Nkanu East
+LGA;535;Nkanu West;;Nkanu West
+LGA;536;Nkwerre;;Nkwerre
+LGA;537;Nnewi North;;Nnewi North
+LGA;538;Nnewi South;;Nnewi South
+LGA;539;Nsit-Atai;;Nsit-Atai
+LGA;540;Nsit-Ibom;;Nsit-Ibom
+LGA;541;Nsit-Ubium;;Nsit-Ubium
+LGA;542;Nsukka;;Nsukka
+LGA;543;Numan;;Numan
+LGA;544;Nwangele;;Nwangele
+LGA;545;Obafemi Owode;;Obafemi Owode
+LGA;546;Obanliku;;Obanliku
+LGA;547;Obi;;Obi
+LGA;548;Obi;;Obi
+LGA;549;Obi Ngwa;;Obi Ngwa
+LGA;550;Obio/Akpor;;Obio/Akpor
+LGA;551;Obokun;;Obokun
+LGA;552;Obot Akara;;Obot Akara
+LGA;553;Obowo;;Obowo
+LGA;554;Obubra;;Obubra
+LGA;555;Obudu;;Obudu
+LGA;556;Odeda;;Odeda
+LGA;557;Odigbo;;Odigbo
+LGA;558;Odogbolu;;Odogbolu
+LGA;559;Odo Otin;;Odo Otin
+LGA;560;Odukpani;;Odukpani
+LGA;561;Offa;;Offa
+LGA;562;Ofu;;Ofu
+LGA;563;Ogba/Egbema/Ndoni;;Ogba/Egbema/Ndoni
+LGA;564;Ogbadibo;;Ogbadibo
+LGA;565;Ogbaru;;Ogbaru
+LGA;566;Ogbia;;Ogbia
+LGA;567;Ogbomosho North;;Ogbomosho North
+LGA;568;Ogbomosho South;;Ogbomosho South
+LGA;569;Ogu/Bolo;;Ogu/Bolo
+LGA;570;Ogoja;;Ogoja
+LGA;571;Ogo Oluwa;;Ogo Oluwa
+LGA;572;Ogori/Magongo;;Ogori/Magongo
+LGA;573;Ogun Waterside;;Ogun Waterside
+LGA;574;Oguta;;Oguta
+LGA;575;Ohafia;;Ohafia
+LGA;576;Ohaji/Egbema;;Ohaji/Egbema
+LGA;577;Ohaozara;;Ohaozara
+LGA;578;Ohaukwu;;Ohaukwu
+LGA;579;Ohimini;;Ohimini
+LGA;580;Orhionmwon;;Orhionmwon
+LGA;581;Oji River;;Oji River
+LGA;582;Ojo;;Ojo
+LGA;583;Oju;;Oju
+LGA;584;Okehi;;Okehi
+LGA;585;Okene;;Okene
+LGA;586;Oke Ero;;Oke Ero
+LGA;587;Okigwe;;Okigwe
+LGA;588;Okitipupa;;Okitipupa
+LGA;589;Okobo;;Okobo
+LGA;590;Okpe;;Okpe
+LGA;591;Okrika;;Okrika
+LGA;592;Olamaboro;;Olamaboro
+LGA;593;Ola Oluwa;;Ola Oluwa
+LGA;594;Olorunda;;Olorunda
+LGA;595;Olorunsogo;;Olorunsogo
+LGA;596;Oluyole;;Oluyole
+LGA;597;Omala;;Omala
+LGA;598;Omuma;;Omuma
+LGA;599;Ona Ara;;Ona Ara
+LGA;600;Ondo East;;Ondo East
+LGA;601;Ondo West;;Ondo West
+LGA;602;Onicha;;Onicha
+LGA;603;Onitsha North;;Onitsha North
+LGA;604;Onitsha South;;Onitsha South
+LGA;605;Onna;;Onna
+LGA;606;Okpokwu;;Okpokwu
+LGA;607;Opobo/Nkoro;;Opobo/Nkoro
+LGA;608;Oredo;;Oredo
+LGA;609;Orelope;;Orelope
+LGA;610;Oriade;;Oriade
+LGA;611;Ori Ire;;Ori Ire
+LGA;612;Orlu;;Orlu
+LGA;613;Orolu;;Orolu
+LGA;614;Oron;;Oron
+LGA;615;Orsu;;Orsu
+LGA;616;Oru East;;Oru East
+LGA;617;Oruk Anam;;Oruk Anam
+LGA;618;Orumba North;;Orumba North
+LGA;619;Orumba South;;Orumba South
+LGA;620;Oru West;;Oru West
+LGA;621;Ose;;Ose
+LGA;622;Oshimili North;;Oshimili North
+LGA;623;Oshimili South;;Oshimili South
+LGA;624;Oshodi-Isolo;;Oshodi-Isolo
+LGA;625;Osisioma;;Osisioma
+LGA;626;Osogbo;;Osogbo
+LGA;627;Oturkpo;;Oturkpo
+LGA;628;Ovia North-East;;Ovia North-East
+LGA;629;Ovia South-West;;Ovia South-West
+LGA;630;Owan East;;Owan East
+LGA;631;Owan West;;Owan West
+LGA;632;Owerri Municipal;;Owerri Municipal
+LGA;633;Owerri North;;Owerri North
+LGA;634;Owerri West;;Owerri West
+LGA;635;Owo;;Owo
+LGA;636;Oye;;Oye
+LGA;637;Oyi;;Oyi
+LGA;638;Oyigbo;;Oyigbo
+LGA;639;Oyo;;Oyo
+LGA;640;Oyo East;;Oyo East
+LGA;641;Oyun;;Oyun
+LGA;642;Paikoro;;Paikoro
+LGA;643;Pankshin;;Pankshin
+LGA;644;Patani;;Patani
+LGA;645;Pategi;;Pategi
+LGA;646;Port Harcourt;;Port Harcourt
+LGA;647;Potiskum;;Potiskum
+LGA;648;Qua'an Pan;;Qua'an Pan
+LGA;649;Rabah;;Rabah
+LGA;650;Rafi;;Rafi
+LGA;651;Rano;;Rano
+LGA;652;Remo North;;Remo North
+LGA;653;Rijau;;Rijau
+LGA;654;Rimi;;Rimi
+LGA;655;Rimin Gado;;Rimin Gado
+LGA;656;Ringim;;Ringim
+LGA;657;Riyom;;Riyom
+LGA;658;Rogo;;Rogo
+LGA;659;Roni;;Roni
+LGA;660;Sabon Birni;;Sabon Birni
+LGA;661;Sabon Gari;;Sabon Gari
+LGA;662;Sabuwa;;Sabuwa
+LGA;663;Safana;;Safana
+LGA;664;Sagbama;;Sagbama
+LGA;665;Sakaba;;Sakaba
+LGA;666;Saki East;;Saki East
+LGA;667;Saki West;;Saki West
+LGA;668;Sandamu;;Sandamu
+LGA;669;Sanga;;Sanga
+LGA;670;Sapele;;Sapele
+LGA;671;Sardauna;;Sardauna
+LGA;672;Shagamu;;Shagamu
+LGA;673;Shagari;;Shagari
+LGA;674;Shanga;;Shanga
+LGA;675;Shani;;Shani
+LGA;676;Shanono;;Shanono
+LGA;677;Shelleng;;Shelleng
+LGA;678;Shendam;;Shendam
+LGA;679;Shinkafi;;Shinkafi
+LGA;680;Shira;;Shira
+LGA;681;Shiroro;;Shiroro
+LGA;682;Shongom;;Shongom
+LGA;683;Shomolu;;Shomolu
+LGA;684;Silame;;Silame
+LGA;685;Soba;;Soba
+LGA;686;Sokoto North;;Sokoto North
+LGA;687;Sokoto South;;Sokoto South
+LGA;688;Song;;Song
+LGA;689;Southern Ijaw;;Southern Ijaw
+LGA;690;Suleja;;Suleja
+LGA;691;Sule Tankarkar;;Sule Tankarkar
+LGA;692;Sumaila;;Sumaila
+LGA;693;Suru;;Suru
+LGA;694;Surulere;;Surulere
+LGA;695;Surulere;;Surulere
+LGA;696;Tafa;;Tafa
+LGA;697;Tafawa Balewa;;Tafawa Balewa
+LGA;698;Tai;;Tai
+LGA;699;Takai;;Takai
+LGA;700;Takum;;Takum
+LGA;701;Talata Mafara;;Talata Mafara
+LGA;702;Tambuwal;;Tambuwal
+LGA;703;Tangaza;;Tangaza
+LGA;704;Tarauni;;Tarauni
+LGA;705;Tarka;;Tarka
+LGA;706;Tarmuwa;;Tarmuwa
+LGA;707;Taura;;Taura
+LGA;708;Toungo;;Toungo
+LGA;709;Tofa;;Tofa
+LGA;710;Toro;;Toro
+LGA;711;Toto;;Toto
+LGA;712;Chafe;;Chafe
+LGA;713;Tsanyawa;;Tsanyawa
+LGA;714;Tudun Wada;;Tudun Wada
+LGA;715;Tureta;;Tureta
+LGA;716;Udenu;;Udenu
+LGA;717;Udi;;Udi
+LGA;718;Udu;;Udu
+LGA;719;Udung-Uko;;Udung-Uko
+LGA;720;Ughelli North;;Ughelli North
+LGA;721;Ughelli South;;Ughelli South
+LGA;722;Ugwunagbo;;Ugwunagbo
+LGA;723;Uhunmwonde;;Uhunmwonde
+LGA;724;Ukanafun;;Ukanafun
+LGA;725;Ukum;;Ukum
+LGA;726;Ukwa East;;Ukwa East
+LGA;727;Ukwa West;;Ukwa West
+LGA;728;Ukwuani;;Ukwuani
+LGA;729;Umuahia North;;Umuahia North
+LGA;730;Umuahia South;;Umuahia South
+LGA;731;Umu Nneochi;;Umu Nneochi
+LGA;732;Ungogo;;Ungogo
+LGA;733;Unuimo;;Unuimo
+LGA;734;Uruan;;Uruan
+LGA;735;Urue-Offong/Oruko;;Urue-Offong/Oruko
+LGA;736;Ushongo;;Ushongo
+LGA;737;Ussa;;Ussa
+LGA;738;Uvwie;;Uvwie
+LGA;739;Uyo;;Uyo
+LGA;740;Uzo Uwani;;Uzo Uwani
+LGA;741;Vandeikya;;Vandeikya
+LGA;742;Wamako;;Wamako
+LGA;743;Wamba;;Wamba
+LGA;744;Warawa;;Warawa
+LGA;745;Warji;;Warji
+LGA;746;Warri North;;Warri North
+LGA;747;Warri South;;Warri South
+LGA;748;Warri South West;;Warri South West
+LGA;749;Wasagu/Danko;;Wasagu/Danko
+LGA;750;Wase;;Wase
+LGA;751;Wudil;;Wudil
+LGA;752;Wukari;;Wukari
+LGA;753;Wurno;;Wurno
+LGA;754;Wushishi;;Wushishi
+LGA;755;Yabo;;Yabo
+LGA;756;Yagba East;;Yagba East
+LGA;757;Yagba West;;Yagba West
+LGA;758;Yakuur;;Yakuur
+LGA;759;Yala;;Yala
+LGA;760;Yamaltu/Deba;;Yamaltu/Deba
+LGA;761;Yankwashi;;Yankwashi
+LGA;762;Yauri;;Yauri
+LGA;763;Yenagoa;;Yenagoa
+LGA;764;Yola North;;Yola North
+LGA;765;Yola South;;Yola South
+LGA;766;Yorro;;Yorro
+LGA;767;Yunusari;;Yunusari
+LGA;768;Yusufari;;Yusufari
+LGA;769;Zaki;;Zaki
+LGA;770;Zango;;Zango
+LGA;771;Zangon Kataf;;Zangon Kataf
+LGA;772;Zaria;;Zaria
+LGA;773;Zing;;Zing
+LGA;774;Zurmi;;Zurmi
+LGA;775;Zuru;;Zuru
+MARITAL_STATUS;N;Annulled;;
+MARITAL_STATUS;C;Common law;;
+MARITAL_STATUS;D;Divorced;;Divorced
+MARITAL_STATUS;P;Domestic partner;;
+MARITAL_STATUS;I;Interlocutory;;
+MARITAL_STATUS;E;Legally Separated;;
+MARITAL_STATUS;G;Living together;;
+MARITAL_STATUS;M;Married;;Married
+MARITAL_STATUS;O;Other;;
+MARITAL_STATUS;R;Registered domestic partner;;
+MARITAL_STATUS;A;Separated;;Separated
+MARITAL_STATUS;S;Single;;Single
+MARITAL_STATUS;U;Unknown;;
+MARITAL_STATUS;B;Unmarried;;
+MARITAL_STATUS;T;Unreported;;
+MARITAL_STATUS;W;Widowed;;Widowed
+MESSAGE_STATUS;INITIAL;Initial;;
+MESSAGE_STATUS;UPDATED;Updated;;
+OCCUPATION_STATUS;UNE;Unemployed;;Unemployed
+OCCUPATION_STATUS;EMP;Employed;;Employed
+OCCUPATION_STATUS;STU;Student;;Student
+OCCUPATION_STATUS;RET;Retired;;Retired
+OCCUPATION_STATUS;NA;Not Applicable;;
+OI_REGIMEN;CTX800;Cotrimoxazole 800mg;;
+OI_REGIMEN;CTX480;Cotrimoxazole 480mg;;Cotrimoxazole 480mg
+OI_REGIMEN;CTX400;Cotrimoxazole 400mg;;
+OI_REGIMEN;CTX240;Cotrimoxazole 240mg/5ml;;Cotrimoxazole 240mg/5ml
+OI_REGIMEN;FLUC;Fluconazole;;Fluconazole 50mg
+OI_REGIMEN;FLUC;Fluconazole;;Fluconazole 50mg/5ml
+OI_REGIMEN;FLUC;Fluconazole;;Fluconazole 200mg
+OI_REGIMEN;DDS;Dapsone;;
+OI_REGIMEN;INHB6;Isoniazid-Pyridoxine;;
+PREGNANCY_STATUS;P;Pregnant;;
+PREGNANCY_STATUS;PMTCT;Pregnant and on PMTCT;;
+PREGNANCY_STATUS;NP;Not Pregnant;;
+PREGNANCY_STATUS;NK;Not Known;;
+PRIOR_ART;T;Transfer in with records;;
+PRIOR_ART;NT;Earlier ARV but not a transfer in;;
+PRIOR_ART;P;PMTCT only;;
+PRIOR_ART;N;None;;
+PROGRAM_AREA;HIV;HIV;;HIV
+PROGRAM_AREA;OTH;Other;;
+REGIMEN_LINE;10;First Line;;First Line
+REGIMEN_LINE;11;First Line Substitution;;First Line Substitution
+REGIMEN_LINE;20;Second Line;;Second Line
+REGIMEN_LINE;21;Second Line Substitution;;Second Line Substitution
+REGIMEN_LINE;30;Third Line;;Third Line
+REGIMEN_SUB_SWITCH_REASON;1;Toxicity/side effects;;Toxicity/side effects
+REGIMEN_SUB_SWITCH_REASON;2;Pregnancy;;Pregnancy
+REGIMEN_SUB_SWITCH_REASON;3;Risk of pregnancy;;Risk of pregnancy
+REGIMEN_SUB_SWITCH_REASON;4;Due to new TB;;Due to new TB
+REGIMEN_SUB_SWITCH_REASON;5;New drug available;;New drug available
+REGIMEN_SUB_SWITCH_REASON;6;Drug out of stock;;Drug out of stock
+REGIMEN_SUB_SWITCH_REASON;7;Clinical treatment failure;;Clinical treatment failure
+REGIMEN_SUB_SWITCH_REASON;8;Immunologic failure;;Immunologic failure
+REGIMEN_SUB_SWITCH_REASON;9;Virologic failure;;Virologic failure
+REGIMEN_SUB_SWITCH_REASON;10;Other reason (specify);;Other
+REGIMEN_TYPE;ART;ART;;ART First Line Adult
+REGIMEN_TYPE;ART;ART;;ART Second Line Adult
+REGIMEN_TYPE;ART;ART;;ART First Line Children
+REGIMEN_TYPE;ART;ART;;ART Second Line Children
+REGIMEN_TYPE;NONART;Non-ART;;OI Treatment
+REGIMEN_TYPE;NONART;Non-ART;;Other anti-infectives (including STI Medicine)
+REGIMEN_TYPE;CTX;CTX;;Cotrimoxazole (CTX) Prophylaxis
+REGIMEN_TYPE;PEP;PEP Occupational;;Post Exposure Prophylaxis (PEP)
+REGIMEN_TYPE;PEPNONOCC;PEP  Non Occupational;;
+REGIMEN_TYPE;PMTCT;PMTCT;;ARV Prophylaxis for Pregnant Women
+REGIMEN_TYPE;PMTCT;PMTCT;;ARV Prophylaxis for Infants
+REGIMEN_TYPE;TB;TB;;TB Treatment Adult
+REGIMEN_TYPE;TB;TB;;TB Treatment Children
+SEX;A;Ambiguous;;
+SEX;F;Female;;Female
+SEX;M;Male;;Male
+SEX;N;Not applicable;;
+SEX;O;Other;;
+SEX;U;Unknown;;
+STATES;1;Abia;AB;Abia
+STATES;2;Adamawa;AD;Adamawa
+STATES;3;Akwa Ibom;AK;Akwa Ibom
+STATES;4;Anambra;AN;Anambra
+STATES;5;Bauchi;BA;Bauchi
+STATES;6;Bayelsa;BY;Bayelsa
+STATES;7;Benue;BE;Benue
+STATES;8;Borno;BN;Borno
+STATES;9;Cross River;CR;Cross River
+STATES;10;Delta;DE;Delta
+STATES;11;Ebonyi;EB;Ebonyi
+STATES;12;Edo;ED;Edo
+STATES;13;Ekiti;EK;Ekiti
+STATES;14;Enugu;EN;Enugu
+STATES;15;FCT;FCT;FCT
+STATES;16;Gombe;GM;Gombe
+STATES;17;Imo;IM;Imo
+STATES;18;Jigawa;JG;Jigawa
+STATES;19;Kaduna;KD;Kaduna
+STATES;20;Kano;KN;Kano
+STATES;21;Katsina;KT;Katsina
+STATES;22;Kebbi;KB;Kebbi
+STATES;23;Kogi;KG;Kogi
+STATES;24;Kwara;KW;Kwara
+STATES;25;Lagos;LG;Lagos
+STATES;26;Nasarawa;NS;Nasarawa
+STATES;27;Niger;NG;Niger
+STATES;28;Ogun;OG;Ogun
+STATES;29;Ondo;ON;Ondo
+STATES;30;Osun;OS;Osun
+STATES;31;Oyo;OY;Oyo
+STATES;32;Plateau;PL;Plateau
+STATES;33;Rivers;RV;Rivers
+STATES;34;Sokoto;SK;Sokoto
+STATES;35;Taraba;TR;Taraba
+STATES;36;Yobe;YB;Yobe
+STATES;37;Zamfara;ZM;Zamfara
+TB_REGIMEN;H;Isoniazid (INH);;
+TB_REGIMEN;R;Rifampicin;;
+TB_REGIMEN;Z;Pyrazinamide (PZI);;
+TB_REGIMEN;E;Ethambutol;;
+TB_REGIMEN;S;Streptomycin;;
+TB_REGIMEN;HE;Isoniazid-Ethambutol;;Ethambuthol/Isoniazid 400/150mg
+TB_REGIMEN;HR;Isoniazid-Rifampicin;;Rifampicin/Isoniazid 150/75mg
+TB_REGIMEN;HR;Isoniazid-Rifampicin;;Rifampicin/Isoniazid 60/30mg
+TB_REGIMEN;HRE;Isoniazid-Rifampicin-Ethambutol;;
+TB_REGIMEN;HRZE;Isoniazid-Rifampicin-Pyrazinamide-Ethambutol;;Rifampicin/Isoniazid/Pyrazinamide 60/30/150mg
+TB_REGIMEN;HRZES;Isoniazid-Rifampicin-Pyrazinamide-Ethambutol-Streptomycin;;Rifampicin/Isoniazid/Pyrazinamide/Ethambuthol 150/75/400/275mg
+TB_STATUS;1;No signs or symptoms of TB;;No sign or symptoms of TB
+TB_STATUS;2;TB suspected and referred for evaluation;;TB suspected and referred for evaluation
+TB_STATUS;3;Currently on INH prophylaxis (IPT);;Currently on INH prophylaxis
+TB_STATUS;4;Currently on TB treatment;;Currently on TB treatment
+TB_STATUS;5;TB Positive not on TB drugs;;TB positive not on TB drugs
+TESTING_STATUS;B;Baseline;;
+TESTING_STATUS;R;Repeat;;
+WHO_STAGE;1;Clinical Stage 1;;Stage I
+WHO_STAGE;2;Clinical Stage 2;;Stage II
+WHO_STAGE;3;Clinical Stage 3;;Stage III
+WHO_STAGE;4;Clinical Stage 4;;Stage IV
+WHY_ELIGIBLE;1;Clinically only;;Staging
+WHY_ELIGIBLE;2;CD4;;CD4
+WHY_ELIGIBLE;3;CD4%;;CD4p
+WHY_ELIGIBLE;4;TLC;;
+YNU;Y;Yes;;
+YNU;N;No;;
+YNU;U;Unknown;;
+OCCUPATION_STATUS;UNK;Unknown;;
+OI_REGIMEN;CTX960;Cotrimoxazole 960mg;;Cotrimoxazole 960mg
+ARV_REGIMEN;1m;TDF-3TC-DTG;;Tenofovir+Lamivudine+Dolutegravir_1
+ARV_REGIMEN;1o;ABC-3TC-DTG;;Tenofovir+Lamivudine+Dolutegravir_3

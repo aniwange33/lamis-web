@@ -1,0 +1,19 @@
+basePackage: org.fhi360.lamis.modules.ndr
+name: FHINDRModule
+store: true
+menus:
+    -   disabled: false
+        name: Administration
+        state: admin
+        subs:
+            -   state: ndr
+                name: NDR Converter
+                icon: keyboard_tab
+                type: LINK
+umdLocation: /across/resources/static/ndr/js/bundles/lamis-ndr.umd.js
+webModules:
+    -   breadcrumb: NDR CONVERTER
+        name: NdrModule
+        path: admin/ndr
+        position: 99
+        title: NDR Converter

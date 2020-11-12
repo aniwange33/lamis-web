@@ -1,0 +1,85 @@
+<mat-card>
+    <mat-card-content>
+        <h4>Filter by date</h4>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
+                <mat-form-field class="full-width">
+                    <input matInput [matDatepicker]="picker"
+                           placeholder="From"
+                           name="start" [(ngModel)]="fromDate"
+                           (ngModelChange)="onChangeDate($event)" required>
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
+                <mat-form-field class="full-width">
+                    <input matInput [matDatepicker]="picker1"
+                           placeholder="To"
+                           name="end" [(ngModel)]="toDate"
+                           (ngModelChange)="onChangeDate($event)" required>
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngIf="audits">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="auditEventDate"><span>Date</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="principal"><span>User</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="auditEventType"><span>State</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th><span>Extra data</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let audit of audits">
+                        <td><span>{{audit.timestamp| date:'medium'}}</span></td>
+                        <td>
+                            <small>{{audit.principal}}</small>
+                        </td>
+                        <td>{{audit.type}}</td>
+                        <td>
+                            <span *ngIf="audit.data" ng-show="audit.data.message">{{audit.data.message}}</span>
+                            <span *ngIf="audit.data"
+                                  ng-show="audit.data.remoteAddress"><span>Remote Address</span> {{audit.data.remoteAddress}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems"
+                                    [(page)]="page"
+                                    [pageSize]="itemsPerPage"
+                                    [maxSize]="5"
+                                    [rotate]="true"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,5 @@
+sequence_name,current_value,increment_by,min_value,max_value,cycle_flag,cache_size,create_time,last_update_by,last_update_time
+outgoing_batch_load_id,1,1,1,9999999999,0,0,now(),system,now()
+outgoing_batch,1,1,1,9999999999,0,10,now(),system,now()
+trigger_hist,1,1,1,9999999999,0,0,now(),system,now()
+extract_request,1,1,1,9999999999,0,0,now(),system,now()

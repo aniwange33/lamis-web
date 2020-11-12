@@ -1,0 +1,25 @@
+basePackage: org.fhi360.lamis.modules.backup
+name: LamisBackupModule
+store: true
+menus:
+    -   disabled: false
+        name: Administration
+        state: admin
+        subs:
+            -   state: backup
+                name: Backup/ Restore
+                icon: keyboard_tab
+                subs:
+                    -   state: backup
+                        name: Backup
+                        type: LINK
+                    -   state: restore
+                        name: Restore
+                        type: LINK
+umdLocation: /across/resources/static/backup/js/bundles/lamis-backup.umd.min.js
+webModules:
+    -   breadcrumb: BACKUP/ RESTORE
+        name: BackupModule
+        path: admin/backup
+        position: 99
+        title: Backup/ Restore

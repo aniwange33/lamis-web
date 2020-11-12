@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="end">
+            <div>
+                <button mat-raised-button color="primary" (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                    <span>Refresh</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="healthCheck" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Service Name</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let health of healthData">
+                    <td><span class="text-capitalize">{{ baseName(health.name) }}</span> {{subSystemName(health.name)}}
+                    </td>
+                    <td class="text-center">
+                        <span class="badge" [ngClass]="getBadgeClass(health.status)">
+                            {{health.status}}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <a mat-icon-button (click)="showHealth(health)" *ngIf="health.details || health.error">
+                            <mat-icon>visibility</mat-icon>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

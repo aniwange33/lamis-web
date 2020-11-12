@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="20200617134534" author="mattae">
+        <sql>
+            INSERT INTO regimen(description, regimen_type_id) VALUES('Isoniazid 100mg', 15) ;
+            INSERT INTO regimen_drug(regimen_id, drug_id) SELECT r.id, d.id FROM regimen r, drug d WHERE d.name =
+            'Isoniazid' AND strength = '100mg' AND r.description = 'Isoniazid 100mg';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-01" author="mattae">
+        <sqlFile path="installers/pharmacy/schema/fix_known_death_ltfu.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200723134611-02" author="mattae">
+        <sql>
+            update module set priority = 1 where name = 'LamisLegacyModule';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-03" author="mattae">
+        <sqlFile path="installers/pharmacy/schema/fix_known_death_ltfu.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200723134611-04" author="mattae">
+        <sql>
+            update devolve set dmoc_type = 'MMD' where dmoc_type = 'null' or dmoc_type is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-05" author="mattae">
+        <sql>
+            update pharmacy_line set regimen_type_id = 8 where regimen_id between 44 and 46;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-06" author="mattae">
+        <sqlFile path="installers/pharmacy/schema/fix_regimen_at_commencement.sql" splitStatements="false"/>
+    </changeSet>
+</databaseChangeLog>

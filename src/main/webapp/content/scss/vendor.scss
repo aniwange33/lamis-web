@@ -1,0 +1,333 @@
+/* after changing this file run 'npm run webpack:build' */
+
+/***************************
+put Sass variables here:
+eg $input-color: red;
+****************************/
+// Override Bootstrap variables
+@import 'bootstrap-variables';
+// Import Bootstrap source files from node_modules
+@import '~bootstrap/scss/bootstrap';
+@import '~material-design-icons/iconfont/material-icons.css';
+//@import '~nebular-icons/scss/nebular-icons.scss';
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@covalent/core/common/platform.css";
+@import "~@covalent/core/theming/prebuilt/indigo-pink.css";
+@import '~@alfresco/adf-core/prebuilt-themes/adf-indigo-pink.css';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@syncfusion/ej2-angular-base/styles/material.css';
+@import '~@syncfusion/ej2-angular-calendars/styles/material.css';
+@import '~@syncfusion/ej2-inputs/styles/material.css';
+@import '~@syncfusion/ej2-icons/styles/material.css';
+@import '~@syncfusion/ej2-angular-dropdowns/styles/material.css';
+@import '~@syncfusion/ej2-buttons/styles/material.css';
+@import '~@syncfusion/ej2-popups/styles/material.css';
+
+.sidenav1 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%;
+
+    &__section:last-child {
+        border-bottom: 0;
+    }
+
+    &_action-menu {
+        display: flex;
+        padding: 16px 24px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__section {
+        padding: 8px 14px;
+        position: relative;
+    }
+
+    &-menu {
+        display: inline-flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+    &-menu__item {
+        padding: 12px 0;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        text-decoration: none;
+        height: 24px;
+    }
+
+    .menu__item--label {
+        cursor: pointer;
+        width: 200px;
+        padding-left: 10px;
+    }
+
+    .menu__item--label:focus {
+        outline: none;
+    }
+}
+
+.sr-only {
+    display: none;
+}
+
+.list-container {
+    min-height: 400px;
+}
+
+/* Fab toggler start*/
+.fab-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    > div {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-bottom: 5px;
+
+        button {
+            margin-bottom: 17px;
+        }
+    }
+}
+
+.fab-toggler {
+    float: right;
+    z-index: 100;
+}
+
+#fab-dismiss {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+}
+
+/*Fab toggler end*/
+
+.pull-right {
+    float: right !important;
+}
+
+.list-wrapper {
+    height: calc(100% - 9rem);
+}
+
+.list-wrapper {
+    overflow: auto;
+}
+
+.full-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    width: 200px;
+}
+
+.full-list li.active {
+    background-color: #fafafb;
+}
+
+.full-list li {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+    padding: 2px 0 2px 0;
+}
+
+.full-list li.active > div {
+    border-left-color: #2980b9;
+}
+
+.full-list li .title {
+    font-size: 16px;
+    margin: 0 0 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.full-list li .badge, .simple-list li .badge {
+    font-size: 12px;
+    line-height: 12px;
+    padding-right: 0;
+    border-radius: 3px;
+    color: #2980b9;
+    background-color: transparent;
+    font-weight: normal;
+}
+
+.full-list li .summary {
+    clear: both;
+    margin: 3px 5px 0 5px;
+    font-size: 13px;
+    color: #1a1a1a;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.full-list li .detail {
+    margin: 0 5px;
+    font-size: 12px;
+    color: #999999;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*Edit form start*/
+.lamis {
+    &-edit-form {
+        width: 66%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+
+        .mat-select-trigger {
+            font-size: 14px !important;
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        mat-select {
+            width: 100%;
+            padding: 16px 0 0 0;
+        }
+
+        mat-card-actions {
+            text-align: right;
+
+            .mat-button {
+                text-transform: uppercase !important;
+            }
+        }
+    }
+
+    &-edit-form-container {
+        .mat-card {
+            padding: 5px 15px !important;
+        }
+    }
+
+    &-edit-form-actions {
+        text-align: right !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .lamis-edit-form {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+mat-list-item + mat-list-item {
+    border-top: 1px solid #eee;
+}
+
+.facet-header {
+    color: inherit;
+    font-weight: bold;
+    letter-spacing: .01em;
+    font-size: 14px;
+    line-height: 24px;
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+
+.facet-item {
+    font-weight: bold;
+    font-size: 8px;
+    word-wrap: break-word;
+    color: #1b278d;
+}
+
+.mat-chip[mat-sm-chip] {
+    font-size: 9px !important;
+    line-height: 10px !important;
+}
+
+.aggregates {
+    min-height: 30px;
+}
+
+/*Edit form end*/
+
+.lamis {
+    &-centre-content {
+        width: 66%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+
+        .mat-select-trigger {
+            font-size: 14px !important;
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        mat-select {
+            width: 100%;
+            padding: 16px 0 0;
+        }
+
+        mat-card-actions {
+            text-align: right;
+
+            .mat-button {
+                text-transform: uppercase !important;
+            }
+        }
+    }
+
+    &-content-form-actions {
+        text-align: right !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .lamis-centre-content {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@import 'styles/app';
+
+router-outlet[name='overlay'] + * {
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

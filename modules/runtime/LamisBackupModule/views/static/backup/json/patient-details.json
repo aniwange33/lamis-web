@@ -1,0 +1,107 @@
+[
+    {
+        "header": "",
+        "fields": [
+            {
+                "key": "hospitalNum",
+                "type": "text",
+                "label": "Hospital Number"
+            },
+            {
+                "key": "uniqueId",
+                "type": "text",
+                "label": "Unique ID"
+            }
+        ]
+    },
+    {
+        "header": "Bio Info",
+        "fields": [
+            {
+                "key": "name",
+                "type": "text",
+                "label": "Name"
+            },
+            {
+                "key": "gender",
+                "type": "text",
+                "label": "Gender"
+            },
+            {
+                "key": "maritalStatus",
+                "type": "text",
+                "label": "Marital Status"
+            },
+            {
+                "key": "dateBirth",
+                "type": "date",
+                "label": "Date of Birth"
+            }
+        ]
+    },
+    {
+        "header": "Social Info",
+        "fields": [
+            {
+                "key": "address",
+                "type": "text",
+                "label": "Address"
+            },
+            {
+                "key": "phone",
+                "type": "text",
+                "label": "Phone"
+            },
+            {
+                "key": "address",
+                "type": "text",
+                "label": "Address"
+            },
+            {
+                "key": "education",
+                "type": "text",
+                "label": "Education"
+            },
+            {
+                "key": "occupation",
+                "type": "text",
+                "label": "Occupation"
+            }
+        ]
+    },
+    {
+        "header": "Kin Information",
+        "fields": [
+            {
+                "key": "nextKin",
+                "type": "text",
+                "label": "Next of Kin"
+            },
+            {
+                "key": "relationKin",
+                "type": "text",
+                "label": "Kin Relationship"
+            },
+            {
+                "key": "addressKin",
+                "type": "text",
+                "label": "Address of Kin"
+            },
+            {
+                "key": "education",
+                "type": "text",
+                "label": "Education"
+            },
+            {
+                "key": "occupation",
+                "type": "text",
+                "label": "Occupation"
+            },
+            {
+                "key": "phoneKin",
+                "type": "text",
+                "label": "Kin Phone"
+            }
+        ]
+    }
+]

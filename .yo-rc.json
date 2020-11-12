@@ -1,0 +1,41 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "org.fhi360.lamis"
+        },
+        "jhipsterVersion": "6.3.1",
+        "applicationType": "monolith",
+        "baseName": "LAMIS",
+        "packageName": "org.fhi360.lamis",
+        "packageFolder": "org/fhi360/lamis",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": "spring-websocket",
+        "databaseType": "sql",
+        "devDatabaseType": "mariadb",
+        "prodDatabaseType": "mariadb",
+        "searchEngine": "elasticsearch",
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "OTNlYjRiZTY0ZjU4YjQ2Y2EyZmQ4MTIwMjFmNjFkY2UzYjU0NDc1NTVjMDAyY2ZlOTNhNzJhMTkyNjRiZmY5M2E5ODlmNTcxZWMyMjA5MmIyYzEzNzQ4OWQ1OWU1YTE1YTY2YzY1M2QxNWYzOWU2ZjZmMjM5MDkyMTE3OGFhOTA=",
+        "embeddableLaunchScript": false,
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "clientFramework": "angularX",
+        "clientTheme": "none",
+        "clientThemeVariant": "",
+        "testFrameworks": [
+            "cucumber"
+        ],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": false,
+        "blueprints": []
+    }
+}

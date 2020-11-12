@@ -1,0 +1,7 @@
+/*
+ * Public API Surface of Clinic
+ */
+export * from './lib/model/biometric.model';
+export * from './lib/services/biometric.service';
+export * from './lib/biometrics.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2xhbWlzLWJpb21ldHJpY3MtMS4wLjAvIiwic291cmNlcyI6WyJwdWJsaWNfYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyw2QkFBNkIsQ0FBQztBQUM1QyxjQUFjLGtDQUFrQyxDQUFDO0FBQ2pELGNBQWMseUJBQXlCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxyXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgQ2xpbmljXHJcbiAqL1xyXG5cclxuZXhwb3J0ICogZnJvbSAnLi9saWIvbW9kZWwvYmlvbWV0cmljLm1vZGVsJztcclxuZXhwb3J0ICogZnJvbSAnLi9saWIvc2VydmljZXMvYmlvbWV0cmljLnNlcnZpY2UnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9iaW9tZXRyaWNzLm1vZHVsZSc7XHJcbiJdfQ==

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="20200329170437-01" author="mattae" failOnError="false">
+        <sql>
+            CREATE TABLE sym_sequence (
+            sequence_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+            current_value bigint NOT NULL DEFAULT 0,
+            increment_by integer NOT NULL DEFAULT 1,
+            min_value bigint NOT NULL DEFAULT 1,
+            max_value bigint NOT NULL DEFAULT '9999999999'::bigint,
+            cycle_flag smallint DEFAULT 0,
+            cache_size integer NOT NULL DEFAULT 0,
+            create_time timestamp without time zone,
+            last_update_by character varying(50) COLLATE pg_catalog."default",
+            last_update_time timestamp without time zone NOT NULL,
+            CONSTRAINT sym_sequence_pkey PRIMARY KEY (sequence_name)
+            )
+        </sql>
+    </changeSet>
+    <!--<changeSet id="20200329170437-02" author="mattae" failOnError="false">
+        <loadData encoding="UTF-8"
+                  file="installers/database/sym_sequence.csv"
+                  separator=","
+                  tableName="sym_sequence"/>
+    </changeSet>-->
+    <!--
+        <changeSet id="20200714233921-01" author="mattae" failOnError="true">
+            <loadData encoding="UTF-8"
+                      file="installers/database/extension.csv"
+                      separator="#"
+                      tableName="sym_extension">
+                <column name="enabled" type="numeric"/>
+                <column name="extension_order" type="numeric"/>
+            </loadData>
+        </changeSet>-->
+
+    <changeSet id="20200718142134-01" author="mattae">
+        <createTable tableName="module_update">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_module_update_name"/>
+            </column>
+            <column name="install" type="boolean"/>
+            <column name="uninstall" type="boolean"/>
+            <column name="data" type="bytea">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200718142134-02" author="mattae">
+        <createTable tableName="sync_trigger">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="trigger_id" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_record_sync_trigger_id"/>
+            </column>
+            <column name="priority" type="int" defaultValue="100">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start" type="timestamp"/>
+            <column name="end" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200718142134-03" author="mattae">
+        <createTable tableName="update_status">
+            <column name="id" type="varchar(36)" defaultValue="uuid_generate_v4()::text">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="node_id" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200723134611-01" author="mattae">
+        <sqlFile path="installers/database/schema/fix_merge_import.sql" splitStatements="false"/>
+    </changeSet>
+    <changeSet id="20200723134611-02-01" author="mattae">
+        <sql>
+            drop trigger if exists soft_delete_clinic_adhere on clinic_adhere;
+            drop trigger if exists soft_delete_clinic_adhere on clinic_opportunistic_infection;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-02-2" author="mattae">
+        <sqlFile path="installers/database/schema/remove_orphaned_records.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200723134611-02-03" author="mattae">
+        <sql>
+            CREATE TRIGGER soft_delete_clinic_adhere
+            BEFORE DELETE ON clinic_adhere
+            FOR EACH ROW EXECUTE PROCEDURE soft_delete();
+
+            CREATE TRIGGER soft_delete_clinic_opportunistic_infection
+            BEFORE DELETE ON clinic_opportunistic_infection
+            FOR EACH ROW EXECUTE PROCEDURE soft_delete();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-03-01" author="mattae">
+        <sql>
+            update module set priority = 1 where name = 'LamisLegacyModule';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-04" author="mattae">
+        <sqlFile path="installers/database/schema/fix_known_death_ltfu.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200723134611-05" author="mattae">
+        <sql>
+            update devolve set dmoc_type = 'MMD' where dmoc_type = 'null' or dmoc_type is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-06" author="mattae">
+        <sql>
+            update pharmacy_line set regimen_type_id = 8 where regimen_id between 44 and 46;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723134611-07" author="mattae">
+        <sqlFile path="installers/database/schema/fix_regimen_at_commencement.sql" splitStatements="false"/>
+    </changeSet>
+
+</databaseChangeLog>
