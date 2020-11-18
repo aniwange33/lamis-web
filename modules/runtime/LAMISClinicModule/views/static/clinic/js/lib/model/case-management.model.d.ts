@@ -1,16 +1,15 @@
-import {Moment} from 'moment';
-import {Facility} from './facility.model';
-
+import { Moment } from 'moment';
+import { Facility } from './facility.model';
 export interface CaseManager {
     id?: number;
     name?: string;
     gender?: string;
     phoneNumber?: string;
+    active?: boolean;
     address?: string;
     uuid?: string;
     facility?: Facility;
 }
-
 export interface Patient {
     id?: number;
     name?: string;
@@ -24,7 +23,6 @@ export interface Patient {
     caseManagerId?: number;
     caseManager?: CaseManager;
 }
-
 export interface CaseManagerStats {
     assigned?: number;
     stable?: number;

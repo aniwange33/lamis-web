@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <property name="autoIncrement" value="true"/>
 
@@ -1459,6 +1459,21 @@
             alter table tb_screen_history alter column uuid set default uuid_generate_v4()::text;
             update tb_screen_history set last_modified = current_timestamp where last_modified is null;
             alter table tb_screen_history alter column last_modified set default current_timestamp;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200304123505-119-01" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="dm_screen"/>
+            </not>
+        </preConditions>
+        <sql>
+            truncate dm_screen;
+            truncate tb_screen;
+            insert into dm_screen(id, description) values(1, 'Increased frequency of urination'), (2, 'Increased water (fluid) intake');
+            insert into tb_screen(id, description) values(1, 'Have you been coughing for 2 weeks or more?'), (2, 'Do you have fever for 2 weeks or more?'),
+            (3, 'Are you losing weight?'), (4, 'Are you having night sweats?'), (5, 'Do you have any swellings in the neck or armpit?');
         </sql>
     </changeSet>
 
@@ -3410,5 +3425,2265 @@
     <changeSet id="20200304123505-168" author="mattae">
         <addNotNullConstraint tableName="regimen" columnName="active"/>
         <dropNotNullConstraint tableName="regimen" columnName="composition"/>
+    </changeSet>
+
+    <changeSet id="20200804123505-1" author="mattae">
+        <addColumn tableName="clinic">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123505-2" author="mattae">
+        <addColumn tableName="patient">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123505-3" author="mattae">
+        <addColumn tableName="pharmacy">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123505-4" author="mattae">
+        <addColumn tableName="laboratory">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123505-5" author="mattae">
+        <addColumn tableName="laboratory_line">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123505-6" author="mattae">
+        <addColumn tableName="pharmacy_line">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200810123501-1" author="mattae">
+        <modifyDataType tableName="devolve" columnName="reason_discontinued" newDataType="varchar(512)"/>
+    </changeSet>
+
+    <changeSet id="20200817123505-01" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="status_history" columnName="extra"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="status_history">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200817123505-02" author="mattae" runOnChange="true">
+        <createTable tableName="observation">
+            <column name="id" type="varchar(36)" defaultValueComputed="uuid_generate_v4()::text">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pkObservation"/>
+            </column>
+
+            <column name="type" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="data" type="jsonb">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="archived" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_modified" type="timestamp" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20200817123505-03" author="mattae" runOnChange="true">
+        <addForeignKeyConstraint baseTableName="observation" baseColumnNames="patient_id"
+                                 constraintName="fk_observation_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="observation" baseColumnNames="facility_id"
+                                 constraintName="fk_observation_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+        <createIndex tableName="observation" indexName="idx_observation_type">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20200817123505-04" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="assessment" columnName="assessment_id"/>
+        </preConditions>
+        <dropColumn tableName="assessment" columnName="assessment_id"/>
+    </changeSet>
+    <changeSet id="2020090223505-01-00-1" author="mattae">
+        <sql>
+            update case_manager set name = replace(name, '.', '');
+        </sql>
+    </changeSet>
+    <changeSet id="2020090223505-01-01-2" author="mattae">
+        <sql>
+            UPDATE case_manager SET name = titlecase(coalesce(unscramblecharacters(name),'_')) where name != '';
+            UPDATE community_pharmacy SET name = titlecase(coalesce(unscramblecharacters(name),'_')) where name != '';
+            UPDATE community_pharmacy SET address =
+            titlecase(REGEXP_REPLACE(replace(coalesce(unscramblecharacters(address), ''), ',', ', '), '\s+', ' '));
+            UPDATE case_manager SET address = titlecase(REGEXP_REPLACE(replace(coalesce(unscramblecharacters(address),
+            ''), ',', ', '), '\s+', ' '));
+            UPDATE patient SET address = titlecase(REGEXP_REPLACE(replace(coalesce(unscramblecharacters(address), ''),
+            ',', ', '), '\s+', ' '));
+            UPDATE patient SET next_of_kin_address =
+            titlecase(REGEXP_REPLACE(replace(coalesce(unscramblecharacters(next_of_kin_address), ''), ',', ', '), '\s+',
+            ' '));
+            UPDATE patient SET
+            surname = titlecase(coalesce(unscramblecharacters(surname),'')),
+            other_names = titlecase(coalesce(unscramblecharacters(other_names), '')),
+            address = coalesce(unscramblecharacters(address), ''),
+            next_of_kin = titlecase(coalesce(unscramblecharacters(next_of_kin),'')),
+            next_of_kin_address = coalesce(unscramblecharacters(next_of_kin_address), ''),
+            phone = coalesce(unscramblenumbers(phone), ''),
+            next_of_kin_phone = coalesce(unscramblenumbers(next_of_kin_phone), '');
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200817123505-05-00" author="mattae" runOnChange="true">
+        <sqlFile path="installers/legacy/schema/remove_duplicate_uuid.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200817123505-05-01" author="mattae" runOnChange="true">
+        <addUniqueConstraint tableName="patient" columnNames="uuid" constraintName="ux_patient_uuid"/>
+    </changeSet>
+
+    <changeSet id="20200817123505-05-02" author="mattae" runOnChange="true">
+        <sql>
+            delete from biometric where patient_id not in (select uuid from patient)
+        </sql>
+    </changeSet>
+
+<!--    <changeSet id="20200817123505-05" author="mattae" runOnChange="true">-->
+<!--        <addForeignKeyConstraint baseTableName="biometric" baseColumnNames="patient_id"-->
+<!--                                 constraintName="fk_biometric_patient_id" referencedTableName="patient"-->
+<!--                                 referencedColumnNames="uuid"/>-->
+<!--        <addForeignKeyConstraint baseTableName="biometric" baseColumnNames="facility_id"-->
+<!--                                 constraintName="fk_biometric_facility_id" referencedTableName="facility"-->
+<!--                                 referencedColumnNames="id"/>-->
+<!--    </changeSet>-->
+
+    <changeSet id="20200817123505-05" author="mattae">
+        <addUniqueConstraint
+                columnNames="uuid"
+                constraintName="unique_uuid"
+                tableName="patient"
+        />
+        <addForeignKeyConstraint baseTableName="biometric" baseColumnNames="patient_id" constraintName="fk_biometric_patient_id" referencedTableName="patient"
+                                 referencedColumnNames="uuid"/>
+        <addForeignKeyConstraint baseTableName="biometric" baseColumnNames="facility_id" constraintName="fk_biometric_facility_id" referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="20200817123505-06-1" author="mattae" runOnChange="true">
+        <addColumn tableName="case_manager">
+            <column name="active" type="boolean" defaultValue="true" defaultValueComputed="true"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200817123505-07-1" author="mattae" runOnChange="true">
+        <addNotNullConstraint tableName="case_manager" columnName="active"/>
+    </changeSet>
+
+    <changeSet id="20200817123505-06" author="mattae" runOnChange="true">
+        <addColumn tableName="community_pharmacy">
+            <column name="active" type="boolean" defaultValue="true" defaultValueComputed="true"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200817123505-07" author="mattae" runOnChange="true">
+        <addNotNullConstraint tableName="community_pharmacy" columnName="active"/>
+    </changeSet>
+
+    <changeSet id="20200804123506-3" author="mattae" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="pharmacy" columnName="lines"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="pharmacy">
+            <column name="lines" type="varchar(20480)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200804123506-4" author="mattae" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="laboratory" columnName="lines"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="laboratory">
+            <column name="lines" type="varchar(20480)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200901134611-07-0" author="mattae" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from regimen where id = 200
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            insert into regimen(id, description, regimen_type_id, active, priority) values(200, 'Isoniazid 100mg', 15,
+            true, 1);
+            insert into regimen_drug(id, regimen_id, drug_id) values(500, 200, 87);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200901134611-08" author="mattae">
+        <sql>
+            update pharmacy_line set regimen_drug_id = 110 where regimen_id = 44;
+            update pharmacy_line set regimen_id = 200 where regimen_id in (select id from regimen where description =
+            'Isoniazid 100mg');
+            update pharmacy_line set regimen_drug_id = 500 where regimen_id in (select id from regimen where description
+            = 'Isoniazid 100mg');
+            update pharmacy_line set regimen_drug_id = 500 where regimen_drug_id in (select id from regimen_drug where
+            regimen_id in (select id from regimen where description = 'Isoniazid 100mg'));
+            delete from regimen_drug where regimen_id in (select id from regimen where description = 'Isoniazid 100mg')
+            and regimen_id != 200;
+
+            update maternal_followup set anc_id = null where anc_id not in (select id from anc);
+            update maternal_followup set patient_id = null where patient_id not in (select id from patient);
+            update mother_information set patient_id = null where patient_id not in (select id from patient);
+            update partner_information set anc_id = null where anc_id not in (select id from anc);
+            update devolve set community_pharmacy_id = null where community_pharmacy_id not in (select id from
+            community_pharmacy);
+            update partner_information set patient_id = null where patient_id not in (select id from patient);
+            delete from patient_case_manager where patient_id not in (select id from patient) or case_manager_id not in
+            (select id from case_manager);
+
+            update clinic set regimen_id = 116 where regimen_id = 123
+        </sql>
+    </changeSet>
+
+    <changeSet id="2020090114611-09" author="mattae">
+        <sql>
+            insert into regimen_type(id, description) values(30, 'Pre-Exposure Prophylaxis (PrEP)');
+            insert into regimen(id, description, composition, regimen_type_id, active, priority) values(201,
+            'TDF(300mg)+3TC(150mg)', 'Tenofovir+Lamivudine', 30, true, 1);
+            insert into regimen_drug(id, regimen_id, drug_id) values(501, 201, 31);
+            insert into regimen_drug(id, regimen_id, drug_id) values(502, 201, 5);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-00" author="mattae">
+        <sqlFile path="installers/legacy/schema/migrate_lines.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-01" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-02" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-03" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-04" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-05" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-06" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-07" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-08" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-09" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-10" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-11" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-12" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-13" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-14" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-15" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-16" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-17" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-18" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-19" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-20" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-21" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-22" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-23" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-24" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-25" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-26" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-27" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-28" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-29" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-30" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-31" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-32" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-33" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-34" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-35" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-36" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-37" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-38" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-39" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-40" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-41" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-42" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-43" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-44" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-45" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-46" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-47" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-48" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-49" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-50" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-51" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-52" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-53" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-54" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-55" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-56" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-57" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-58" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-59" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-60" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-61" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-62" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-63" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-64" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-65" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-66" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-67" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-68" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-69" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-70" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-71" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-72" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-73" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-74" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-75" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-76" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-77" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-78" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-79" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-80" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-81" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-82" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-83" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-84" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-85" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-86" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-87" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-88" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-89" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-90" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-91" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-92" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-93" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-94" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-95" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-96" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-97" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-98" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-99" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-100" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-101" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-102" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-103" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-104" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-105" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-106" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-107" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-108" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-109" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-110" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-111" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-112" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-113" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-114" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-115" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-116" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-117" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-118" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-119" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-120" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-121" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-122" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-123" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-124" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-125" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-126" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-127" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-128" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-129" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-130" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-131" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-132" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-133" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-134" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-135" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-136" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-137" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-138" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-139" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-140" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-141" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-142" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-143" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-144" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-145" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-146" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-147" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-148" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-149" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-150" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-151" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-152" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-153" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-154" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-155" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-156" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-157" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-158" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-159" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-160" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-161" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-162" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-163" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-164" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-165" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-166" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-167" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-168" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-169" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-170" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-171" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-172" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-173" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-174" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-175" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-176" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-177" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-178" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-179" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-180" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-181" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-182" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-183" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-184" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-185" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-186" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-187" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-188" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-189" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-190" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-191" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-192" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-193" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-194" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-195" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-196" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-197" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-198" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-199" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-200" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-201" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-202" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-203" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-204" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-205" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-206" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-207" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-208" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-209" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-210" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-211" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-212" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-213" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-214" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-215" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-216" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-217" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-218" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-219" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-220" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-221" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-222" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-223" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-224" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-225" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-226" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-227" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-228" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-229" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-230" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-231" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-232" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-233" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-234" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-235" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-236" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-237" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-238" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-239" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-240" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-241" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-242" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-243" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-244" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-245" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-246" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-247" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-248" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-249" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-1-250" author="mattae">
+        <sql>
+            select migrate_pharmacy_lines();
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20200803117505-2-01" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-02" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-03" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-04" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-05" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-06" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-07" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-08" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-09" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-10" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-11" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-12" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-13" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-14" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-15" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-16" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-17" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-18" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-19" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-20" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-21" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-22" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-23" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-24" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-25" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-26" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-27" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-28" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-29" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-30" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-31" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-32" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-34" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-35" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-36" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-37" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-38" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-39" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-40" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-41" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-42" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-43" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-44" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-45" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-46" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-47" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-48" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-49" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-50" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-51" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-52" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-53" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-54" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-55" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-56" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-57" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-58" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-59" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-2-60" author="mattae">
+        <sql>
+            select migrate_laboratory_lines();
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-3-01" author="mattae">
+        <sql>
+            update devolve set related_pharmacy_id = null where related_pharmacy_id not in (select distinct pharmacy_id
+            from pharmacy_line);
+            update devolve set related_viral_load_id = null where related_viral_load_id not in (select distinct
+            laboratory_id from laboratory_line);
+            update devolve set related_cd4_id = null where related_cd4_id not in (select distinct laboratory_id from
+            laboratory_line);
+
+            delete from pharmacy where id not in (select distinct pharmacy_id from pharmacy_line);
+            delete from laboratory where id not in (select distinct laboratory_id from laboratory_line);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-3-02" author="mattae">
+        <sql>
+            ALTER TABLE pharmacy ALTER lines TYPE JSONB USING lines::JSONB
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-3-03" author="mattae">
+        <sql>
+            ALTER TABLE laboratory ALTER lines TYPE JSONB USING lines::JSONB
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803117505-3" author="mattae">
+        <addNotNullConstraint tableName="pharmacy" columnName="lines"/>
+    </changeSet>
+
+    <changeSet id="20200803117505-4" author="mattae">
+        <addNotNullConstraint tableName="laboratory" columnName="lines"/>
+    </changeSet>
+
+    <changeSet id="20200804117505-1" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="appointment" columnName="date_tracked"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="appointment">
+            <column name="date_tracked" type="date"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200908141735-02" author="mattae">
+        <sql>
+            insert into regimen_resolver(regimensys, regimen) values('ABC(60mg)+3TC(30mg)+LPV/r(80/20mg/ml)',
+            'ABC+3TC+LPV/r'),
+            ('ABC(300mg)+3TC(150mg)+LPV/r(200/50mg)', 'ABC+3TC+LPV/r');
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200908141735-03" author="mattae">
+        <sql>
+            drop table pharmacy_line;
+            drop table laboratory_line;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200908141735-04" author="mattae">
+        <sql>
+            update devolve set related_clinic_id = null where related_clinic_id in (select id from clinic where patient_id not in (select id from patient));
+            update devolve set related_pharmacy_id = null where related_pharmacy_id in (select id from pharmacy where patient_id not in (select id from patient));
+            update devolve set related_viral_load_id = null where related_viral_load_id in (select id from laboratory where patient_id not in (select id from patient));
+            update devolve set related_cd4_id = null where related_cd4_id in (select id from laboratory where patient_id not in (select id from patient));
+            delete from clinic where patient_id not in (select id from patient);
+            delete from status_history where patient_id not in (select id from patient);
+            delete from patient_case_manager where patient_id not in (select id from patient);
+            delete from patient_case_manager where case_manager_id not in (select id from case_manager);
+            delete from pharmacy where patient_id not in (select id from patient);
+            delete from laboratory where patient_id not in (select id from patient);
+            delete from devolve where patient_id not in (select id from patient);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201009072338-01" author="mattae">
+        <sql>
+            update status_history set status = 'HIV_EXPOSED_INFANT_NEGATIVE' where status = 'HIV_EXPOSED_INFANT_NEGATION';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201009072338-02" author="mattae">
+        <addColumn tableName="chronic_care">
+            <column name="tb_screens" type="jsonb"/>
+            <column name="dm_screens" type="jsonb"/>
+        </addColumn>
+
+        <addColumn tableName="clinic">
+            <column name="adheres" type="jsonb"/>
+            <column name="adverse_drug_reactions" type="jsonb"/>
+            <column name="opportunistic_infections" type="jsonb"/>
+        </addColumn>
+
+        <addColumn tableName="pharmacy">
+            <column name="adverse_drug_reactions" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="20201009072338-03" author="mattae">
+        <sqlFile path="installers/legacy/schema/migrate_relationships.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20201009072338-04" author="mattae">
+        <dropTable tableName="chronic_care_dm"/>
+        <dropTable tableName="chronic_care_tb"/>
+        <dropTable tableName="clinic_adhere"/>
+        <dropTable tableName="clinic_adverse_drug_reaction"/>
+        <dropTable tableName="clinic_opportunistic_infection"/>
+        <dropTable tableName="pharmacy_adverse_drug_reaction"/>
+    </changeSet>
+
+    <changeSet id="20201104192025-05" author="mattae">
+        <sql>
+            update patient set extra = null where extra = 'null';
+            UPDATE patient SET extra = jsonb_set(extra, '{art}', 'true') where (status_at_registration = 'HIV_NEGATIVE' and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
+            UPDATE patient SET extra = '{"art": true}' where extra is null and (status_at_registration = 'HIV_NEGATIVE' and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
+            UPDATE patient SET extra = jsonb_set(extra, '{prep}', '{"registered": true}') where status_at_registration = 'HIV_NEGATIVE' and last_modified >= '2020-08-01';
+            UPDATE patient SET extra = '{"prep":{"registered": true}}' where extra is null and status_at_registration = 'HIV_NEGATIVE' and last_modified >= '2020-08-01';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201104192025-06" author="mattae">
+        <addColumn tableName="encounter">
+            <column name="puuid" type="varchar(36)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20201104192025-07" author="mattae">
+        <addColumn tableName="devolve">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20201104192025-08" author="mattae">
+        <dropColumn tableName="encounter">
+            <column name="community_pharmacy_id"/>
+        </dropColumn>
     </changeSet>
 </databaseChangeLog>

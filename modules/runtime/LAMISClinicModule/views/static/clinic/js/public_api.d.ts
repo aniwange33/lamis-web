@@ -7,3 +7,4 @@ export * from './lib/chronic.care.module';
 export * from './lib/eac.module';
 export * from './lib/case-management.module';
 export * from './lib/case-manager.module';
+export * from './lib/cervical-cancer.module';

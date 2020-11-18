@@ -1,14 +1,14 @@
 {
-  "name": "lamis-facility",
+  "name": "lamis-facility-1.2.0",
   "version": "1.0.0",
-  "main": "bundles/lamis-facility.umd.js",
-  "module": "fesm5/lamis-facility.js",
-  "es2015": "fesm2015/lamis-facility.js",
-  "esm5": "esm5/lamis-facility.js",
-  "esm2015": "esm2015/lamis-facility.js",
-  "fesm5": "fesm5/lamis-facility.js",
-  "fesm2015": "fesm2015/lamis-facility.js",
-  "typings": "lamis-facility.d.ts",
+  "main": "bundles/lamis-facility-1.2.0.umd.js",
+  "module": "fesm5/lamis-facility-1.2.0.js",
+  "es2015": "fesm2015/lamis-facility-1.2.0.js",
+  "esm5": "esm5/lamis-facility-1.2.0.js",
+  "esm2015": "esm2015/lamis-facility-1.2.0.js",
+  "fesm5": "fesm5/lamis-facility-1.2.0.js",
+  "fesm2015": "fesm2015/lamis-facility-1.2.0.js",
+  "typings": "lamis-facility-1.2.0.d.ts",
   "private": true,
   "peerDependencies": {
     "@alfresco/adf-core": "3.3.0",
@@ -90,5 +90,5 @@
   "dependencies": {
     "tslib": "^1.9.0"
   },
-  "metadata": "lamis-facility.metadata.json"
+  "metadata": "lamis-facility-1.2.0.metadata.json"
 }

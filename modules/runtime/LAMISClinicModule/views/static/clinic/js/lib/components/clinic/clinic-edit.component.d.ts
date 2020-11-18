@@ -1,19 +1,12 @@
-import {OnInit} from '@angular/core';
-import {
-    Adhere,
-    AdverseDrugReaction,
-    Clinic,
-    ClinicAdverseDrugReaction,
-    OpportunisticInfection
-} from '../../model/clinic.model';
-import {ClinicService} from '../../services/clinic.service';
-import {NotificationService} from '@alfresco/adf-core';
-import {ActivatedRoute} from '@angular/router';
+import { OnInit } from '@angular/core';
+import { Adhere, AdverseDrugReaction, Clinic, ClinicAdverseDrugReaction, OpportunisticInfection } from '../../model/clinic.model';
+import { ClinicService } from '../../services/clinic.service';
+import { NotificationService } from '@alfresco/adf-core';
+import { ActivatedRoute } from '@angular/router';
 import * as moment_ from 'moment';
-import {Moment} from 'moment';
-import {AppLoaderService} from '@lamis/web-core';
-import {ColumnMode} from '@swimlane/ngx-datatable';
-
+import { Moment } from 'moment';
+import { AppLoaderService } from '@lamis/web-core';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 export declare class ClinicEditComponent implements OnInit {
     private clinicService;
     protected notification: NotificationService;
@@ -40,30 +33,35 @@ export declare class ClinicEditComponent implements OnInit {
     adhereList: Adhere[];
     ColumnMode: typeof ColumnMode;
     adr: boolean;
-
+    enrolledOnOTZ: boolean;
+    fullDisclosure: boolean;
+    dateOfFullDisclosure: Moment;
+    dateEnrolledOnOTZ: Moment;
+    attendedLastOTZMeeting: boolean;
+    dateLastOTZMeeting: Moment;
+    modulesCompleted: number;
+    caregiverPhone: string;
+    caregiverAddress: string;
+    otzApplicable: boolean;
+    hasOtz: boolean;
+    hivTestResult: string;
+    prep: boolean;
+    urinalysis: string;
+    hepatitisB: string;
+    hepatitisC: string;
+    creatinineClearance: any;
     constructor(clinicService: ClinicService, notification: NotificationService, activatedRoute: ActivatedRoute, appLoaderService: AppLoaderService);
-
     createEntity(): Clinic;
-
     ngOnInit(): void;
-
-    updateValue(event: any, cell: any, row: ClinicAdverseDrugReaction): void;
-
+    updateValue(event: any, cell: any, row: AdverseDrugReaction): void;
     filterDates(date: Moment): boolean;
-
     dateChanged(date: Moment): void;
-
     entityCompare(e1: any, e2: any): boolean;
-
     previousState(): void;
-
     save(): void;
-
     regimenLineChange(type: any): void;
-
     private subscribeToSaveResponse;
     private onSaveSuccess;
     private onSaveError;
-
     protected onError(errorMessage: string): void;
 }

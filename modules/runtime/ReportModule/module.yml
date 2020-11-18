@@ -3,26 +3,42 @@ name: ReportModule
 dependencies: {LamisLegacyModule: 1.0.0}
 store: true
 menus:
-    -   disabled: false
-        name: Reporting
-        state: reporting
-        position: 70
-        icon: content_paste
+  - disabled: false
+    name: Reporting
+    state: reporting
+    position: 70
+    icon: content_paste
+    subs:
+      - state: art-summary
+        name: ART Summary
+        icon: keyboard_tab
+        type: LINK
+      - state: biometric-report
+        name: Biometric Report
+        icon: keyboard_tab
+        type: LINK
+      - state: appointment-report
+        name: Appointment Report
+        icon: keyboard_tab
+        type: LINK
+      - state: devolve-report
+        name: Devolve Report
+        icon: keyboard_tab
+        type: LINK
+      - state: data-conversion
+        name: Data Conversion
+        icon: keyboard_tab
+        type: LINK
+      - state: patients
+        name: Patients
+        type: LINK
         subs:
-            -   state: art-summary
-                name: ART Summary
-                icon: keyboard_tab
-                type: LINK
-            -   state: patients
-                name: Patients
-                type: LINK
-                subs:
-                    -   state: line-list
-                        name: Line List
-                        type: LINK
-umdLocation: /across/resources/static/reporting/js/bundles/lamis-reporting-1.0.0.umd.min.js
+          - state: line-list
+            name: Line List
+            type: LINK
+umdLocation: /across/resources/static/reporting/js/bundles/lamis-reporting-1.4.0.umd.min.js
 webModules:
-    -   breadcrumb: REPORTS MODULE
-        name: ReportsModule
-        path: reporting
-        position: 99
+  - breadcrumb: REPORTS MODULE
+    name: ReportsModule
+    path: reporting
+    position: 99

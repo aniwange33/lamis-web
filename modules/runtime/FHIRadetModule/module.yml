@@ -3,20 +3,29 @@ name: FHIRadetModule
 dependencies: {LamisLegacyModule: 1.0.0}
 store: true
 menus:
-    -   disabled: false
-        name: Reporting
-        state: reporting
-        position: 70
-        icon: content_paste
-        subs:
-            -   state: radet
-                name: Radet Converter
-                icon: keyboard_tab
-                type: LINK
-umdLocation: /across/resources/static/radet/js/bundles/radet-1.1.0.umd.min.js
+  - disabled: false
+    name: Reporting
+    state: reporting
+    position: 70
+    icon: content_paste
+    subs:
+      - state: radet
+        name: Radet Converter
+        icon: keyboard_tab
+        type: LINK
+      - state: prep
+        name: PrEP Report
+        icon: keyboard_tab
+        type: LINK
+umdLocation: /across/resources/static/radet/js/bundles/radet-1.4.0.umd.min.js
 webModules:
-    -   breadcrumb: RADET CONVERTER
-        name: RadetModule
-        path: reporting/radet
-        position: 99
-        title: Radet Converter
+  - breadcrumb: RADET CONVERTER
+    name: RadetModule
+    path: reporting/radet
+    position: 99
+    title: Radet Converter
+  - breadcrumb: PREP CONVERTER
+    name: PrepModule
+    path: reporting/prep
+    position: 99
+    title: PrEP Converter

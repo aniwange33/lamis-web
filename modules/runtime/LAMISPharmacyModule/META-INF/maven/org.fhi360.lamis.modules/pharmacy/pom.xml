@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fhi360.lamis.modules</groupId>
     <artifactId>pharmacy</artifactId>
-    <version>1.1.3</version>
+    <version>1.4.0</version>
     <name>LAMIS Pharmacy Module</name>
 
     <properties>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.fhi360.lamis.modules</groupId>
             <artifactId>patient</artifactId>
-            <version>1.2.1</version>
+            <version>1.4.0</version>
         </dependency>
     </dependencies>
 

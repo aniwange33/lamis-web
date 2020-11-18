@@ -1,6 +1,5 @@
-import {Facility} from './facility.model';
-import {Moment} from 'moment';
-
+import { Facility } from './facility.model';
+import { Moment } from 'moment';
 export interface Patient {
     id?: number;
     hospitalNum?: string;
@@ -12,42 +11,30 @@ export interface Patient {
     gender?: string;
     facility?: Facility;
     uuid?: string;
+    extra?: any;
 }
-
 export interface OpportunisticInfection {
     id?: number;
     description?: string;
 }
-
 export interface Adhere {
     id?: number;
     description?: string;
 }
-
 export interface AdverseDrugReaction {
     id?: number;
     description?: string;
 }
-
 export interface ClinicAdhere {
-    id?: number;
     adhere?: Adhere;
-    uuid?: string;
 }
-
 export interface ClinicAdverseDrugReaction {
-    id?: number;
     adverseDrugReaction?: AdverseDrugReaction;
     severity?: string;
-    uuid?: string;
 }
-
 export interface ClinicOpportunisticInfection {
-    id?: number;
     opportunisticInfection?: OpportunisticInfection;
-    uuid?: string;
 }
-
 export interface Clinic {
     facility?: Facility;
     patient?: Patient;
@@ -81,16 +68,18 @@ export interface Clinic {
     bp2?: number;
     gestationalAge?: string;
     maternalStatusArt?: string;
+    extra?: any;
     uuid?: string;
+    adheres?: Adhere[];
+    adverseDrugReactions?: ClinicAdverseDrugReaction[];
+    opportunisticInfections?: OpportunisticInfection[];
 }
-
 export interface ClinicVm {
     clinic?: Clinic;
     adhereList?: Adhere[];
     adrList?: ClinicAdverseDrugReaction[];
     oiList?: OpportunisticInfection[];
 }
-
 export interface ChronicCare {
     id?: number;
     uuid?: string;
@@ -168,36 +157,30 @@ export interface ChronicCare {
     useInsecticideBedNetReferred?: boolean;
     pregnantIntermittentPreventiveTherapy?: boolean;
     pregnantIntermittentPreventiveTherapyReferred?: boolean;
+    dmScreens?: ChronicCareDm[];
+    tbScreens?: ChronicCareTB[];
 }
-
 export interface DMScreen {
     id?: number;
     description?: string;
 }
-
 export interface TBScreen {
     id?: number;
     description?: string;
 }
-
 export interface ChronicCareTB {
-    id?: number;
     description?: string;
-    tbScreen: TBScreen;
+    question: TBScreen;
 }
-
 export interface ChronicCareDm {
-    id?: number;
     description?: string;
-    dmScreen: DMScreen;
+    question: DMScreen;
 }
-
 export interface ChronicCareVm {
     chronicCare?: ChronicCare;
     dms?: ChronicCareDm[];
     tbs?: ChronicCareTB[];
 }
-
 export interface EAC {
     id?: number;
     patient?: Patient;
@@ -210,4 +193,18 @@ export interface EAC {
     lastViralLoad?: number;
     notes?: string;
     uuid?: string;
+}
+export interface Observation {
+    id?: string;
+    date?: Moment;
+    data?: CervicalCancerScreening;
+}
+export interface CervicalCancerScreening {
+    dateScreened?: Moment;
+    screeningMethod?: string;
+    screeningType?: string;
+    precancerousLesionsTreatmentMethod?: string;
+    screeningResult?: string;
+    referredForTreatment?: boolean;
+    dateTreated?: Moment;
 }

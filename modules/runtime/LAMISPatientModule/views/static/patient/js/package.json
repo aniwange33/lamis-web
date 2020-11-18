@@ -1,14 +1,14 @@
 {
-  "name": "lamis-patient-1.2.0",
+  "name": "lamis-patient-1.4.1",
   "version": "1.0.2",
-  "main": "bundles/lamis-patient-1.2.0.umd.js",
-  "module": "fesm5/lamis-patient-1.2.0.js",
-  "es2015": "fesm2015/lamis-patient-1.2.0.js",
-  "esm5": "esm5/lamis-patient-1.2.0.js",
-  "esm2015": "esm2015/lamis-patient-1.2.0.js",
-  "fesm5": "fesm5/lamis-patient-1.2.0.js",
-  "fesm2015": "fesm2015/lamis-patient-1.2.0.js",
-  "typings": "lamis-patient-1.2.0.d.ts",
+  "main": "bundles/lamis-patient-1.4.1.umd.js",
+  "module": "fesm5/lamis-patient-1.4.1.js",
+  "es2015": "fesm2015/lamis-patient-1.4.1.js",
+  "esm5": "esm5/lamis-patient-1.4.1.js",
+  "esm2015": "esm2015/lamis-patient-1.4.1.js",
+  "fesm5": "fesm5/lamis-patient-1.4.1.js",
+  "fesm2015": "fesm2015/lamis-patient-1.4.1.js",
+  "typings": "lamis-patient-1.4.1.d.ts",
   "private": true,
   "peerDependencies": {
     "@alfresco/adf-core": "3.3.0",
@@ -90,7 +90,7 @@
   },
   "sideEffects": false,
   "publishConfig": {},
-  "metadata": "lamis-patient-1.2.0.metadata.json",
+  "metadata": "lamis-patient-1.4.1.metadata.json",
   "dependencies": {
     "tslib": "^1.9.0"
   }

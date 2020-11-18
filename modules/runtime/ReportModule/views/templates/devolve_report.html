@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <base href="./"/>
+    <meta charset="UTF-8"/>
+    <title>Devolvement Report</title>
+    <link rel="stylesheet" type="text/css" th:href="${css}"/>
+    <style>
+        body {
+            font-family: Times, Serif;
+            font-size: 7pt;
+            text-align: justify;
+            margin-top: 0.2cm;
+            margin-bottom: 1cm;
+            margin-inside: .2cm;
+            margin-outside: .2cm;
+        }
+
+        @page {
+            size: A4 landscape;
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages)
+            }
+        }
+
+        .header-right {
+            text-align: right;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<table style="width: 100%" class="pure-table">
+    <thead style="background-color: #f2f2f2 !important">
+    <tr>
+        <th colspan="10">
+            <p style="font-size: 22px; font-weight: bold; text-align: center" th:text="${title}?: _">
+                Devolvement Report
+            </p>
+        </th>
+    </tr>
+    <tr>
+        <th class="header-right">Facility:</th>
+        <th colspan="4"><p th:text="${facility}"></p></th>
+        <th class="header-right">State:</th>
+        <th colspan="2"><p th:text="${state}"></p></th>
+        <th class="header-right">LGA:</th>
+        <th><p th:text="${lga}"></p></th>
+    </tr>
+    </thead>
+</table>
+<p></p>
+<table style="width: 100%" class="pure-table">
+    <thead>
+    <tr>
+        <th style="width: 3.88% !important">
+            <p style="font-weight: bold; text-align: center">SN</p>
+        </th>
+        <th style="width: 10.76% !important">
+            <p style="font-weight: bold; text-align: center">Hospital Num</p>
+        </th>
+        <th style="width: 18.54% !important">
+            <p style="font-weight: bold; text-align: center">Name</p>
+        </th>
+        <th style="width: 12.65% !important">
+            <p style="font-weight: bold; text-align: center">Current Status</p>
+        </th>
+        <th style="width: 6.98% !important">
+            <p style="font-weight: bold; text-align: center">Age</p>
+        </th>
+        <th style="width: 4.78% !important">
+            <p style="font-weight: bold; text-align: center">Gender</p>
+        </th>
+        <th style="width: 24.65% !important">
+            <p style="font-weight: bold; text-align: center">Address</p>
+        </th>
+        <th style="width: 8.76% !important">
+            <p style="font-weight: bold; text-align: center">Phone</p>
+        </th>
+        <th style="width: 9% !important">
+            <p style="font-weight: bold; text-align: center">Date Devolved</p>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="cp : ${datasource}">
+        <tr style="font-weight: bold; background-color: #129FEA">
+            <td colspan="9" th:text="${cp.type}"></td>
+        </tr>
+        <tr th:each="patient, iterStat : ${cp.devolves}" th:class="${iterStat.odd}? 'pure-table-odd':''">
+            <td th:text="${#numbers.formatInteger(iterStat.count, 1, 'COMMA')}" style="text-align: right"></td>
+            <td th:text="${patient.hospital_num}"></td>
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.status}"></td>
+            <td th:text="${patient.age}" style="text-align: right"></td>
+            <td th:text="${patient.gender}"></td>
+            <td th:text="${patient.address}"></td>
+            <td th:text="${patient.phone}"></td>
+            <td th:text="${#dates.format(patient.date_devolved, 'dd MMM, yyyy')}"></td>
+        </tr>
+        <tr style="font-weight: bold; background-color: #129FEA">
+            <td colspan="10" th:text="${cp.type} + ' Total: ' +  ${#numbers.formatInteger(cp.total, 1, 'COMMA')}"></td>
+        </tr>
+        <tr></tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,14 +1,14 @@
 {
-  "name": "lamis-laboratory-1.1.1",
+  "name": "lamis-laboratory-1.4.0",
   "version": "1.0.0",
-  "main": "bundles/lamis-laboratory-1.1.1.umd.js",
-  "module": "fesm5/lamis-laboratory-1.1.1.js",
-  "es2015": "fesm2015/lamis-laboratory-1.1.1.js",
-  "esm5": "esm5/lamis-laboratory-1.1.1.js",
-  "esm2015": "esm2015/lamis-laboratory-1.1.1.js",
-  "fesm5": "fesm5/lamis-laboratory-1.1.1.js",
-  "fesm2015": "fesm2015/lamis-laboratory-1.1.1.js",
-  "typings": "lamis-laboratory-1.1.1.d.ts",
+  "main": "bundles/lamis-laboratory-1.4.0.umd.js",
+  "module": "fesm5/lamis-laboratory-1.4.0.js",
+  "es2015": "fesm2015/lamis-laboratory-1.4.0.js",
+  "esm5": "esm5/lamis-laboratory-1.4.0.js",
+  "esm2015": "esm2015/lamis-laboratory-1.4.0.js",
+  "fesm5": "fesm5/lamis-laboratory-1.4.0.js",
+  "fesm2015": "fesm2015/lamis-laboratory-1.4.0.js",
+  "typings": "lamis-laboratory-1.4.0.d.ts",
   "private": true,
   "peerDependencies": {
     "@alfresco/adf-core": "3.3.0",
@@ -90,7 +90,7 @@
   },
   "sideEffects": false,
   "publishConfig": {},
-  "metadata": "lamis-laboratory-1.1.1.metadata.json",
+  "metadata": "lamis-laboratory-1.4.0.metadata.json",
   "dependencies": {
     "tslib": "^1.9.0"
   }

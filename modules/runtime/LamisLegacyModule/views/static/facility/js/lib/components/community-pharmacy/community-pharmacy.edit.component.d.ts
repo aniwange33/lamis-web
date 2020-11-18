@@ -1,0 +1,30 @@
+import { OnInit } from '@angular/core';
+import { NotificationService } from '@alfresco/adf-core';
+import { ActivatedRoute } from '@angular/router';
+import { AppLoaderService } from '@lamis/web-core';
+import { CommunityPharmacyService } from '../../services/community-pharmacy.service';
+import { CommunityPharmacy } from '../../model/community-pharmacy.model';
+import { FacilityService } from '../../services/facility.service';
+export declare class CommunityPharmacyEditComponent implements OnInit {
+    private service;
+    protected notification: NotificationService;
+    private facilityService;
+    protected activatedRoute: ActivatedRoute;
+    private appLoaderService;
+    entity: CommunityPharmacy;
+    state: any;
+    states: any[];
+    lgas: any[];
+    isSaving: boolean;
+    constructor(service: CommunityPharmacyService, notification: NotificationService, facilityService: FacilityService, activatedRoute: ActivatedRoute, appLoaderService: AppLoaderService);
+    createEntity(): CommunityPharmacy;
+    ngOnInit(): void;
+    save(): void;
+    previousState(): void;
+    private subscribeToSaveResponse;
+    private onSaveSuccess;
+    private onSaveError;
+    protected onError(errorMessage: string): void;
+    stateChange(id: any): void;
+    entityCompare(e1: any, e2: any): boolean;
+}

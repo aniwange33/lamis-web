@@ -1,6 +1,5 @@
-import {Facility} from './facility.model';
-import {Moment} from 'moment';
-
+import { Facility } from './facility.model';
+import { Moment } from 'moment';
 export interface Patient {
     id?: number;
     facility?: Facility;
@@ -12,27 +11,24 @@ export interface Patient {
     gender?: string;
     uuid?: string;
 }
-
 export interface LabTestCategory {
     id?: number;
     category?: string;
 }
-
 export interface LabTest {
     id?: number;
     description?: string;
     unit?: string;
     type?: LabTestCategory;
 }
-
 export interface LaboratoryLine {
-    id?: number;
+    description?: string;
     result?: string;
     comment?: string;
-    labTest?: LabTest;
+    lab_test_id?: number;
     indication?: string;
+    unit?: string;
 }
-
 export interface Laboratory {
     facility?: Facility;
     patient?: Patient;

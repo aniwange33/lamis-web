@@ -24,14 +24,14 @@ CREATE OR REPLACE FUNCTION fixpatientdatestart() RETURNS VOID AS $$
         rec2 RECORD;
     BEGIN
         FOR rec IN SELECT * FROM (
-	        SELECT id, facility_id, (SELECT date_visit FROM pharmacy ph JOIN pharmacy_line l ON ph.id = pharmacy_id
-		        WHERE l.regimen_type_id in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_registration AND ph.archived = false
-			    AND l.archived = false ORDER BY date_visit LIMIT 1)
+	        SELECT id, facility_id, (SELECT date_visit FROM pharmacy ph, jsonb_array_elements(lines) with ordinality a(l)
+		        WHERE jsonb_extract_path_text(l,'regimen_type_id')::int in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_registration AND ph.archived = false
+			    ORDER BY date_visit LIMIT 1)
   	    FROM patient p WHERE date_started IS NULL
         ) pl
         WHERE date_visit IS NOT NULL
         LOOP
-            UPDATE patient SET date_started = rec.date_visit WHERE id = rec.id;
+            UPDATE patient SET date_started = rec.date_visit, last_modified = current_timestamp WHERE id = rec.id;
         END LOOP;
     END
 $$
@@ -46,9 +46,9 @@ CREATE OR REPLACE FUNCTION fixpatientartstart() RETURNS VOID AS $$
         rec2 RECORD;
     BEGIN
         FOR rec IN SELECT * FROM (
-	        SELECT id, facility_id, date_started, status_at_registration,(SELECT date_visit FROM pharmacy ph JOIN pharmacy_line l ON ph.id = pharmacy_id
-		        WHERE l.regimen_type_id in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_started AND ph.archived = false
-			    AND l.archived = false ORDER BY date_visit LIMIT 1)
+	        SELECT id, facility_id, date_started, status_at_registration,(SELECT date_visit FROM pharmacy ph, jsonb_array_elements(lines) with ordinality a(l)
+		        WHERE jsonb_extract_path_text(l,'regimen_type_id')::int in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_started AND ph.archived = false
+			    ORDER BY date_visit LIMIT 1)
   	    FROM patient p WHERE date_started IS NOT NULL AND status_at_registration = 'HIV_PLUS_NON_ART'
         ) pl
         WHERE NOT EXISTS(
@@ -70,9 +70,9 @@ CREATE OR REPLACE FUNCTION fixpatientarttransferin() RETURNS VOID AS $$
         rec2 RECORD;
     BEGIN
         FOR rec IN SELECT * FROM (
-	        SELECT id, facility_id, date_started, status_at_registration,(SELECT date_visit FROM pharmacy ph JOIN pharmacy_line l ON ph.id = pharmacy_id
-		        WHERE l.regimen_type_id in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_started AND ph.archived = false
-			    AND l.archived = false ORDER BY date_visit LIMIT 1)
+	         SELECT id, facility_id, date_started, status_at_registration,(SELECT date_visit FROM pharmacy ph, jsonb_array_elements(lines) with ordinality a(l)
+		        WHERE jsonb_extract_path_text(l,'regimen_type_id')::int in (1,2,3,4,14) AND ph.patient_id = p.id AND date_visit >= date_started AND ph.archived = false
+			    ORDER BY date_visit LIMIT 1)
   	    FROM patient p WHERE date_started IS NOT NULL AND status_at_registration = 'ART_TRANSFER_IN'
         ) pl
         WHERE NOT EXISTS(

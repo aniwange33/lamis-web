@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <property name="autoIncrement" value="true"/>
     <changeSet id="20200621141735-01" author="mattae">
@@ -34,6 +34,13 @@
             create index if not exists idx_eac_radet_patient_active on eac(patient_id, archived) where archived = false;
             create index if not exists idx_chronic_care_radet_patient_active on chronic_care(patient_id, archived) where
             archived = false;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200927235945-01" author="mattae">
+        <sql>
+            update clinic set extra = jsonb_set(extra, '{otz,fullDisclosure}', 'true') where
+            extra->'otz'->>'dateEnrolledOnOTZ' is not null
         </sql>
     </changeSet>
 

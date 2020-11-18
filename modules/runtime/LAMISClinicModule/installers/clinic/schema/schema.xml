@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="20200807111723-01" author="mattae">
+        <sql>
+            update devolve set related_pharmacy_id = null where related_pharmacy_id not in (select id from pharmacy
+            where archived = false);
+            update devolve set related_clinic_id = null where related_clinic_id not in (select id from clinic where
+            archived = false);
+            update devolve set related_viral_load_id = null where related_viral_load_id not in (select id from
+            laboratory where archived = false);
+            update devolve set related_cd4_id = null where related_cd4_id not in (select id from laboratory where
+            archived = false);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

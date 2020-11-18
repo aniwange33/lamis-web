@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fhi360.lamis.modules</groupId>
     <artifactId>clinic</artifactId>
-    <version>1.1.2</version>
+    <version>1.4.0</version>
     <name>LAMIS Clinic Module</name>
 
     <properties>
@@ -18,17 +18,17 @@
     </properties>
 
     <repositories>
-        <repository>
+        <!--<repository>
             <id>mvn-repo</id>
             <url>https://gitlab.com/mattae/artifacts/raw/maven</url>
-        </repository>
+        </repository>-->
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.fhi360.lamis.modules</groupId>
             <artifactId>patient</artifactId>
-            <version>1.1.0</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>

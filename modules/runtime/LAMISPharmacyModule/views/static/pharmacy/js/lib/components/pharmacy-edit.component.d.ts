@@ -1,14 +1,24 @@
-import {OnInit} from '@angular/core';
-import {Adr, Devolve, Drug, Patient, Pharmacy, PharmacyLine, Regimen, RegimenType} from '../model/pharmacy.model';
-import {PharmacyService} from '../services/pharmacy.service';
-import {NotificationService} from '@alfresco/adf-core';
-import {ActivatedRoute} from '@angular/router';
-import {MatButton, MatProgressBar} from '@angular/material';
-import {ColumnMode} from '@swimlane/ngx-datatable';
+import { OnInit } from '@angular/core';
+import { Adr, Devolve, Drug, Patient, Pharmacy, PharmacyLine, Regimen, RegimenType, StatusHistory } from '../model/pharmacy.model';
+import { PharmacyService } from '../services/pharmacy.service';
+import { NotificationService } from '@alfresco/adf-core';
+import { ActivatedRoute } from '@angular/router';
+import { MatButton, MatProgressBar } from '@angular/material';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import * as moment_ from 'moment';
-import {Moment} from 'moment';
-import {AppLoaderService} from '@lamis/web-core';
-
+import { Moment } from 'moment';
+import { AppLoaderService } from '@lamis/web-core';
+export declare const IPT_TYPE: {
+    'START_INITIATION': string;
+    'START_REFILL': string;
+    'FOLLOWUP_INITIATION': string;
+    'FOLLOWUP_REFILL': string;
+};
+export interface Ipt {
+    type?: string;
+    completed?: boolean;
+    dateCompleted?: Moment;
+}
 export declare class PharmacyEditComponent implements OnInit {
     private pharmacyService;
     protected notification: NotificationService;
@@ -37,38 +47,31 @@ export declare class PharmacyEditComponent implements OnInit {
     devolve: Devolve;
     dmocType: string;
     drugs: Drug[];
-
+    iptSelected: boolean;
+    ipt: Ipt;
+    deadStatus: StatusHistory;
     constructor(pharmacyService: PharmacyService, notification: NotificationService, appLoaderService: AppLoaderService, activatedRoute: ActivatedRoute);
-
     createEntity(): Pharmacy;
-
     ngOnInit(): void;
-
     dateVisitChanged(date: Moment): void;
-
     suggestedNextAppointment(): Moment;
-
     updateDmocType(): void;
-
     filterDates(date: Moment): boolean;
-
     previousState(): void;
-
     entityCompare(e1: any, e2: any): boolean;
-
     save(): void;
-
     regimenTypeChange(type: any): void;
-
     durationChanged(duration: any): void;
-
+    iptTypes(): {
+        'START_INITIATION': string;
+        'START_REFILL': string;
+        'FOLLOWUP_INITIATION': string;
+        'FOLLOWUP_REFILL': string;
+    };
     regimenChange(event: any): void;
-
     updateValue(event: any, cell: any, rowIndex: any): void;
-
     private subscribeToSaveResponse;
     private onSaveSuccess;
     private onSaveError;
-
     protected onError(errorMessage: string): void;
 }

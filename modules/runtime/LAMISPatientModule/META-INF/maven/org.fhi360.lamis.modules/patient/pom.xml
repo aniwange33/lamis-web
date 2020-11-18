@@ -4,9 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fhi360.lamis.modules</groupId>
     <artifactId>patient</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
     <name>LAMIS Patient Module
-        Fixes Status update and enabling Actions for every client, including death (for backlog entry)
     </name>
 
     <properties>
@@ -30,7 +29,7 @@
         <dependency>
             <groupId>org.lamisplus.modules</groupId>
             <artifactId>lamis-legacy</artifactId>
-            <version>1.1.2</version>
+            <version>1.3.0</version>
         </dependency>
     </dependencies>
 

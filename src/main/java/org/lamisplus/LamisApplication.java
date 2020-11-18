@@ -4,6 +4,7 @@ import com.foreach.across.config.AcrossApplication;
 import com.foreach.across.modules.hibernate.jpa.AcrossHibernateJpaModule;
 import lombok.extern.slf4j.Slf4j;
 import org.lamisplus.modules.base.BaseModule;
+import org.lamisplus.modules.base.config.ApplicationProperties;
 import org.lamisplus.modules.security.LamisSecurityModule;
 import org.lamisplus.restart.RestartModule;
 import org.springframework.boot.ApplicationArguments;

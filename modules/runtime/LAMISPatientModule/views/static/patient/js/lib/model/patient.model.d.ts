@@ -1,13 +1,11 @@
-import {Facility} from './facility.model';
-import {Moment} from 'moment';
-
+import { Facility } from './facility.model';
+import { Moment } from 'moment';
 export declare const enum Gender {
     MALE = "MALE",
     FEMALE = "FEMALE",
     MALE_TO_FEMALE = "MALE_TO_FEMALE",
     FEMALE_TO_MALE = "FEMALE_TO_MALE"
 }
-
 export declare const enum MaritalStatus {
     SINGLE = "SINGLE",
     MARRIED = "MARRIED",
@@ -16,19 +14,16 @@ export declare const enum MaritalStatus {
     DIVORCED = "DIVORCED",
     SEPARATED = "SEPARATED"
 }
-
 export declare const enum BloodType {
     A = "A",
     B = "B",
     AB = "AB",
     O = "O"
 }
-
 export declare const enum Rhesus {
     POS = "POS",
     NEG = "NEG"
 }
-
 export declare const enum HB {
     AA = "AA",
     AS = "AS",
@@ -38,12 +33,10 @@ export declare const enum HB {
     ATHAL = "ATHAL",
     BTHAL = "BTHAL"
 }
-
 export interface Lga {
     id?: number;
     name?: string;
 }
-
 export interface StatusHistory {
     id?: number;
     status?: string;
@@ -53,11 +46,11 @@ export interface StatusHistory {
     causeOfDeath?: string;
     dateTracked?: Moment;
     reasonForInterruption?: string;
+    extra?: any;
     patient?: Patient;
     facility?: Facility;
     uuid?: string;
 }
-
 export interface Patient {
     facility?: Facility;
     id?: number;
@@ -99,5 +92,22 @@ export interface Patient {
     otherInfo?: string;
     status?: string;
     lga?: Lga;
+    extra?: any;
     uuid?: string;
+}
+export interface OVC {
+    id?: number;
+    uuid?: string;
+    householdUniqueNo?: string;
+    facility?: Facility;
+    patient?: Patient;
+    referredTo?: string;
+    dateReferredTo?: Moment;
+    referredFrom?: string;
+    dateReferredFrom?: Moment;
+    servicesProvided?: any[];
+}
+export interface PatientOvc {
+    patient: Patient;
+    ovc: OVC;
 }

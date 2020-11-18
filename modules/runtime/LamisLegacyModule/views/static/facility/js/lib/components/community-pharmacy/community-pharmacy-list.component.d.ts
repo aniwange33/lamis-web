@@ -1,0 +1,30 @@
+import { OnInit } from '@angular/core';
+import { NotificationService } from '@alfresco/adf-core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Facility } from '../../model/facility.model';
+import { CommunityPharmacy } from '../../model/community-pharmacy.model';
+import { CommunityPharmacyService } from '../../services/community-pharmacy.service';
+import { FacilityService } from '../../services/facility.service';
+export declare class CommunityPharmacyListComponent implements OnInit {
+    private service;
+    private facilityService;
+    protected notification: NotificationService;
+    protected router: Router;
+    protected activatedRoute: ActivatedRoute;
+    page: number;
+    communityPharmacies: CommunityPharmacy[];
+    loading: boolean;
+    itemsPerPage: number;
+    currentSearch: string;
+    totalItems: number;
+    display: string;
+    facility: Facility;
+    constructor(service: CommunityPharmacyService, facilityService: FacilityService, notification: NotificationService, router: Router, activatedRoute: ActivatedRoute);
+    ngOnInit(): void;
+    select(data: any): any;
+    onPageChange(pageInfo: any): void;
+    loadPage(page: number): void;
+    loadAll(page: number): void;
+    protected onSuccess(data: any, headers: any): void;
+    private onError;
+}

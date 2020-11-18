@@ -2,9 +2,9 @@ basePackage: org.fhi360.lamis.modules.laboratory
 name: LAMISLaboratoryModule
 dependencies: {LAMISPatientModule: 1.0.0}
 store: true
-umdLocation: /across/resources/static/laboratory/js/bundles/lamis-laboratory-1.1.1.umd.js
+umdLocation: /across/resources/static/laboratory/js/bundles/lamis-laboratory-1.4.0.umd.js
 webModules:
-    -   breadcrumb: LABORATORY
-        name: LaboratoryModule
-        path: laboratories
-        position: 99
+  - breadcrumb: LABORATORY
+    name: LaboratoryModule
+    path: laboratories
+    position: 99

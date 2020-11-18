@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <property name="autoIncrement" value="true"/>
-    <changeSet id="20200716123505-135" author="mattae">
-        <sqlFile path="installers/patient/schema/fiximportmerge.sql" splitStatements="false"/>
+
+    <changeSet id="20200304123505-09" author="mattae">
+        <sql>
+            drop index idx_patient_hospital_num;
+            drop index idx_patient_unique_id;
+            create index idx_patient_hospital_num ON patient (lower(hospital_num));
+            create index idx_patient_unique_id ON patient (lower(unique_id));
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200803123505-04" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="status_history" columnName="extra"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="status_history">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200803123505-05" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_status_history_patient_id"
+                                            foreignKeyTableName="status_history"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint constraintName="fk_status_history_patient_id" baseColumnNames="patient_id"
+                                 baseTableName="status_history" referencedColumnNames="id"
+                                 referencedTableName="patient"/>
+    </changeSet>
+
+    <changeSet id="20201104192025-05" author="mattae">
+        <sql>
+            update patient set extra = extra || concat('{"targetGroup": "', target_group, '"}')::jsonb where target_group is not null
+        </sql>
     </changeSet>
 
 </databaseChangeLog>
